@@ -1,0 +1,26 @@
+using System;
+
+namespace forgotten_construction_set
+{
+	public enum ItemFunction
+	{
+		ITEM_NO_FUNCTION,
+		ITEM_FIRSTAID,
+		ITEM_MEDRIGGING,
+		ITEM_FOOD,
+		ITEM_CONTAINER,
+		ITEM_WEAPON,
+		ITEM_CLOTHING,
+		ITEM____,
+		ITEM_NARCOTIC,
+		ITEM_TOOL,
+		ITEM_ANYTHING,
+		ITEM_BLUEPRINT,
+		ITEM_ROBOTREPAIR,
+		ITEM_BOOK,
+		ITEM_MONEY,
+		ITEM_FOOD_RESTRICTED,
+		ITEM_AMMO,
+		ITEM_SEVERED_LIMB
+	}
+}

@@ -1,0 +1,1875 @@
+[AI_PACKAGE]
+clears existing jobs: False 
+contract end dialog delivery: DIALOGUE "If this is an AI contract, this is the dialog event that will trigger when it ends.  This one will trigger a PLAYER_TALK_TO event, and will override the passive one if there is one.  Use sparingly!"
+contract end talk passive: DIALOGUE "If this is an AI contract, this is the dialog event that will trigger when it ends, this one will trigger if there is no [contract end dialog delivery] event, or if the player is KO or unreachable"
+inherits from:        AI_PACKAGE "the AI package will also include everything from this one"
+Leader AI Goals:      AI_TASK (0, 24,0) "additional AI goals for the leader character, val1 and val2 is start and finish time of day (0-23) it can't run outside of these hours. Val3 is weight"
+Leads to:             AI_PACKAGE "If set, then the successful completion of this package will activate this next package"
+signal func:          BlackboardSignalFunctions.SIGNAL_NONE "set the squads signal function- what triggers this package starting/ending.  For contract jobs, you usually want SIG_TIMED_CONTRACT"
+Slave AI Goals:       AI_TASK (0, 24,0) "AI goals (obedience) for any enslaved characters, val1 and val2 is start and finish time of day (0-23) it can't run outside of these hours. Val3 is weight"
+Squad AI Goals:       AI_TASK (0, 24,0) "additional AI goals for the other characters, val1 and val2 is start and finish time of day (0-23) it can't run outside of these hours.. Val3 is weight"
+Squad2 AI Goals:      AI_TASK (0, 24,0) "additional AI goals for the other characters, val1 and val2 is start and finish time of day (0-23) it can't run outside of these hours. Val3 is weight"
+unloaded func:        UnloadedPlatoonJob.UPJOB_NONE "the simplified behavior of the AI when in the unloaded state"
+[AI_SCHEDULE]
+packages:             AI_PACKAGE (0) "AI packages that we switch between, val0 is the time of day in hours 0-23"
+[AI_TASK]
+details:
+classification:       taskPriority.TP_NON_URGENT "URGENT = eg player orders, combat, first aid.  NON_URGENT = eg sleeping, eating, surgery. The stuff you just don't consider on a battlefield. FLUFF = ambient stuff that achieves nothing eg chatting.  "
+ending:               TaskEndEvent.TEE_NOTHING "what happens when the task is completed, does it get removed for myself or the whole squad, or does it just remain active?"
+targeting:            TaskTargetType.TARGET_SPECIFIC "the target of the task"
+what is:
+enum:                 taskType.IDLE 
+[AMBIENT_SOUND]
+Audio:
+chance:               1.0 "Probability that this sound will manifest [0-1]"
+cutoff:               50.0 "Sound cutoff distance (meters).\nAttenuation distances are set up in the audio system, this is just to stop hundreds of silent audio objects causing problems"
+efficiency multiplier: 0.0 "Amount machine efficiency affects sound [0-1]. This is added to the base intensity value."
+emitter:              "" "Emitter type name"
+intensity:            0.0 "Base intensity value [0-1]\n"
+needs power:          False "Does this emitter turn off if its parent building has no power or is turned off"
+[ANIMAL_ANIMATION,ANIMATION]
+anim name:            "" "the actual string name of the animation"
+disables movement:    False "true if disables waypoint movement while playing, eg for stumble anims, getting up, things that can't be interrupted by player orders."
+events:               ANIMATION_EVENT (0) "Audio events to trigger during the animation.\nValue is how far through the animation to play [0-100]"
+is combat mode:       Either.EITHER "if can be used for combat, either means it can play any time"
+layer:                "all" "body area affected by anim : upper, lower, all, overlay"
+loop:                 False "duh"
+normalise:            True "if true then all anims with this flag that are currently playing, will always total up to 1.0 in weight.  Set to false for things like overlay anims"
+play speed:           1.0 "animation play speed multiplier, for movement anims, this is multiplied by movement speed, so should be small like 0.02, tune until feet match ground speed"
+relocates:            False "true if the root bone ends up somewhere other than 0,0 position"
+stealth mode:         Either.EITHER "if can be used for stealth mode"
+stumbles:             LOCATIONAL_DAMAGE "uses this animation as the stumble when this bodypart is hit"
+synch offset:         0.0 "If the animation was not correctly synched with the others, you can fix it here, is 0-1"
+synchs:               False "true if this can sync with upper if lower, or vise versa"
+category:
+being carried:        False "true the char is being carried"
+carrying left:        False "true if the character is carrying something on that side"
+carrying right:       False "true if the character is carrying something on that side"
+entry/exit:
+reverse looping:      False "for idle anims, instead of looping the anim will reverse when it endes, then forward again.  This eliminates the need for idle anims to be perfectly looped"
+idle:
+idle:                 False "true if used for standing around, false if its an actual action or movement"
+idle chance:          100 "relative chance of this idle being chosen"
+idle time max:        40 "time this idle will play for, if it is a loop"
+idle time min:        10 "time this idle will play for, if it is a loop"
+movement:
+max speed:            0.0 "if its a movement animation, this is the ideal speed of the next anim above"
+min speed:            0.0 "if its a movement animation, this is the ideal speed of the next anim below"
+move speed:           0.0 "if its a movement animation, this is the ideal speed it travels at"
+strafe speed max:     0.0 
+stumble:
+big stumble:          True "used for higher-damage impacts"
+chance:               100 "weight/chance of being chosen vs other valid stumbles"
+stumble from:         CutOrigination.FRONT "direction the impact has occurred from"
+track exclusion:
+delete root:          False "used to disable this bodyparts influence on the animation, the animation on this part will be null"
+[ANIMAL_CHARACTER]
+animations:           ANIMAL_ANIMATION "animations"
+backpack:             CONTAINER "the creatures backpack"
+bird attractor:       WILDLIFE_BIRDS (1000, 10) "This animal attracts nearby birds.\nValue 1: Radius in meters.\nValue2: Maximum birds to attract"
+inventory:            VENDOR_LIST (100) "the creatures inventory contents if he has a backpack, val0 is chance"
+inventory h:          8 "size of inventory, make sure it matches to fit its death items"
+inventory w:          4 "size of inventory, make sure it matches to fit its death items"
+strafe anim:          ANIMAL_ANIMATION (100) "animation used when strafing, val is speed multiplier %"
+turning anim:         ANIMAL_ANIMATION (100) "animation used when turning on the spot, val is speed multiplier %"
+weapon:               WEAPON "the creatures built-in weapon"
+weapon level:         WEAPON_MANUFACTURER "the creatures built-in weapon"
+combat:
+attack type:          WeaponCategory.ATTACK_GIRAFFE "used to choose correct combat animations"
+life:
+HP mult:              1.0 "modifies HP amounts, for making special boss monsters"
+lifespan:             20.0 "number of days it takes for the animal to become fully grown"
+scale max:            1.0 "size of an old one"
+scale min:            0.3 "size of a newborn"
+movement:
+turn rate:            1.0 "Max speed it can turn around"
+stats:
+animal strength:      20 "Animals have a hard set strength level"
+smell blood:          0.0 "sets the smell threshold for hunting behavior to trigger.  number is essentially the number of corpses."
+smell eggs:           0.0 "sets the smell threshold for hunting behavior to trigger, number is essentially the number of eggs in the zone."
+[ANIMAL_CHARACTER,CHARACTER]
+AI Goals:             AI_TASK (0, 100) "Various goals of the AI, and their weight (priority) (val2, as a percentage 0-100+) usually keep to default 100"
+animation files:      ANIMATION_FILE "Files containing additional or override animations for this character"
+bounty factions:      FACTION "if the character has a bounty, this lists the factions it is wanted by.  Defaults to the empire"
+death items:          ITEM (1) "items that spawn in NPCs inventory on death (eg trophies)"
+death triggers:       FACTION_CAMPAIGN "faction assault that is triggered if this character dies"
+faction:              FACTION "faction that this character belongs to"
+faction importance:   1.0 "Multiplier for the effect on faction relations any actions relating to this character.  eg set low for a peasant, high for a noble or diplomat."
+imprisonment triggers: FACTION_CAMPAIGN "faction assault that is triggered if this character is captured"
+personality:          PERSONALITY "the personality of this character"
+race:                 RACE (100) "Specify race, will override race in .body file."
+schedule:             DAY_SCHEDULE "Events we do during the day.  val1 is the hour of the day 0-23"
+starting health:      LOCATIONAL_DAMAGE (100) "Used mainly for your starting squads, val1 sets the starting health of a bodypart from -100 to +100.  < -100 means amputated"
+stats:                STATS "the skills and stats of this character"
+bounty:
+assigns bounties:     False "true if this guy can put a bounty on someone he sees committing a crime"
+bounty amount:        0 
+bounty amount fuzz:   0 "+/- amount to randomise the bounty "
+bounty chance:        0 "0-100 chance of having a bounty"
+levels:
+combat stats:         0 "If no stats data assigned, this will set the combat stats"
+ranged stats:         0 "If no stats data assigned, this will set ranged weapon skills"
+stats randomise:      3 "Randomises characters stats by +/- this amount"
+stealth stats:        0 "If no stats data assigned, this will set the sneak stats"
+strength:             0 "If no stats data assigned, this will set strength"
+unarmed stats:        0 "If no stats data assigned, this will set the unarmed+dodge stats"
+type:
+female chance:        0 "0-100 percentage chance of this character being female"
+unique:               False "This character will only ever spawn once"
+[ANIMATION]
+category:             CharacterAnimCategory.ANIM_NORMAL "determines the state where this animation may be used"
+has weapon L:         Either.NO "does anim support/require holding weapon?"
+has weapon R:         Either.EITHER "does anim support/require holding weapon?"
+is action:            False "true if this is an action, a standalone anim not to be bothered by other movement and idle anims"
+affects characters:
+weather type:         WeatherAffecting.WA_NONE "makes this a weather overlay animation, used during this weather affect"
+category:
+prone:                False "true if used when lying prone in some way"
+uses left arm:        False "true if this animation requires use of the left arm"
+uses right arm:       False "true if this animation requires use of the right arm"
+injury 0-100:
+L leg damage ideal:   100.0 "health amount for this anim to be used at full weight"
+L leg damage max:     100.0 "max health amount for this anim to be useable"
+L leg damage min:     0.0 "min health amount for this anim to be useable"
+R leg damage ideal:   100.0 "health amount for this anim to be used at full weight"
+R leg damage max:     100.0 "max health amount for this anim to be useable"
+R leg damage min:     0.0 "min health amount for this anim to be useable"
+overrides:
+override head:        False "true for this bodypart to totally override all previous anims"
+override L arm:       False "true for this bodypart to totally override all previous anims"
+override R arm:       False "true for this bodypart to totally override all previous anims"
+slave anim:           "" "this will force any anim-slaves to play the named animation"
+track exclusion:
+delete below waist:   False "used to disable this bodyparts influence on the animation, the animation on this part will be null"
+delete body head:     False "used to disable this bodyparts influence on the animation, the animation on this part will be null"
+delete L arm:         False "used to disable this bodyparts influence on the animation, the animation on this part will be null"
+delete R arm:         False "used to disable this bodyparts influence on the animation, the animation on this part will be null"
+delete spine0:        False "specifically just deletes the 1st spine bone, if you have problems with different anims pitching the body angle everywhere"
+delete tail:          True "used to disable this bodyparts influence on the animation, the animation on this part will be null"
+delete weapons:       False "used to disable this bodyparts influence on the animation, the animation on this part will be null"
+[ANIMATION,COMBAT_TECHNIQUE]
+disabled:             False "disables this animation, will be considered non-existent"
+type:
+1 handed:             True "can be used with one arm?"
+blunt:                True "valid weapon types for this animation"
+hackers:              True "valid weapon types for this animation"
+heavy weapons:        True "valid weapon types for this animation"
+katanas:              True "valid weapon types for this animation"
+polearm:              True "valid weapon types for this animation"
+sabre:                True "valid weapon types for this animation"
+unarmed:              True "valid weapon types for this animation"
+[ANIMATION_EVENT]
+Audio:
+event:                "" "Audio event name"
+override state:       "" "State key to be overridden"
+override value:       "" "State value to set"
+stop:                 "" "Audio event to be called when the this animation stops."
+Effects:
+bone:                 "" "Character bone for the position offset of the ground effect."
+ground effect:        False "Ground impact effect spawned: dust or splash depending on location. The effects are listed in the biome data."
+Other:
+other:                AnimationEvent.NONE "Additional function this event triggers."
+[ANIMATION_FILE]
+animation:
+female animation:     "Skeleton files|*.skeleton" "Skeleton file containing additional or overridden animations"
+male animation:       "Skeleton files|*.skeleton" "Skeleton file containing additional or overridden animations"
+preprocess:           True "Preprocess with animation track exclusion fron ANIMATION data (needed for humans)"
+[ARMOUR]
+boot height:          0.0 "Height this item shifts the character's feet off the ground"
+class name:           "" "adds to description in []"
+goes badly with:      ARMOUR "helps with NPC generation, helps avoid armour clashes"
+goes well with:       ARMOUR "helps with NPC generation, for example if this is part of an armour set, its more likely to go with it"
+hide beard:           False "Hide beard mesh when worn"
+hide hair:            True "Hide hair mesh when worn (hats only)"
+hide parts:           PartMapColours.White bitset "Hide parts of the body mesh. Parts are specified in the part map of the race."
+hide stump:           HideStump.NONE "Scale specified upper arms to zero when wearing this with mising limbs"
+material female:      MATERIAL_SPECS_CLOTHING 
+overlap items:        ARMOUR "Any other items that might overlap this one.  If they are being worn at the same time, the overlap mesh will be used instead.  This will be a smaller version."
+part coverage:        LOCATIONAL_DAMAGE (100) "body parts that are covered by this armour"
+slot:                 AttachSlot.ATTACH_BODY "grants special permission to go in certain inventory slots"
+stigma:               CharacterTypeEnum.OT_NONE "if these clothes are associated with a certain type of character"
+files:
+overlap mesh:         "Ogre meshes|*.mesh" "Alternative mesh to use if one of the overlap items are also present."
+overlap mesh female:  "Ogre meshes|*.mesh" "Alternative mesh to use if one of the overlap items are also present."
+locked:
+hardness:             20.0 "shackles resistance to cutting"
+is locked:            False "true for things that are locked on, like slave shackles"
+lock level:           20 "lock pick level for shackles"
+skill bonus:
+combat attk bonus:    0 "Penalty or bonus to combat attk/def skills when wearing this. "
+combat def bonus:     0 "Penalty or bonus to combat attk/def skills when wearing this. "
+perception bonus:     0 "Penalty or bonus to perception when wearing this. "
+unarmed bonus:        0 "adds or subtracts from the wearers Martial Arts skill"
+skills:
+asassination mult:    1.0 "multiplies stat"
+athletics mult:       1.0 "Penalty or bonus to movement speed when wearing this. < 1.0 will reduce max speed."
+combat speed mult:    1.0 "Penalty or bonus to combat speed when wearing this. < 1.0 will reduce max speed."
+damage output mult:   1.0 "multiplies overall damage that we do. Use if dexterity penalty isn't enough"
+dexterity mult:       1.0 "multiplies dexterity"
+dodge mult:           1.0 "multiplies the dodge skill"
+fist injury mult:     1.0 "multiplier for fist injury when punching things, use for things with padded gloves etc"
+ranged skill mult:    1.0 "affects crossbow and friendly fire skills, but not turrets"
+stealth mult:         1.0 "Penalty or bonus to stealth skills when wearing this. "
+stats 0-1:
+blunt def bonus:      0.0 "0-1 (additional).  Stats are generated by class and material enums, but this is an additional bonus.  Full amount will be added at max level, zero at level 0."
+class:                ArmourClass.GEAR_CLOTH "Weight class. Affects stats."
+cut def bonus:        0.0 "0-1 (additional).  Stats are generated by class and material enums, but this is an additional bonus.  Full amount will be added at max level, zero at level 0."
+cut into stun:        0.5 "amount of cut damage that becomes stun damage instead, is a percentage of the cut resistance, 0-1"
+fabrics amount:       0.2 "Used when determining crafting materials cost.  material use (eg plates) is based on coverage, plus fabrics are consumed as a proportion of the main material use. This is that proportion."
+level bonus:          0 "adds or subtracts from the quality level (0-100 shoddy-standard etc) for the purposes of stat generation.  Use to add some variation between items."
+material type:        MaterialType.MATERIAL_CLOTH "Material this armour is made from. Affects sfx and stats."
+pierce def mult:      1.0 "stats are generated by class and material enums, but this multiplier can influence them"
+relative price mult:  1.0 "Affects price, as price is auto-generated for armour."
+texture layers:
+vest colormap:        TEXTURE_DDS "colormap for the clothing, Red channel is primary, G is secondary"
+vest colormap female: TEXTURE_DDS "colormap for the clothing, Red channel is primary, G is secondary"
+vest normalmap:       TEXTURE_DDS "Sets a clothing texture to add to the body"
+vest normalmap female: TEXTURE_DDS "Sets a clothing texture to add to the body"
+vest texture:         TEXTURE_DDS "Sets a clothing texture to add to the body"
+vest texture female:  TEXTURE_DDS "Sets a clothing texture to add to the body"
+weather:
+weather protection amount: 0.0 "[0-1] if this has any weather protection effects, then this is the strength (1.0 is total protection)"
+weather protection0:  WeatherAffecting.WA_NONE looped "if this clothing protects from the weather"
+CONDITIONS:
+condition "hide stump" if "slot" is AttachSlot.ATTACH_BODY
+[ARMOUR,CHARACTER_PHYSICS_ATTACHMENT,CONTAINER,ITEM,LIMB_REPLACEMENT,MAP_ITEM]
+material:             MATERIAL_SPECS_CLOTHING 
+[ARMOUR,CONTAINER]
+color:                COLOR_DATA "colorise this item, based on the colormap. Overrides faction coloriser."
+dont colorise:        True "if false then this item will be re-colored based on faction color scheme"
+files:
+mesh female:          "Ogre meshes|*.mesh" "the mesh when worn by female characters, rigged with the standard character skeleton"
+[ARMOUR,CONTAINER,CROSSBOW,ITEM,LIMB_REPLACEMENT,MAP_ITEM,NEST_ITEM]
+files:
+icon:                 "png|*.png" "inventory icon image or building button image.\nOnly used if 'auto icon image' is false"
+inventory icon:
+icon offset H:        0.0 "align the image horizontally"
+icon offset pitch:    0.0 "rotate the item, in degrees"
+icon offset roll:     0.0 "rotate the item, in degrees"
+icon offset yaw:      90.0 "rotate the item, in degrees"
+[ARMOUR,CONTAINER,CROSSBOW,ITEM,LIMB_REPLACEMENT,MAP_ITEM,NEST_ITEM,WEAPON]
+description:          "" multiline "Description of the item that is displayed in tooltips etc"
+files:
+ground mesh:          "Ogre mesh|*.mesh" "the item mesh when is on the ground (not equipped). If empty it uses the regular mesh."
+has collision:        True "Sets whether it has a collision mesh/box."
+physics file:         "Physics object|*.xml" "Used to represent items when dropped"
+inventory:
+inventory footprint height: 1 "size of the item in the inventory, width in 2d squares"
+inventory footprint width: 1 "size of the item in the inventory, width in 2d squares"
+value:                0 "Monetary value of this item"
+weight kg:            1.0 "Weight of the item. For weapons this sets the minimum weight, otherwise is overwritten by the blunt damage multiplier.  40kg is equivalent to a multiplier of 1.0.  0kg is 0.0.  Katanas: 1-2kg, Sabres 2-10kg, Hackers 10-20kg, Heavies 20-40kg"
+[ARMOUR,CONTAINER,CROSSBOW,ITEM,LIMB_REPLACEMENT,NEST_ITEM,WEAPON]
+races:                RACE "Only the listed races can equip this item"
+races exclude:        RACE "none of the listed races can equip this item"
+[ARMOUR,CONTAINER,ITEM,LIMB_REPLACEMENT,MAP_ITEM,NEST_ITEM]
+inventory icon:
+icon offset V:        -8.0 "align the image vertically"
+icon zoom:            2.7 "scale the image (try to keep at 1.0), lower number makes it bigger"
+[ARMOUR,CONTAINER,ITEM,LIMB_REPLACEMENT,MAP_ITEM,NEST_ITEM,WEAPON]
+files:
+mesh:                 "Ogre mesh|*.mesh" "the item mesh.  Sheathed if its a weapon"
+[ARMOUR,CONTAINER,LIMB_REPLACEMENT,MAP_ITEM]
+inventory:
+auto icon image:      False "true to automatically generate the inventory icon"
+[ARTIFACTS]
+armours:              ARMOUR (1) "List of armours of the 2nd highest quality (Specialist)"
+armours hq:           ARMOUR (1) "List of armours of the highest quality (Masterwork)"
+crossbows:            CROSSBOW (1, 1) "List of crossbows.\nValue 1: number of masterwork items\nValue 2: Number of specialist items"
+items:                ITEM (1) "List of common items"
+robotics:             LIMB_REPLACEMENT (1, 1) "List of robot limbs.\nValue 1: number of masterwork items\nValue 2: Number of specialist items"
+weapons:              MATERIAL_SPECS_WEAPON (1) "List of weapons modes. Value 1 = the amount of each weapon spawn that the model has."
+[ATTACHMENT]
+head overlay:
+head alpha channel:   ColourChannel.GREEN "Color channel in head texture to use"
+head alpha channel female: ColourChannel.GREEN "Color channel in head texture to use for female characters"
+head channel:         ColourChannel.RED "Color channel in head texture to use"
+head channel female:  ColourChannel.RED "Color channel in head texture to use for female characters"
+head texture:         TEXTURE_DDS "Alpha overlay texture applied to the male character model"
+head texture female:  TEXTURE_DDS "Alpha overlay texture applied to the female character model"
+mesh:
+hair alpha channel:   ColourChannel.RED "Color channel on mesh texture map to use for alpha"
+hair diffuse channel: ColourChannel.RED "Color channel on mesh texture map to use for diffuse brightness"
+mesh:                 "Ogre mesh|*.mesh" "The item mesh"
+mesh female:          "Ogre mesh|*.mesh" "The item mesh for female characters"
+texture map:          TEXTURE_DDS "Texture for the male mesh"
+texture map female:   TEXTURE_DDS "Texture for the female mesh"
+properties:
+alpha rejection:      128 "0-255 alpha cutoff.  A lower value gives smoother alpha blending, but can cause artifacting on complicated hair meshes.  A higher value reduces artifacts, but gives harder edges."
+attach slot:          AttachSlot.ATTACH_HAIR "The name of the slot that the item goes in"
+mipmap bias:          0.0 
+playable:             True "use to disable"
+specular:             0.0 "Specular multiplier for head texture texture"
+[BIOME_GROUP]
+arrival dialog:       DIALOGUE "Triggers this dialog on the player squad when they enter the biome.  Only if >1 not-KO character in the squad"
+birds:                WILDLIFE_BIRDS (0) "Value is the average number spawned per zone. Set to 0 to allow creatures spawned in adjacent biomes to enter."
+faction gen:          FACTION_TEMPLATE (1) "For procedural faction generation at game start. Value is the number of factions to make"
+homeless spawn amount: 1.0 "how many homeless squads spawn in the area.  number is approximately squads per zone"
+homeless spawns:      SQUAD_TEMPLATE (1) "Spawns these squads around the biome.  val1 is the relative chance of being spawned"
+nests:                TOWN (100) "Spawns these nests around the biome.  val1 is the weighted chance"
+resources:            ENVIRONMENT_RESOURCES "resources availability"
+seasons:              SEASON (0, 1) "Seasons.\n1.- Season order.\n2.- Duration percentage (Relative other seasons duration and to a game year)."
+audio:
+ambience:             Ambience.Desert "Music bank to play in this biome"
+music:                BiomeMusic.None "Music bank to play in this biome"
+General:
+index:                #FFFFFF "Color index in areas map"
+nests:
+nests at fixed markers only: False "if true then this biome only places nests at pre-placed TOWN_NEST_MARKER positions"
+num nests:            6 "target number of nests to spawn in the biome"
+resources:
+farm water usage:     1.0 "Multiplier for water usage rate for farms in this biome group"
+Weather:
+acidic ground:        0.0 "0-1, makes the ground burn peoples feet if not wearing shoes"
+acidic water:         0.0 "0-1, makes the water acidic, prevents swimming"
+weather strength multiplier max: 1.0 "Maximum strength multiplier value for season weather strength interpolation value"
+weather strength multiplier min: 1.0 "Minimum strength multiplier value for season weather strength interpolation value"
+[BIOMES]
+foliage:              FOLIAGE_LAYER 
+ground effects:       EFFECT (0, 0,100) "Effect for the ground on character movement.\n1- Layer number that applies the effect. \n2- Minimum movement speed to emit the effect.\n3- Probability (0-100) of emitting the effect with each step. (100 = always)"
+water effects:        EFFECT (0, 0) "Water spash ground effects for character movenment. Only one will be selected with the highest valid values.\n1- Minimum water depth. \n2- Minimum movement speed."
+0 - base:
+absorbance 0:         0.55 "Base water absorbance for this layer. Determines rain wetness effect [0-1]."
+texture base:         TEXTURE_ANY "base diffuse texture, used when all other channels are < 1"
+texture base normal:  TEXTURE_ANY "base normal map, used when all other channels are < 1"
+tiling X 0:           50.0 "Number of times to repeat texture"
+tiling Y 0:           50.0 "Number of times to repeat texture"
+1 - slope:
+absorbance 1:         0.2 "Base water absorbance for this layer. Determines rain wetness effect [0-1]."
+slope fade 1:         5.0 "blur range in degrees"
+slope max 1:          90.0 "0-90  Slope range in degrees.  0 is flat"
+slope min 1:          0.0 "0-90  Slope range in degrees.  0 is flat"
+texture slope:        TEXTURE_ANY "diffuse texture for this layer"
+texture slope normal: TEXTURE_ANY "diffuse texture for this layer"
+tiling X 1:           70.0 "Number of times to repeat texture"
+tiling Y 1:           70.0 "Number of times to repeat texture"
+2 - cliff:
+absorbance 2:         0.5 "Base water absorbance for this layer. Determines rain wetness effect [0-1]."
+distort amplitude:    0.0 "Amplitude of vertical texture distortion"
+distort wavelength:   1000.0 "Wavelength of vertical texture distortion"
+overlay mult vertical: 1.0 "Colour overlay strength multiplier"
+slope fade 2:         5.0 "blur range in degrees"
+slope max 2:          90.0 "0-90  Slope range in degrees.  0 is flat"
+slope min 2:          0.0 "0-90  Slope range in degrees.  0 is flat"
+texture vertical:     TEXTURE_ANY "diffuse texture for this layer (vertical surfaces)"
+texture vertical normal: TEXTURE_ANY "diffuse texture for this layer (vertical surfaces)"
+tiling X 2:           40.0 "Number of times to repeat texture"
+tiling Y 2:           10.0 "Number of times to repeat texture"
+3 - grass:
+absorbance grass:     0.44 "Base water absorbance for this layer. Determines rain wetness effect [0-1]."
+overlay mult grass:   1.0 "Colour overlay strength multiplier"
+slope fade grass:     5.0 "blur range in degrees"
+slope max grass:      20.0 "0-90  Slope range in degrees.  0 is flat"
+slope min grass:      0.0 "0-90  Slope range in degrees.  0 is flat"
+texture grass:        TEXTURE_ANY "texture used for grass coverage"
+texture grass normal: TEXTURE_ANY "texture used for grass coverage"
+tiling X grass:       40.0 "Number of times to repeat texture"
+tiling Y grass:       40.0 "Number of times to repeat texture"
+4 - dirt:
+absorbance dirt:      0.3 "Base water absorbance for this layer. Determines rain wetness effect [0-1]."
+overlay mult dirt:    1.0 "Colour overlay strength multiplier"
+texture dirt:         TEXTURE_ANY "dirt texture "
+texture dirt normal:  TEXTURE_ANY "dirt texture "
+tiling X dirt:        40.0 "Number of times to repeat texture"
+tiling Y dirt:        40.0 "Number of times to repeat texture"
+5 - road:
+absorbance road:      0.25 "Base water absorbance for this layer. Determines rain wetness effect [0-1]."
+overlay mult road:    1.0 "Colour overlay strength multiplier"
+texture road:         TEXTURE_ANY "road texture "
+texture road normal:  TEXTURE_ANY "road texture "
+tiling X road:        40.0 "Number of times to repeat texture"
+tiling Y road:        40.0 "Number of times to repeat texture"
+audio:
+dirt type:            GroundType.GROUND_DIRT "Ground type for the dirt material"
+grass type:           GroundType.GROUND_DIRT "Ground type for the grass material"
+ground type:          GroundType.GROUND_SAND "Material the ground consists of"
+road type:            GroundType.GROUND_CONCRETE "Ground type for roads"
+slope type:           GroundType.GROUND_DIRT "Ground type for the slope material"
+General:
+brightness fix:       1.0 "Ground texture brightness multiplier"
+fade distance:        4000.0 "Distance until textures fade out to ground colour"
+ground colour:        #C0A040 "Average colour of the ground"
+index:                #000000 "Color index in biome map"
+Lighting:
+ambient light:        #FFFFFF "Ambient light colour multiplier"
+sun brightness:       1.0 "Sunlight brightness multiplier for this biome."
+water:
+scum distortion:      1.0 "Distortion of the scum map by water normals"
+scum scale X:         20.0 "Number of times to repeat texture"
+scum scale Y:         20.0 "Number of times to repeat texture"
+texture scum:         TEXTURE_ANY "Water scum map"
+texture scum normal:  TEXTURE_ANY "Water scum normal map"
+turbulence map:       TEXTURE_ANY "Water turbulence map"
+water color:          #002040 "Water color"
+water distortion:     120.0 "Water rippleyness. Around 120 is reasonable."
+water gloss:          0.9 "Water gloss"
+water glow:           0.0 "Creepy water glowyness of doom"
+water normal:         TEXTURE_ANY "Water normal map"
+water scale X:        20.0 "Number of times to repeat texture"
+water scale Y:        20.0 "Number of times to repeat texture"
+water strength:       1.0 "Water normal map strength"
+water visibility:     10.0 "How deep into water you can see"
+[BUILDING]
+bird attractor:       WILDLIFE_BIRDS (1000, 10) "This building attracts nearby birds.\nValue 1: Radius of attractor in meters.\nValue2: Maximum birds to attract"
+construction:         ITEM (1) "the materials needed to build this building"
+doors:                BUILDING "a door is a building, containing a buildingpart that has the IS DOOR flag set to true."
+farm data:            FARM_DATA "Additional info for farm buildings"
+functionality:        BUILDING_FUNCTIONALITY 
+gun turret:           GUN_DATA "data to make this a turret"
+interior:             BUILDING_PART (0, 100) "building parts that makes up the interior, they are only loaded when player characters are inside this building."
+interior mask:        BUILDING_PART "the mesh will be used to mask the terrain out of the interior.  The xml collision will be used as the trigger hull to tell if we are indoors"
+limit inventory:      ITEM "If you list an item here, it will limit the buildings inventory to only store that type of item."
+material:             MATERIAL_SPEC "base material.  If blank will use the local town material as the base.  Any parts without materials will also use this base material"
+shares interiors with: BUILDING "other buildings that can use my interior list, MUST SHARE BOTH WAYS (in both buildings), also can only share with 1 other, because it's lazily coded"
+snaps to:             BUILDING "makes this building aggressively snap to others.  Used for ramps and stairs."
+sounds:               AMBIENT_SOUND (0, 0,0) "Attached sound emitters.\nValues are x,y,z position offset in local coordinates"
+upgrades to:          BUILDING "if this can be upgraded into another building"
+wall subsections:     BUILDING "Additional shorter parts of walls"
+audio:
+cavernous:            False "Interior ambient sound is big and echoing"
+exterior material:    GroundType.GROUND_CONCRETE "Ground material for exterior parts"
+interior ambience:    InteriorSound.None "Interior ambient sound type"
+interior integrity:   100.0 "Interior ambient sound modifier [0-100]"
+interior material:    GroundType.GROUND_WOOD "Ground material for interior parts"
+select sound:         BuildingSound.None "Sound when building is selected"
+construction:
+build materials:      1 "materials needed to build"
+build speed mult:     1.0 "Build time in hours = num [build materials] * [build speed mult]"
+build threshold:      0.0 "Percentage built before navmesh is updated. Only affects walls."
+building height:      100.0 "the height of this building, in units.  used to compute the construction shader"
+doors:
+always locks:         False "for town gates, closed state is always locked"
+door axis:            0 "0,1,2 for xyz axis that door will slide along"
+door comes out:       0.0 "distance the door come forwards out of the frame before it slides"
+door move dist:       30.0 "distance that the door slides"
+door move speed:      1.0 "speed that the door opens"
+door navmesh axis:    0 "0,1,2 for xyz axis that door mark along the navmesh.  Usually leave it at 0"
+door type:            DoorMaterial.Wood "Affects the sounds the door makes"
+energy:
+power capacity:       0 "Amount of power storage this adds to the base, measured in seconds.  Batteries."
+power output:         0 "Amount of power output to the base, or power drain if negative.  Also represents output power of batteries."
+files:
+icon:                 "Nvidia dds|*.dds|tga|*.tga|png|*.png" "inventory icon image or building button image"
+inventory:
+has inventory:        False "true if this building is a container with its own inventory.  Usually for furniture, eg crates, safes, barrels, racks, shelves"
+inventory content name: "" "Sets the group name label in the inventory window. The label is visible only if it has limited inventory items. If this value is empty, it will use the name of the limited item only if there is only one."
+itemtype limit:       itemType.ITEM "limits storage to a specific TYPE of item."
+storage size height:  18 "size of the containers internal inventory"
+storage size width:   18 "size of the containers internal inventory"
+linking:
+link length:          0.0 
+link type:            WallSection.NORMAL "Type of wall section"
+links together:       False "true for things like walls, that link together.  A linked building needs 2 actors (in scythe) called "left side" and "right side", these will be the link points"
+node:
+is node:              False "makes this an invisible node"
+node type:            NodeType.NODE_GENERAL 
+security:
+hardness:             30.0 "sets hardness of the lock when breaking open"
+has lock:             False "sets if the building has a lock"
+lock level bonus:     0 "Lockpick difficulty bonus. The final value is based on faction. This bonus will influence it per-building."
+tech:
+desirability:         0 "Score that affects desirability of the building overall.  Important for public buildings and shops."
+max operators:        -1 "if > -1 it will override the number of max workers.  You need to have all operators working to achieve the official Output rate."
+output rate:          1.0 "For training dummies, its the max skill you can train to.  For production buildings, this is speed of production.  For guns, it is the amount of pierce damage, for walls it is the % bonus to mounted turret stats. "
+type:
+allow animals:        False "Allow animals with 'cant go indoors' property to enter"
+building category:    "misc" "category it is listed in- Walls, Furniture "
+building group:       "" "building group name"
+ceiling placement:    False "Means that this can only be placed on a ceiling.  Must be interior only."
+creates player town:  True "If true it will create a player town (if there isn't one there already) when built."
+Description:          "" multiline 
+destroyed boundary:   "PhysX xml object|*.xml" "Navmesh cutter for destroyed interior"
+destroyed navmesh:    False "Does the exterior navmesh need rebuilding when this building is destroyed.\nOnly needed for things like walls"
+enforce ceiling:      False "means that there is no roof to stand on, characters are forced always to be properly indoors (unless on floor 0)"
+interior terrain:     False "building interior includes terrain for generating navmesh"
+is exterior furniture: False "use for things that attach to buildings, like signs"
+is feature:           False "feature buildings do not belong to any town"
+is foliage:           False "set true for anything spawned by the foliage system.  Important not to forget this, or it will affect performance and cause bugs"
+is gateway:           False "use for gateway type structures.  Basically something that has floors >=1, BUT you want to be able to walk underneath it on the terrain.  So mainly just for gates, to stop the path mesh being cut off."
+is interior furniture: False "use for things that can only go indoors (when player placement mode)"
+is shelter:           False "Is this an acid shelter. Only affects buildings with path mode IGNORE"
+is sign:              False "Use for highlighting shop signs"
+is wall gate:         False "use for actual gates. Definition: A wall linked building with a door in it."
+match slope:          False "Forces the building to tilt to match 100% to the terrain slope"
+max slope:            45.0 "Maximum slope angle of this builing"
+path mode:            PathMode.NAVMESH_OBSTACLE "How collision interacts:\nIGNORE - characters can walk through it.\nPROJECTED - Same as obstacle but the collision is a 2d projection. Use for small obstacles.\nOBSTACLE - Have to walk around. Use for large items.\nWALKABLE - Characters can walk on top of this building"
+scale:                1.0 "totally scales the entire building and colision by this multiplier."
+vertical position tolerance: 20.0 "If the building only has 1 part, then this number is the allowance for vertical adjustment when placing the building"
+[BUILDING,BUILDING_PART]
+lights:               LIGHT (0,0,0) (1,0,0,0) "Light instances attached to this building"
+nodes:                NULL_ITEM (0,0,0) (1,0,0,0) "Positional nodes for attachments and AI"
+parts:                BUILDING_PART (0, 100) "all the visual entities that make up the building.  Value1 is the group, one part will be chosen from each group, based on normalised percentage in value 2.  Group 0 is special, everything from there will be chosen based on val2 as an absolute percetage."
+[BUILDING,BUILDING_PART,REPEATABLE_BUILDING_PART_SLOT]
+z incompatible parts: BUILDING_PART "If any parts in this list are used, then cannot use this part."
+[BUILDING,CONTAINER]
+inventory:
+stackable bonus mult: 1.0 "multiplies the stackable property of any item stored within"
+[BUILDING_FUNCTIONALITY]
+animation:            ANIMATION "animation played when operated"
+animation dazed:      ANIMATION "animation played when operated and wounded"
+animation events:     ANIMATION_EVENT (0) "Audio events to trigger during the animation.\nValue is how far through the animation to play [0-100]"
+animation KO:         ANIMATION "animation played when operated but KO (eg in a cage)"
+animation lockpick:   ANIMATION "animation played when picking locks"
+animation medic:      ANIMATION "animation played when medicking"
+armour crafts:        ARMOUR "Items this building can craft"
+backpack crafts:      CONTAINER "Items this building can craft"
+consumes:             ITEM (5, 100) "Items this building consumes, val1 is the max number to store, val2 is the rate- 100 is 1:1- 1 input makes 1 output, 200 means it takes 2 to make 1 output etc"
+crossbow crafts:      CROSSBOW "Items this building can craft"
+item crafts:          ITEM (5) "Items this building can craft, val1 is the max number to store"
+produces:             ITEM (5) "Item this building produces, (non-crafting), val1 is the max number to store"
+robotics crafts:      LIMB_REPLACEMENT "Items this building can craft"
+special tool:         ITEM "stuff like pickaxes, just used for appearance sake"
+weapon crafts:        MATERIAL_SPECS_WEAPON "Items this building can craft"
+function:
+flags:                0 "Extra info that can mean different stuff depending on functionality type"
+function:             BuildingFunction.BF_ANY "Does this building do anything?"
+has progress bar when used: False 
+hunger rate:          1.0 "multiplies hunger rate when using this machine"
+max operators:        1 "Max number of people who can operate it at the same time.  0 means its fully automated."
+occupant selection:   False "Eg for beds and prisons, when we select this building it will select the occupant instead"
+output per day:       False "For production buildings, output rate will be used as items produced per day, if working at full capacity.  Otherwise its just a multiplier."
+overrides ingredients: False "if true then the consumption items listed here override the INGREDIENTS of the OUTPUT item.  Use in rare cases you want to make an item out of the wrong ingredients eg biofuels"
+production mult:      1.0 "If this building produces or consumes anything, this is the overall speed multiplier.  For generators its the fuel consumption rate, so lower is better (0.01==half hour in-game)"
+restrains movement:   False "if its a cage that ties up the occupant, preventing them from moving and healing etc"
+stat used:            StatsEnumerated.STAT_NONE "The skill that is employed when using this building"
+string:               "" "used for displaying info messages like with corpse cooking or burning"
+use range:            20.0 "Max distance character can be from building origin to use it."
+world resource mining: MiningResource.NONE "water, farming, iron, stone, oil: related resource in the ground that affects production rate if it's a mine."
+tech:
+tech level:           0 "Used for research benches to mark the current research level, or used by crafting benches to cap the maximum craftable item level"
+[BUILDING_PART]
+building floor:       0 "floor of the building. 0 for base (never invisible).  1= roof or 1st floor, 2 = next floor etc"
+effects:              EFFECT (0,0,0) (1,0,0,0) "Effects attached to this building"
+is stairs:            False "true if the part is stairs"
+is unwalkable roof:   False "true for roof parts that cannot be walked on, will "
+material:             MATERIAL_SPEC "material.  If you pick nothing it will use the material collection of the base BUILDING"
+material match:       BUILDING_PART "specify if you want the material to match the material of another part.  If you pick more than one the others will be used if the first part does not exist.  If you pick nothing and pick no material it will use a random material from the base BUILDING's list"
+material match base chance: 0 "Percentage chance of using same as base BUILDING material.  Will override all else"
+material match chance: 100 "If you have chosen a 'material match' in the lists, this is the percentage chance of it being used, So normally 100, but you may want occasional variants."
+passable:             False "nothing will collide with us, the collision hull will only be used for clicking."
+doors:
+is door:              False "use for doors."
+files:
+destroyed collision:  "PhysX xml object|*.xml" "Destroyed version of the collision. Ignored if no destroyed mesh is set."
+destroyed mesh:       "Meshes|*.mesh" "Mesh to use for destroyed versions of this building.\nGround floor will use normal mesh if blank.\nUpper floors will be removed if blank."
+phs or mesh:          "Scythe physics object|*.phs;*.mesh" "Scythe .phs file, used to represent the building.  Can also use a mesh."
+xml collision:        "PhysX xml object|*.xml" "An optional, static physX collision file."
+footprint:
+above ground:         False "sets if this footprint needs to be above or below ground for the building placement to be valid"
+affects footprint:    False "affects where we can or cant place the building"
+footprint vertical:   0.0 "sets the vertical position relative to the origin"
+ground type:          BuildingPlacementGroundType.GROUND_ANY "Sets where the footprint can be placed."
+offsetting:
+is for position marker: False "If set, model will not be offset, [offset XYZ] will be for marking a spot that characters need to stand at to use the building."
+offset X:             0.0 "Offset the position of this model.  Useful if this part wants to rotate around its origin, or if it is a position marker node."
+offset Y:             0.0 "Offset the position of this model.  Useful if this part wants to rotate around its origin, or if it is a position marker node."
+offset Z:             0.0 "Offset the position of this model.  Useful if this part wants to rotate around its origin, or if it is a position marker node."
+rotation axis:        Axis.Z_AXIS 
+rotation function:    BuildingRotation.ROTATION_NONE 
+rotation speed max:   0.0 "speed is in degrees per second"
+rotation speed min:   0.0 "speed is in degrees per second"
+physics:
+density:              1.0 "Relative physical mass, not used for static buildings."
+weather:
+wind speed rotation danger: 200.0 "Danger wind speed. When the wind speed reaches this value the building would get damaged over time."
+wind speed rotation max: 100.0 "Maximum wind speed for maximum rotation speed. Wind speed higher than this value would rotate at maximum speed"
+wind speed rotation min: 0.0 "Minimum wind speed for minimum rotation speed. Wind speed lower than this value would not rotate."
+[BUILDINGS_SWAP]
+replace with:         BUILDING (100) "List of buildings to replace with. Val0 = chance of replacing using that building."
+to replace:           BUILDING "List of buildings to be replaced."
+[CHARACTER]
+announcement dialogue: DIALOGUE "Makes the character announce on his own"
+backpack:             CONTAINER (1, 100) "You can have more than one, in the case of a backpack salesman.  val1 is absolute chance"
+blueprints:           RESEARCH (1) "blueprints in inventory"
+body:                 "body files|*.bod2" "The body shape of this character.  Leave blank for random body."
+clothing:             ARMOUR (1, 100) "val1 is quantity, val2 is percentage chance of having it (normalised with other items of same type).  You can add duplicate gear (eg 4 helmets) and it will only choose one.  If val1 is < 0 then that will count as a possible [no item] for that clothing type (eg if you want a chance of having no hat at all)"
+color:                COLOR_DATA "overrides the factions uniform color scheme (but not the item color scheme if there is one)"
+crossbows:            CROSSBOW (1, 10) "val0 is quantity, val1 is chance (chances aren't relative, so total < 100 means chance of nothing)"
+dialogue:             DIALOGUE "Extra PLAYER_TALK_TO_ME events added onto the dialog package"
+dialogue package:     DIALOGUE_PACKAGE "What the character says, in different situations"
+dialogue package player: DIALOGUE_PACKAGE "Dialog package for when the NPCs is a player character"
+dumb:                 False "Special case for characters that can't talk normally.  Prevents them becoming interjectors or talking to NPCs"
+inventory:            ITEM (1) 
+mesh:                 "Ogre Mesh file|*.mesh" "The mesh of this character.  Leave blank for random mesh."
+robot limbs:          LIMB_REPLACEMENT (50, 100) "val1 is quality, val2 is relative chance if multiple items are listed for the same limb.\nIf val1 is negative it will count as keeping the original limb"
+shopping:             ITEM (1, 100,0) "if this npc goes shopping, this is what they buy. val0 is the quantity to buy, val1 is the chance of adding this to the shopping list (0-100).  val2 is the priority, so 0 first, then 1, then 2 etc.  You are not listing specific items, you are listing item TYPES by function, so add bread, and they will shop for food in general.  Make sure they have enough money and inv space."
+unique replacement spawn: CHARACTER "if this is a unique character that already exists or has died and we try to spawn, it will spawn this guy instead, otherwise it won't spawn anyone."
+vendors:              VENDOR_LIST (100) "inventory list if this character is a shopkeeper, val0 is chance multiplier"
+weapon level:         WEAPON_MANUFACTURER (0) "Determines level of weapon we have, val0 is relative chance"
+weapons:              WEAPON (1, 0,100) "val0 is quantity, val1 is slot (0=hip, 1=back), val2 is absolute chance (<100 total means chance of nothing)"
+levels:
+armour grade:         ArmourRarity.GEAR_CHEAP "Sets the quality level of this characters armour"
+armour upgrade chance: 5 "0-100% chance that armour will be 1 level higher than usual"
+money:
+money max:            200 "Amount of money I have"
+money min:            0 "Amount of money I have"
+wages:                0 "Daily wages I get"
+tags:
+is trader:            False "true if this char is a trader.  Must have either a large backpack on or a shop.  And a vendor item list."
+NPC class:            CharacterTypeEnum.OT_MILITARY "classifies this NPC type, so the AI knows who's who"
+type:
+named:                False "Has a name randomly chosen from the name list."
+shaved:               False "has head shaved, like a slave.  Sheks will have their horns cut."
+slave:                SlaveStateEnum.NOT_SLAVE "sets initial slave state."
+wears uniform:        False "If true, the npcs clothing is branded as a faction uniform.  This reduces re-sale value and also means wearing it has implications."
+[CHARACTER,VENDOR_LIST]
+money:
+money item max:       0 "Maximum amount of physical money item."
+money item min:       0 "Minimum amount of physical money item."
+money item prob:      0.0 "Probability of having physical money item. [0-1]"
+[CHARACTER_PHYSICS_ATTACHMENT]
+bone name:            "Bip01 Spine2" "the name of the bone to attach to"
+light data:           LIGHT "if the scythe file has any lights, it will be created with this data"
+files:
+file female:          "Scythe|*.phs" 
+file male:            "Scythe|*.phs" 
+[COLOR_DATA]
+color 1:              #000000 
+color 2:              #000000 
+[COMBAT_TECHNIQUE]
+attack distance:      0.0 "max distance at which this attack can be considered for use (not including mei-distance).  Is the disance the biped root travels in animation."
+attack distance min vs static: 0.0 "Used when attacking a static target that cannot retreat, if we bump into the target then this value is too low.  Min distance at which this attack can be considered for use (not including mei-distance).  Can be higher than [attack distance].  If its a combo with a lot of forward motion you should disable it by entering a really high number"
+chance:               1.0 "just a multiplier for chance of being chosen.  use to make fancy attacks less frequent"
+events:               ANIMATION_EVENT (0) "Audio events to trigger during the animation.\nValue is how far through the animation to play (frame number, or % if numframes==1)"
+is block:             False "True if its a block, false if its an attack"
+is dodge:             False "True if its a dodge"
+is prone:             False "True if fighting from a prone position"
+is stumble dodge:     False "if its a dodge, is it used for stumble breaks instead of just normal dodges"
+num techniques:       1 "number of attacks, like for combos.  Obviously blocks can only have 1."
+animation:
+anim hesitate point:  0.2 "(0-1 value) Point when the sword is raised.\nWhen the character hesitates with the attack, he will raise the sword and hesitate."
+anim name:            "" "Name of the animation.  Note that all blocks should be upper body animation only, and all attacks should be full-body animation"
+anim speed mult:      1.0 "adjust the speed the animation should be played"
+gains ground:         False "true if the character actually moves away from the origin in the animation.  False if he stays on the spot."
+hits:
+acceptable end time:  0.95 "0-1 (attacks only) at what point is it acceptable for this animation to be terminated by something else (eg need to block)"
+anim blocked frame 1: 0.8 "for attacks only, if the opponent blocks it, what frame the first attack makes impact with the opponents blocking weapon, (frame number, or decimal if numframes==1)"
+anim blocked frame 2: 0.8 "for attacks only, if the opponent blocks it, what frame the first attack makes impact with the opponents blocking weapon, as a 0-1 value.\n(frame number, or decimal if numframes==1)"
+anim stop frame 1:    1.0 "what frame the first attack stops dead, (so the blood can stop spraying off the blade). \n(frame number, or decimal if numframes==1)"
+anim stop frame 2:    1.0 "what frame the first attack stops dead, (so the blood can stop spraying off the blade). \n(frame number, or decimal if numframes==1)e"
+attack direction 1:   CutDirection.CUT_DOWNWARD "down/left/right/thrust/downleft/downright"
+attack direction 2:   CutDirection.CUT_DOWNWARD "down/left/right/thrust/downleft/downright"
+limb 1:               RobotLimb.NULL_LIMB "which limb we are using to hit with"
+limb 2:               RobotLimb.NULL_LIMB "which limb we are using to hit with"
+low strike:           False "use to designate this as a low technique eg aiming at the legs"
+max simultaneous hits: 99 "limits the maximum number of targets you can hit with one sweep"
+num frames:           1.0 "how many frames in the animation (used to calculate impact point times)"
+power 1:              100 "power that the first attack has, as a percentage of capability.  So normally use 100, but use a lower number for little attacks.  For balance you should half the power for fast double combos where the second attack is often too fast to block."
+power 2:              100 "power that the second attack has, as a percentage of capability.  So normally use 100, but use a lower number for little attacks."
+skills:
+max encumbrance:      999.0 "0-100% encumbrance, above this we can't use the technique.  eg use to stop jump kicks in heavy armour"
+max skill:            999.0 "0-100 max skill at which we can use this technique"
+min skill:            -100.0 "0-100 min skill at which we can use this technique"
+type:
+animal:               WeaponCategory.SKILL_KATANAS "if you list an animal type here, then this attack is just for certain animals, not humans"
+[CONSTANTS]
+min dismantle materials percentage: 60.0 "When you dismantle a building, you randomly get back between this% and 100% of your materials back"
+minimum lockpick chance: 5.0 "If your chance of picking a lock is lower than this % then it cannot be attempted"
+Appearance:
+appearance random deviation percentage: 0.5 "Sets the standard deviation from the center of the range when calculating a random appearance for the character.\nThe value represents the percentage of the total range (0.0 = min, 1.0 = max)."
+block success:
+base block chance:    80.0 "0-100.  Chance of a successful block, if skills (meleeAttack vs meleeDefence) are matched"
+block chance increase per 10levels: 5.0 "0-100.  if our block skill is stronger by 10pts, base chance is increased by this much"
+block chance reduction per 10levels: 10.0 "0-100.  if our block skill is weaker by 10pts, base chance is reduced by this much"
+combat balance:
+attack chance factor: 0.05 "0-1.  eg for an attack skill difference of 10 (+1 added as base):  1.0 = 11x chance of attack,  0.5 = 6x,  0.1 = 2x,  0.05 = 1.5x "
+max num attack slots: 2 "max num attackers at one time [1-5].  higher number means combat looks better and characters don't wait around in battles, but also means the outcome is more dependant on numbers than character skill."
+combat damage:
+blunt damage 1:       0.0 "amount of blunt damage done at lvl 1"
+blunt damage 99:      100.0 "amount of blunt damage done at lvl 100"
+blunt permanent organ damage: 0.2 "0-1.  Affects stun/permanent damage ratio of blunt attacks.\norganDamage = bluntDamage * thisValue;  \n organStun = bluntDamage * (1-thisValue);"
+bow damage 1:         1.0 "multiplier for the crossbow damage done at 0 grade"
+bow damage 99:        1.0 "multiplier for the crossbow damage done at highest grade"
+cut damage 1:         20.0 "amount of cut damage done at lvl 1"
+cut damage 99:        100.0 "amount of cut damage done at lvl 100"
+damage resistance max: 0.5 "at max skill level (toughness), the amount of damage resistance. 0-1, 1 being 100% damage resistance"
+damage resistance min: -0.5 "at 0 skill level (toughness), the amount of damage resistance. 0-1, 1 being 100% damage resistance, minus numbers amplify the damage"
+damage resistance randomised: True "if true then a characters damage resistance will be used as a max, and use a random value each time they are hit.  If false, then will be applied straight"
+immediate blood loss: 1.0 "Multiplier for initial blood loss caused by a cut.  (different to the steady bleeding)"
+pierce damage multiplier: 1.0 "global multiplier, affects all damage calculations for this damage type"
+stumble damage max:   50 "at max skill level (toughness), the amount of damage a character must recieve in order to make him stumble.  Multiplied by toughness"
+unarmed damage mult:  1.5 "global multiplier, affects all damage calculations for this damage type"
+faction:
+max faction size:     100 "Sets the maximum amount of characters in a faction. Maximum 256."
+max squad size:       20 "Sets the maximum amount of characters per squad"
+max squads:           10 "Sets the maximum amount of squads in a faction"
+GAME SPEEDS:
+build speed:          1.0 "Multiplier for overall construction rate."
+prison time:          1.0 "Multiplier for time you have to spend in prison for your crimes"
+production speed:     1.0 "Multiplier for overall production speeds"
+research level increase rate: 1.25 "Multiplier for how much research time increases for each tech level."
+research rate:        1.0 "Multiplier for overall research TIMES, so <1 is faster"
+Global balance:
+damage multiplier:    8.0 "global multiplier, affects all damage calculations"
+hunger:
+bed hunger rate:      0.4 "multiplier for hunger rate when sleeping"
+encumbrance hunger rate: 0.7 "the multiplier added to your hunger rate at 100% encumbrance.  0=no effect, 1=double hunger speed"
+fed recovery rate mult: 4.0 "rate of hunger recovery when fed, in relation to rate of starvation"
+food quality mult:    1.0 "global multiplier for the nutrition values of all food items"
+starvation time:      24.0 "number of in-game hours it takes for a character to lose 100 points of hunger.  So this number x3 is the time from full to death"
+medic:
+heal rate mult:       1.0 "multiplier for overall healing rate"
+medic speed mult:     1.0 "multiplier for medic heal rate"
+medkit drain 1:       1.0 "rate that medkits are used up by beginners"
+medkit drain 99:      0.05 "rate that medkits are used up by experts"
+resting heal rate mult: 1.0 "multiplier for healing rate when resting in a bed"
+robot wear rate:      1.0 "rate that robots get wear damage"
+XP rate medic 1:      10.0 "nuber of seconds of usage for medical skill to increase by one point, when at level 1"
+XP rate medic 99:     300.0 "nuber of seconds of usage for medical skill to increase by one point, when at level 9"
+medical:
+bleed rate:           0.01 "master volume setting for rate of blood loss from cuts:  cutDamage * this * TIME"
+bleeding clot rate:   0.0005 "speed that bleeding stops by itself, if left untreated."
+blood recovery rate:  0.3 "rate that blood is regenerated by the body"
+bodypart degeneration rate: 1.0 "rate that untreated injuries degenerate, leading to death"
+degeneration mult 1:  3.0 "multiplier for wound degeneration/bleed rate at toughness level 1"
+degeneration mult 99: 0.5 "multiplier for wound degeneration/bleed rate at toughness level 99"
+extra blood loss from bodyparts: 1.0 "When bodyparts are wounded below 0 and unbandaged they cause a slow bloodloss.  This multiplies it."
+knockout mult 1:      3.0 "multiplier for KO time at toughness level 1"
+knockout mult 99:     3.0 "multiplier for KO time at toughness level 99"
+knockout time base:   30.0 "base KO time added to the overall time ( KO=base+(damageTotal*mult); )"
+max toughness ko point: 99.0 "the negative HP at which a character goes into a coma, if toughness stat is 100"
+min toughness ko point: 10.0 "the negative HP at which a character goes into a coma, if toughness stat is 0"
+stun recovery rate:   1.0 "affects rate of recovery for stun damage"
+prices:
+armor price mult:     1.0 
+blueprint price mult: 1.5 "just affects armour blueprints"
+clothing price mult:  1.0 
+crossbow price mult:  1.0 
+food price mult:      1.0 "global multiplier for prices of all food/crops"
+global price mult:    1.0 
+loot price mult:      0.4 "mult the price player gets for selling regular items as loot (stolen, or non-trade items)"
+loot price mult GEAR: 0.15 "mult the price player gets for selling armour & weapons as loot"
+loot price mult player armour: 1.0 "price multiplier for the player selling armour that he crafted himself"
+loot price mult player weapons: 0.5 "price multiplier for the player selling weapons that he crafted himself"
+robotics price mult:  1.0 
+sword price mult:     1.0 
+trade price mult:     1.0 
+trade profit margins: 0.5 "0.5 means +/- a 0.5 multiplier.  So 0.5 means prices will range from 50% to 150%"
+settings:
+animation blend rate: 4.0 "Affects speed of blending between animations.  1 is very slow, more is faster.  Default is around 4"
+Time:
+days per year:        100 "Sets the amount of days in a year"
+Weather:
+exposure max:         0.95 "Maximum brightness exposure. Lower values can make the world appear washed out in bright areas."
+exposure min:         0.8 "Minimum brightness exposure. Higher values makes the world appear darker."
+latitude:             0.0 "Latitude for sun angle [-90 - 90]"
+night darkness:       1.0 "How dark it is at night [0-1]\nMultiplier for 'exposure min'"
+sunrise:              6.0 "Sunrise time [0-24]"
+sunset:               20.0 "Sunset hour [0-24]"
+weight:
+carry person weight:  40.0 "Weight of a person when carrying them"
+carry weight mult:    1.2 "general multiplier for how much weight chars can carry.  "
+encumbrance base:     10.0 "How much weight we can carry if we have a strength of 0"
+weapon inventory weight mult: 0.5 "general multiplier for how much heavy weapons weigh.  Weapon weight is generated based on blunt damage.  This changes that resulting inventory weight without changing its damage or speed in any way."
+xp:
+exp gain multiplier:  3.0 "global multiplier, affects rate of experience gain"
+min strength xp mult: 0.05 "min strength xp rate"
+skill diff xp 0x penalty: 20.0 "if we are this many skill levels above our opponent, we have a 0x bonus to xp (never goes below 0.1x though)."
+skill diff xp 2x bonus: 10.0 "if we are this many skill levels below our opponent, we have a 2x bonus to xp.  Half this many levels would be 1.5x, and so on.  This scales, all the way up to about 6x.  "
+weight strength diff 1x: 20 "the diff (weapon weight minus strength) for strength xp rate to equal 1.0x"
+weight strength diff max: 1.5 "the max strength xp rate"
+xp rate athletics:    1.0 "global multiplier for athletics xp rate from running around"
+xp rate strength:     1.0 "global multiplier for strength xp rate from combat"
+xp rate strength from walking: 1.0 "global multiplier for strength xp gain when walking with heavy encumbrance"
+xp rate toughness:    1.33 "global multiplier for toughness XP rate"
+[CONTAINER]
+inventory:
+athletics mult:       1.0 "Penalty or bonus to movement speed when wearing this. < 1.0 will reduce max speed."
+combat skill bonus:   0 "Penalty or bonus to combat attk/def skills when wearing this. "
+combat speed mult:    1.0 "Penalty or bonus to combat speed when wearing this. < 1.0 will reduce max speed."
+encumbrance effect:   1.0 "Multiplies the effect it has on encumbrance.  so < 1.0 will make stuff in this bag seem lighter, easier to carry."
+inventory sound:      InventorySound.Backpack "sound the item makes in the inventory"
+stackable bonus minimum: 1 "sets the stackable property of any item within to be at least this"
+stealth mult:         0.5 "Penalty or bonus to stealth multiplier."
+storage size height:  10 "size of the containers internal inventory"
+storage size width:   10 "size of the containers internal inventory"
+[CONTAINER,CROSSBOW,MATERIAL_SPECS_WEAPON,WEAPON]
+scale:
+overall scale:        1.0 
+[CONTAINER,ITEM]
+physics attachment:   CHARACTER_PHYSICS_ATTACHMENT "A physics object that will also attach to the character.  It should be a Scythe file with one joint that is attached to the world- this joint will be found and attached to the character's bone"
+[CONTAINER,ITEM,NEST_ITEM]
+slot:                 AttachSlot.ATTACH_NONE "grants special permission to go in certain inventory slots"
+[CROSSBOW]
+equip offset:         1.2 "when its equipped on the characters back, this can offset the position to make it look right, higher number moves it further away"
+material:             MATERIAL_SPECS_WEAPON 
+reload anim:          ANIMATION "the animation played for reloading"
+weight:               1.0 
+craft:
+craft time hrs:       20.0 "time to craft in game hours"
+damage:
+bleed mult:           1.0 "(at worst quality) multiplier for the amount of bleeding the weapon type causes"
+bleed mult 1:         1.0 "(at best quality) multiplier for the amount of bleeding the weapon type causes"
+pierce damage max 0:  50.0 "max damage at worst quality"
+pierce damage max 1:  50.0 "max damage at best quality"
+pierce damage min 0:  30.0 "min damage at worst quality"
+pierce damage min 1:  30.0 "min damage at best quality"
+files:
+mesh:                 "Ogre mesh|*.mesh" "the weapon, no sheath"
+sheath:               "Ogre mesh|*.mesh" 
+gun stuff:
+accuracy deviation at 0 skill 1: 4.0 "(at best quality) accuracy rating, This is the random vector offset, in degrees, at worst skill level 0.  worst possible skill is 5 degrees, suggest 2-5 degrees, 0 degrees = perfect accuracy"
+range 1:              1000 "(at best quality) max range of shots"
+reload time max 1:    5.0 "slowest time to reload in seconds (at min skill) (at best quality)"
+reload time min 1:    1.0 "fastest time to reload in seconds (at max skill) (at best quality)"
+shot speed 1:         1.0 "(at best quality) speed that the projectile travels"
+race damage:
+animal damage mult:   1.0 "damage bonus to animals"
+human damage mult:    1.0 "damage bonus to non-animals"
+robot damage mult:    1.0 "damage bonus to robotic creatures"
+[CROSSBOW,GUN_DATA]
+ammo:                 ITEM "the ammunition used.  if nothing here then magic infinite ammo"
+ammo:
+extra mesh loaded:    ".mesh|*.mesh" "additional mesh file for when the gun is loaded (eg crossbow string drawn back)"
+extra mesh unloaded:  ".mesh|*.mesh" "additional mesh file for when the gun is unloaded (eg crossbow string slack)"
+live ammo:            ".mesh|*.mesh" "mesh file for the harpoon that shoots out and stabs things"
+gun stuff:
+accuracy deviation at 0 skill: 4.0 "accuracy rating, This is the random vector offset, in degrees, at worst skill level 0.  worst possible skill is 5 degrees, suggest 2-5 degrees, 0 degrees = perfect accuracy"
+accuracy perfect skill: 70 "skill level required to get 100% accuracy (deviation 0) with this weapon."
+aim speed:            1.0 "rotation speed, for aiming"
+num shots:            1 
+range:                1000 "max range of shots"
+reload time max:      5.0 "slowest time to reload in seconds (at min skill)"
+reload time min:      1.0 "fastest time to reload in seconds (at max skill)"
+shoot sound:          GunSounds.HARPOON_TURRET "Sound the gun makes when firing"
+shot speed:           1.0 "speed that the projectile travels"
+positioning:
+barrel pos Y:         0.0 "relative position of the end of the gun barrel"
+barrel pos Z:         5.0 "relative position of the end of the gun barrel"
+radius:               1.0 "for more than single-shot guns, this is the radius that the barrels are out from the center, will be used to position the harpoons"
+[CROSSBOW,ITEM,LIMB_REPLACEMENT]
+ingredients:          ITEM (100) "Used in crafting to show what this item is made of. Val1 is the amount, 100 = a 1:1 relationship, 50 = half of this ingredient is used up to make 1 of this. Also used to value an item."
+[CROSSBOW,ITEM,NEST_ITEM,WEAPON]
+inventory:
+auto icon image:      True "true to automatically generate the inventory icon"
+[CROSSBOW,LIMB_REPLACEMENT]
+inventory:
+value 1:              1000 "price at best quality level"
+[CROSSBOW,MATERIAL_SPECS_WEAPON,WEAPON]
+scale:
+scale length:         1.0 
+scale thickness:      1.0 
+scale width:          1.0 
+[CROSSBOW,WEAPON]
+physics attachment:   CHARACTER_PHYSICS_ATTACHMENT "A physics object that will also attach to the character.  It should be a Scythe file with one joint that is attached to the world- this joint will be found and attached to the character's bone"
+race damage:          RACE (125) "bonus damage multiplier, in %, when attacking this race"
+inventory:
+slot:                 AttachSlot.ATTACH_WEAPON "grants special permission to go in certain inventory slots"
+inventory icon:
+icon offset V:        0.0 "align the image vertically"
+icon zoom:            1.0 "scale the image (try to keep at 1.0)"
+[DIALOGUE]
+for enemies:          False "true if this dialog can still be triggered by player if enemies"
+monologue:            True "true if this has no player replies, every line is the speaker"
+special:
+locked:               False "if locked then this conversation can only be used once it's been unlocked by a dialog line using the [unlocks] event dropdown"
+one at a time:        False "this prevents more than one person at a time running this dialog.  Use to prevent crowds all saying the same thing during events"
+[DIALOGUE,DIALOGUE_LINE,SINGLE_DIPLOMATIC_ASSAULT,WORD_SWAPS]
+conditions:           DIALOG_ACTION 
+[DIALOGUE,DIALOGUE_LINE,WORD_SWAPS]
+change relations:     FACTION (0) "adjusts the relations with the given faction by this amount"
+crowd trigger:        DIALOGUE (100) "triggers the given dialog to start on all other squadmembers. Use for things like group cheering, laughing and war cries.  Should usually be 1 liners.  The number is the % of squadmembers to trigger"
+give item:            ITEM (1) "action: give target this item.  Will conjure the item out of thin air."
+has package:          DIALOGUE_PACKAGE "condition: has a specific dialog package.  refers to speaker only, unless its on an interjection node"
+in town of:           FACTION "adds a condition: that we must be currently in a town/base belonging to the given faction"
+is character:         CHARACTER "condition: is a specific character. refers to speaker only, unless its on an interjection node"
+lines:                DIALOGUE_LINE (0) 
+locks:                DIALOGUE "locks the given dialogue, use for special cases when you gotta lock something?"
+my faction:           FACTION "adds a condition: I belong to the given faction"
+my race:              RACE "adds a condition: my race is any of the given races.  Multiple races is treated as an OR condition"
+my subrace:           RACE "My specific sub-race.  Multiple races is treated as an OR condition"
+no target race:       RACE "adds a condition: target squad has NO member who is any of the given races.  Multiple races is treated as an AND condition"
+target carrying character: CHARACTER "condition: is carrying a specific character. refers to target"
+target faction:       FACTION "adds a condition: target belongs to the given faction"
+target has item:      ITEM "adds a condition: target has this item, or any of these items"
+target has item type: ITEM "adds a condition: does the target have an item of the same TYPE as this one (eg narcotics, meds, food)"
+target race:          RACE "adds a condition: target squad has a member who is any of the given races.  Multiple races is treated as an OR condition"
+unlock but keep me:   DIALOGUE "unlocks the given dialogue, must be actually in the npcs dialogue package somewhere for it to work.  Will NOT cause this dialog to then become locked."
+unlocks:              DIALOGUE "unlocks the given dialogue, must be actually in the npcs dialogue package somewhere for it to work.  Will cause THIS dialog to then become locked.  Used for conversations that progress to other conversations in stages."
+world state:          WORLD_EVENT_STATE (1) "adds this world state as a AND condition.  1=true, 0=false"
+main:
+chance permanent:     100.0 "percentage chance that the character will HAVE this dialog option.  Not 'use', 'have'.  Its a permanent assignment or absence, and is saved forever.  Use to make rare and occasional characters."
+chance temporary:     100.0 "percentage chance that the character will USE this dialog option.  It can be used for things like random descisions."
+repetition limit:     DialogRepetitionEnum.DR_NO_LIMIT "Sets a limit on how frequently a line can be played."
+score bonus:          0 "This can artificially adjust the score to give a line priority"
+target is type:       CharacterTypeEnum.OT_NONE "Only for target characters of the given type (if set)"
+[DIALOGUE_LINE]
+AI contract:          AI_PACKAGE (0) "activates the given AI package as a contract job, val0 is the number of hours it lasts for."
+change AI:            AI_PACKAGE (0) "permanently changes the AI package, doesn't affect the AI contract.  BE CAREFUL, remember it will change the whole squad, slaves and masters.  May want to use with DA_SEPARATE_TO_OWN_SQUAD."
+effects:              DIALOG_ACTION 
+interrupt:            DIALOGUE "If the player interrupts us with a talking event, this will be the conversation chosen.  Reset at the end of conversation, or until changed"
+trigger campaign:     FACTION_CAMPAIGN (0, 0,100) "Triggers the given campaign, which will start after a random number of hours between val0-val1, val2 is %chance (is absolute chance, so if you list 2 things which total to less than 100, then there is a chance of nothing)"
+Base:
+interjection:         null "Is this an iterjection node. Do not edit."
+text:
+text0:                "" multiline looped "the dialog text(s)"
+[DIALOGUE_LINE,FACTION_CAMPAIGN]
+lock campaign:        FACTION_CAMPAIGN "essentially sets the campaigns [territorial] setting to false"
+unlock campaign:      FACTION_CAMPAIGN "essentially sets the campaigns [territorial] setting to true, so doesn't actually trigger it, just makes it possible"
+[DIALOGUE_LINE,WORD_SWAPS]
+main:
+speaker:              TalkerEnum.T_ME "specifies who is talking.  Interjectors are set in the green nodes. T_TARGET_WITH_RACE will return a target matching the [target race] list you assign to that line (or else fails)"
+[DIALOGUE_PACKAGE]
+dialogs:              DIALOGUE (0, 0,0) 
+inheritsFrom:         DIALOGUE_PACKAGE "Any dialogue packages here will also be combined"
+[DIPLOMATIC_ASSAULTS]
+assaults:             SINGLE_DIPLOMATIC_ASSAULT 
+[EFFECT]
+fog volumes:          EFFECT_FOG_VOLUME 
+lights:               LIGHT (0,0,0) (1,0,0,0) "Light instances attached to this effect."
+sound:                AMBIENT_SOUND "Emitted sound effect"
+Blending:
+fog fade in duration: 0.0 "(Fog) Fade in duration in seconds. (0 = Disabled)"
+fog fade out duration: 0.0 "(Fog) Fade out duration in seconds. (0 = Disabled)"
+light fade in delay:  0.0 "(Lights) Delay time in seconds before starting the fade in."
+light fade in duration: 0.0 "(Lights) Fade in duration in seconds. (0 = Disabled)"
+light fade out delay: 0.0 "(Lights) Delay time in seconds before starting the fade out."
+light fade out duration: 0.0 "(Lights) Fade in duration in seconds. (0 = Disabled)"
+particle fade out delay: 0.0 "(Particle) Delay time in seconds before starting the fade out."
+General:
+affect type:          WeatherAffecting.WA_NONE "adds any kind of collision damage affecting things like poison gas clouds"
+effect radius:        0.0 "radius of the status affection, eg for gas clouds.  0 will be auto-radius, and won't be very accurate"
+effect strength max:  1.0 "Maximum effect strength (eg gas/acid damage)"
+effect strength min:  1.0 "Minimum effect strength (eg gas/acid damage)"
+ground colour:        False "Multiply particle base colour by biome ground colour."
+particle system:      "" "Particle system name"
+type:                 EffectType.NONE "Effect behavior in game (for the weather only). This determines how it's spawned and how it affects objects.\nNONE: Has no special behavior.\nCAMERA: The effect is camera based; is positioned in front of the camera and move with it. The effect affects the whole biome.\nCAMERA_RAIN: Subtype of CAMERA.\nCAMERA_ACID_RAIN: Subtype of CAMERA that does acid damage.\nPOINT: Randomly spawns the effect in the area.\nPOINT_LIGHTING: Subtype of POINT but it's spawn position is based on the amount of metal and affects the objects only once.\nGLOBAL: Similar to CAMERA but its spawn on the camera center on the ground. The effect affects the whole biome.\nWANDERING: Like POINT, it randomly spawns in the area but moves around.\nWANDERING_STORM: Subtype of WANDERING but stronger.\nWANDERING_GAS: Subtype of WANDERING but it does more damage.\nGLOBAL_POINT: A global effect that spawns as a point but the amount is on the camera area rather than the whole biome (MUST HAVE A MAX TIME TO LIVE!!!)"
+wandering speed:      10.0 "Movement speed for the effect (only if type is a movable type)."
+Position:
+max altitude:         100000.0 "Sets the maximum altitude from which the system is spawned. (For weather effects only)"
+max slope:            1.0 "Sets the maximum slope from which the system is spawned. [0, 1] (For weather effects only)"
+min altitude:         200.0 "Sets the minimum altitude from which the system is spawned. (For weather effects only)"
+min slope:            0.0 "Sets the minimum slope from which the system is spawned. [0, 1] (For weather effects only)"
+Time:
+max time to live:     30.0 "Sets the maximum time to live of the particle in seconds. (For weather effects only)"
+min time to live:     0.0 "Sets the minimum time to live of the particle in seconds. (For weather effects only)"
+View:
+maximum view distance: 0.0 "Maximum distance from an active area from which the effect is visible. (Only when is on an inactive area)"
+Weather:
+colour multiplier:    #FFFFFF "Colour multiplier. (For weather effects only)"
+max wind span rate:   0.0 "Sets the maximum wind speed needed for spawning the full amount of particles."
+min wind span rate:   0.0 "Sets the minimum wind speed needed for spawning any particles"
+sky colour multiplier: 1.0 "Sky colour multiplier. (For weather effects only)"
+wind affected:        False "Indicates whether the particle is affected by wind"
+wind direction emission: False "Set whether the initial direction of the emitted particle (in X,Z) is based on the wind direction"
+wind speed mult:      1.0 "Wind speed multiplier for particles [0-1]"
+[EFFECT_FOG_VOLUME]
+Colouring:
+additive colour:      False "Additive colouring."
+alpha:                1.0 "Alpha of the volume"
+colour:               #FFFFFF "Colour of the volume."
+General:
+distance:             1.0 "Density distance of the volume"
+radius:               1.0 "Radius of the volume"
+type:                 EffectVolumeType.CYLINDER "Geometric type of the volume"
+Movement:
+ground movement:      False "Sets whether, when the volume moves, it maintains its altitude or is recalculated from the ground position."
+Position:
+position 2 x:         0.0 "Offset position of other side in X axis (only for cylinder)"
+position 2 y:         0.0 "Offset position of other side in Y axis (only for cylinder)"
+position 2 z:         0.0 "Offset position of other side in Z axis (only for cylinder)"
+position x:           0.0 "Offset position in X axis"
+position y:           0.0 "Offset position in Y axis"
+position z:           0.0 "Offset position in Z axis"
+[ENVIRONMENT_RESOURCES]
+coverage resources:
+farming altitude fade: 300 
+farming altitude max: 800 
+farming altitude min: 0 
+farming min:          0.0 
+water altitude fade:  200 
+water altitude max:   500 
+water altitude min:   0 
+water min:            0.1 
+farming:
+arid:                 1.0 "yield for this class of crops"
+green:                0.0 "yield for this class of crops"
+swamp:                0.0 "yield for this class of crops"
+resources:
+carbon mult:          0.0 
+copper mult:          0.0 
+farming mult:         0.5 
+iron mult:            1.0 
+water mult:           0.5 
+stone:
+stone mult:           1.0 "general multiplier, affects the max"
+stone noise cutoff:   0.4 "0-1, affects the perlin noise cutoff.  Higher value will result in smaller patches, lower number means bigger patches.  Does not affect frequency of patches"
+stone noise zoom:     1.0 "affects the scale of the perlin noise coverage map.  smaller number results in smaller, more frequent patches"
+[FACTION]
+allow slaves weapons: False "lets slaves have a weapon, for when they are conscripted"
+biomes:               BIOME_GROUP "the biomes that make up our territory.  Important for triggering assault campaigns when player builds in our area."
+building cost mult:   1.0 "multiplier for the cost to buy buildings from this faction"
+buildings replacements: BUILDINGS_SWAP "List of buildings to replace in towns."
+campaigns:            FACTION_CAMPAIGN "various possible wars and missions this faction can do"
+coexistence:          FACTION "the faction will try to co-exist with these factions.  They can still fight, but will usually avoid targeting neutrals unprovoked.  Usually.  Stops excessive warfare and wiping out of small villages etc."
+color:                COLOR_DATA "color scheme for clothings"
+dialog default:       DIALOGUE_PACKAGE "any characters that don't have a dialogue package will get this one assigned. Make it super generic."
+faces weirdness:      0.2 "Probability of weird face morphs in the faction"
+hairstyles:           ATTACHMENT "Hairstyles used by this faction. Leave blank to allow all styles"
+item spawns armoury:  VENDOR_LIST (100) "(or barracks) vendor list to use for spawning random building contents in containers.  Overridden if the squad has a vendor list"
+item spawns bar:      VENDOR_LIST (100) "vendor list to use for spawning random building contents in containers.  Overridden if the squad has a vendor list"
+item spawns HQ:       VENDOR_LIST (100) "vendor list to use for spawning random building contents in containers.  Overridden if the squad has a vendor list"
+item spawns resident: VENDOR_LIST (100) "vendor list to use for spawning random building contents in containers.  Overridden if the squad has a vendor list"
+item spawns resident small: VENDOR_LIST (100) "vendor list to use for spawning random building contents in containers.  Overridden if the squad has a vendor list"
+item spawns treasure: VENDOR_LIST (100) "vendor list to use for spawning random building contents in containers.  Overridden if the squad has a vendor list"
+legal system:         FACTION "who this faction uses to report and enforce crimes and bounties"
+max prosperity:       1000 
+no-go zones:          BIOME_GROUP "the biomes that this faction won't go to, stops assaults"
+races:                RACE (100) "list races that are in this faction, and the percentage they make up the whole.  Should all total together to 100, but it does not matter as it is relative"
+relations:            FACTION (0) "-100 to +100l\nrelationship with other factions, if not listed then assumed 0 (neutral)"
+residents:            SQUAD_TEMPLATE (1, 1) "default residents if a town has no residents assigned.  val0 is number of them, but set it to zero to set one as the default filler resident. val1 is the priority level, higher number is more important"
+road preference:      0.4 "How much characters will try to use roads [0-1].\n0 completely ignores them, 1 uses them as much as posible"
+roaming population:   50 "number of NPCs in roaming squads, basically adds this number to the max population count for every town to allow short-range roaming squads to appear around the towns"
+slave clothing:       ARMOUR "what do our slaves wear"
+special squads:       UNIQUE_SQUAD_TEMPLATE (0) "the special squads, with unique NPCs, the ones that make decisions and launch attacks and stuff, val1 is the number to maintain (which will be multiplied by faction/town health and population)"
+squad default:        SQUAD_TEMPLATE "the various squad types, or divisions, available"
+squads:               SQUAD_TEMPLATE "the various squad types, or divisions, available"
+trade culture:        ITEMS_CULTURE "controls items in this faction, by removing certain items altogether or modifying prices"
+AI:
+heals strangers:      False "True if we give first aid to unconscious strangers/neutrals we find"
+squad formation:      SquadFormation.RANDOM "Sets which type of formation the faction's squads uses."
+trustworthy:          0.0 "-100 <> +100.  How trustworthy the faction is. Do they keep their word or stab you in the back?"
+armour vendor quality chance:
+armors 0:             50 "chances of vendors having this armour quality"
+armors 1:             100 "chances of vendors having this armour quality (cheap)"
+armors 2:             50 "chances of vendors having this armour quality (standard)"
+armors 3:             2 "chances of vendors having this armour quality (good)"
+armors 4:             0 "chances of vendors having this armour quality"
+armors 5:             0 "chances of vendors having this armour quality"
+flee:
+run away ratio of squad size: 0.0 "0-1  For example: My squad size is 10 men.  Ratio is at 0.7.  If we have less than 70% of our men we flee.  So if 4 men go down, we flee."
+run away ratio relative to enemy: 0.0 "2.0 ratio means we need to out number our enemy 2 to 1, otherwise we flee.  0.5 ratio means enemy has to outnumber us 2 to 1 in order to flee."
+locks:
+cages lock level:     40 "for cages, sets the lockpick difficulty level"
+containers lock level: 40 "for containers (chest, barrels, shop counters, etc.), sets the lockpick difficulty level"
+doors lock level:     40 "for doors, sets the lockpick difficulty level"
+lock level random:    10 "for doors and cages, randomises the lockpick difficulty level by this amount"
+rank:
+negative rank0:       "" looped "ranking levels within the faction, mainly for the player"
+num negative ranks:   1 "ranking levels within the faction, mainly for the player"
+num ranks:            1 "ranking levels within the faction, mainly for the player"
+offers bounties:      False "if this faction can put a bounty on your head, use for the major faction"
+rank0:                "" looped "ranking levels within the faction, mainly for the player"
+relation:
+business relations:   -5 "Min relation to do business"
+effect of anger:      0.2 "emotion is what affects the real relations. This shows how much.  So at 0.1x, an anger of 100 will cause relations to drop by 10.  This determines how easy it is to lose a factions trust."
+effect of happy:      0.2 "emotion is what affects the real relations. This shows how much.  So at 0.1x, a happiness of 100 will cause relations to raise by 10.  This determines how easy it is to gain a factions trust."
+emotion fade rate:    1.0 "multiplier for speed that emotion fades back to 0.  Higher makes them more volatile"
+enemy classification: -10 "Max relation to consider as enemy, attack on sight"
+not real:             False "set true for factions that are not human, actions against this faction won't be seen as crime or aggresssion.  use for wildlife, non-factions etc"
+type:
+anti slavery:         False "true if this faction is against slavery, doesn't use or sell slaves and doesn't rat out escapees"
+fundamental type:     CharacterTypeEnum.OT_CIVILIAN "the basic classification of this faction"
+[FACTION,FACTION_TEMPLATE]
+AI fallback:          AI_PACKAGE "fallback AI if we can't do anything else.  Something easy like run away or fight to the death."
+relation:
+default relation:     0 "This is the default value for all faction relationships that are not specified in the "Faction Relations" list.\nRange -100 to +100"
+[FACTION,RACE,SQUAD_TEMPLATE,UNIQUE_SQUAD_TEMPLATE]
+personality:          PERSONALITY "the personality of the characters"
+[FACTION,TOWN]
+bar squads:           SQUAD_TEMPLATE (1, 100) "resident squads that spawn in bars. val1 is number, val2 is % chance"
+default resident:     SQUAD_TEMPLATE "default resident, used as filler"
+[FACTION_CAMPAIGN]
+can talk before arrival: False "if false then you won't be able to talk to the leader until he arrives"
+dialog announcement:  DIALOGUE "dialog to be used for the announcement, if the npc doesn't have any in his package"
+display name:         "" "name to display in game"
+faction override:     FACTION "force the campaign to trigger using this faction (as the attackers).  Use to allow other factions to trigger this campaign"
+ignores nogo zones:   False "this campaign will ignore the factions [no-go zones].  Use for the extra angry or desperate campaigns"
+inherits from:        FACTION_CAMPAIGN "copies from this base"
+is hostile:           True "sets the text of player messages to be scary"
+key:                  WarCampaignEnum.ASSAULT_TOWN 
+loss trigger:         FACTION_CAMPAIGN (0, 0,100) "the next campaign to trigger if we lose, val0+val1 is min-max time to trigger, val2 is the %random chance (is absolute chance, so if you list 2 things which total to less than 100, then there is a chance of nothing)"
+num forces:           20 "minimum number of men needed to do this campaign"
+pt1 AI leader:        AI_PACKAGE "AI package used by the leader squad"
+pt1 AI others:        AI_PACKAGE "AI package used by the squads"
+pt2 AI leader:        AI_PACKAGE "AI package used by the leader squad"
+pt2 AI others:        AI_PACKAGE "AI package used by the squads"
+retreat AI leader:    AI_PACKAGE "AI package used by the leader squad"
+retreat AI others:    AI_PACKAGE "AI package used by the squads"
+special leader:       CHARACTER "campaign can only run if this character is available to lead it.  Has to be a unique NPC"
+specific target NPC:  CHARACTER "the assault will target this specific character (eg for assassination or rescue), and only triggers if this character exists"
+squads to use:        SQUAD_TEMPLATE (100) "the army will be made up of any of these squads, if nothing is listed it will try to use TOWN [roaming spawns]"
+target characters:    False "false=only target bases, true=will target characters instead, and can trigger without a player base"
+travel speed loaded:  MoveSpeed.NO_SPEED_CHANGE "sets the squads travel speed"
+travel speed unloaded: MoveSpeed.NO_SPEED_CHANGE "sets the squads travel speed when out of the active area"
+trigger player ally:  FACTION_CAMPAIGN "triggers this campaign if its faction is an ally of the player"
+victory AI leader:    AI_PACKAGE "AI package used by the leader squad"
+victory AI others:    AI_PACKAGE "AI package used by the squads"
+victory trigger:      FACTION_CAMPAIGN (0, 0,100) "the next campaign to trigger if we win, val0+val1 is min-max time to trigger, val2 is the %random chance (is absolute chance, so if you list 2 things which total to less than 100, then there is a chance of nothing)"
+world state:          WORLD_EVENT_STATE (0) "add requirements that the world has a certain state (1=true, 0=false) (AND combination)"
+territorial trigger:
+chance per day:       0.0 "0-1 chance per day of triggering"
+ignores chance mults: False "this campaign will ignore the frequency multiplier in the options.  Use for traders"
+range far:            0.0 "at this range or higher, the chance to trigger will be 0 (attack target range from home base in meters)"
+range near:           0.0 "at this range or nearer, the chance to trigger will be equal to [chance per day] (attack target range from home base in meters).  It scales down after this."
+repeat limit:         4.0 "limits frequency of repeating this campaign, in days.  Only applies to territorial triggers"
+target population min: 0 "player town pop must be at least this"
+target tech level >=: 0 "player faction TOWN size level must be at least this (0-3, 3 is crazy).  (not tech level anymore)"
+territorial triggers: False "if true then will trigger randomly if the player has a base within range of this factions towns, the campaign object must also be listed in the FACTION in order to trigger this way"
+[FACTION_TEMPLATE]
+clothing:             ARMOUR "list of gear to choose from"
+races:                RACE (100) "list of races and percentage that makes up the faction"
+weapon level:         WEAPON_MANUFACTURER "list of gear to choose from"
+weapon models:        WEAPON "list of gear to choose from"
+general:
+face weirdness:       0.1 "0-1 amount of population that has weird faces"
+fundamental type:     CharacterTypeEnum.OT_BANDIT 
+strength/size balanced: True "if true, the combat stats are balanced against the squad sizes eg bigger&weaker or smaller&stronger.  If false then they are independent and lead to more potentially unbalanced factions"
+leaders:
+leader increase max:  10 "how much leader stats are increased with each tier"
+leader increase min:  5 "how much leader stats are increased with each tier"
+leader levels max:    1 "how many levels, or tiers, of rank there are after basic grunts"
+leader levels min:    1 "how many levels, or tiers, of rank there are after basic grunts"
+skill cap:            60 "cap the max skill a leader can have"
+stats:
+armour cap:           ArmourRarity.GEAR_QUALITY "cap the max armour level a leader can have (leaders can go above the max)"
+armour max:           ArmourRarity.GEAR_STANDARD 
+armour min:           ArmourRarity.GEAR_PROTOTYPE 
+combat stats max:     40 "how strong will this squad be if it is min size"
+combat stats min:     1 "how strong will this squad be if it is max size"
+squad size max:       20 
+squad size min:       1 
+[FARM_DATA]
+plants:               FARM_PART (0, 100) "Plant meshes.\nValue1 is the group, one part will be chosen from each group, based on normalised percentage in value2."
+death:
+death colour:         #FFFFFF "Dead plant colour multiplier"
+death threshold:      0.4 "How far into the death time before plants are unrecoverable [0-1]"
+death time:           8.0 "Game time in hours for plants to completely die at the end if its life"
+drought death time:   16.0 "Game time in hours for plants to completely die from dehydration.\n0 = never"
+farming:
+arid:                 0.0 "multiplier that determines the crops class, ie how it grows in different biomes"
+green:                1.0 "multiplier that determines the crops class, ie how it grows in different biomes"
+swamp:                0.0 "multiplier that determines the crops class, ie how it grows in different biomes"
+growth:
+consumption rate:     5.0 "Consumption rate of water per day"
+drought multiplier:   0.0 "Multiplier for growth speed when there is no water [0-1]"
+fertility effect:     1.0 "Amount fertility effects growth rate"
+growth time:          72.0 "Game time in hours for a plant to fully grow in an optimal environment"
+minimum fertility:    0.0 "The minumum fertility the area can have to be viable"
+harvest:
+clear rate:           100.0 "Number of dead plants that can be cleared in a day"
+harvest rate:         20.0 "Number of plants a person can harvest in a day"
+harvest time:         10.0 "Hours before plants start dying when they are fully grown"
+output per plant:     1.0 "Number of items harvested per plant"
+layout:
+amount:               16 "Number of plants"
+aspect:               1.0 "Shape of the farm, 1=square, 0=single line"
+inside:               False "Plants do not use terrain height. Use for putting plants inside a structure"
+jitter:               0.0 "For grid layout, how messy are the lines. [0-1]"
+layout:               FarmLayout.GRID "Plant layout type"
+spacing:              1.0 "Distance between plants"
+[FARM_PART]
+material:             MATERIAL_SPEC "mesh material"
+growth:
+delay:                0.0 "How far through the plants growth cycle for this item to appear [0-1]"
+offset end:           0.0 "Final vertical offset. Generally zero for most cases"
+offset start:         0.0 "Vertical offset. This will genarally be the mesh height * starting scale"
+scale end:            1.0 "Scale of fully grown plants"
+scale start:          0.1 "Starting scale of plants"
+scale variance:       0.0 "Random variance to plant scale"
+mesh:
+mesh:                 "Ogre mesh|*.mesh" "Plant mesh file"
+[FOLIAGE_LAYER]
+grass:                GRASS "Add all the grass types.  The number you enter is the channel number (0-2).  Grass on the same channel will use the same coverage map and grow in the same places.  Grass will want to be kept in a separate foliage layer to other meshes, because it generally needs shorter lod range and smaller page sizes.  "
+meshes:               FOLIAGE_MESH (0) "Add all the meshes here if its not a grass layer.  the value sets the amount to create, the density."
+big stuff:
+wind:                 False "Makes stuff sway in the wind, like trees, not rocks."
+Performance:
+visibility range:     FoliageVisibilityRange.MEDIUM "Sets the distance at which the foliage is visible."
+[FOLIAGE_MESH]
+building type:        BUILDING (100) "Sets associated building data to the mesh. Use to turn the foliage object into a production building (for mines)"
+meshes:               FOLIAGE_MESH (0) "Add a child meshes here.  These meshes will cluster around their parents.  Clustering will be forced to [true]."
+sounds:               AMBIENT_SOUND (0, 0,0) "Ambient sounds attached to this object.\nDo not over use!"
+sub grass:            FOLIAGE_MESH "Add grass here to have it grow around the mesh.  It will use the grasses clustering settings"
+wind factor:          1.0 "If wind is on, this is the amount of sway (1.0 default)"
+child foliage:
+child cluster radius: 0.0 "Sets the radius for placing child foliage to avoid overlapping.\nThe total radius is the child plus the parent radius."
+clustering:
+cluster num max:      10 "number of objects in a cluster"
+cluster num min:      3 "number of objects in a cluster"
+cluster radius max:   400.0 "size of a cluster"
+cluster radius min:   100.0 "size of a cluster"
+clustered:            False "activates clustering"
+collision:
+collision:            "xml|*.xml|phs|*.phs" "The matching collision mesh (optional).  Can leave blank for grass/bushes or if you use a .phs file.  Collision will be harder on performance. Dont include any meshes if its a scythe .phs file"
+navmesh cutter:       0.0 "Radius of hole to cut out of the navmesh. Only used if no collision set.\nLess accurate than using a collision mesh but faster."
+walkable:             False "Collision mesh added to navmesh as a walkable surface"
+placement:
+avoid towns:          True "Object is removed within town radius"
+floating:             False "Mesh will appear on the water surface if created underwater."
+keep upright:         True "if false, the mesh will be randomly rotated."
+limit to grass areas: False "if true, then this mesh will only spawn in terrain areas covered in the grass texture"
+max altitude:         20000.0 "Max altitude where foliage will grow."
+max slope:            10.0 "Max slope this foliage will grow on.  Its not in degrees!  Higher number means steeper slopes."
+min altitude:         0.0 "Max altitude where foliage will grow."
+min slope:            0.0 "Min slope this foliage will grow on, with this you could make trees that only grow out of cliffs for example.  Its not in degrees!  Higher number means steeper slopes."
+road avoidance:       10.0 "Foliage will not be placed within this distance of a road.\nNote: Distance is from object centre"
+slope align:          True "Makes the mesh rotate to match the slope of the terrain, instead of just facing up.  Affects performance when moving camera,"
+use accurate trace:   False "To get the correct terrain height to place the mesh, it has to do a trace.  This will make the trace more accurate, but slower.  If meshes are hovering above the ground now and then, turn this on.  Should not need it for larger objects. Give meshes long stems to avoid the hovering problem if possible, rather than turning this on.  If used, you can should compensate by reducing the LOD range."
+vertical offset max:  0.0 "here you can adjust the vertical positioning.  Set to negative number to make the mesh sink into the ground.  It is automatically adjusted by the objects scale"
+vertical offset min:  0.0 "here you can adjust the vertical positioning.  Set to negative number to make the mesh sink into the ground.  It is automatically adjusted by the objects scale"
+second mesh:
+leaves alpha threshold: 80 "Alpha threshold for leaves texture [0-255]"
+leaves mesh:          "Mesh|*.mesh" "(optional) If this is a tree and you need 2 separate textures (eg solid tiled texture for the trunk, and transparent one for the leaves), then add the leaves mesh here.  It will be loaded along with the trunk.  "
+leaves normal:        TEXTURE_ANY "Normal map for the leaves, will be rendered transparent and double-sided."
+leaves texture:       TEXTURE_ANY "Texture for the leaves, will be rendered transparent and double-sided."
+visual:
+alpha threshold:      128 "Alpha threshold for main main texture if material type is FOLIAGE [0-255]"
+grass spot:           0.0 "Object adds a splodge of biome grass texture to the ground.\nValue is the radius."
+material type:        MapFeatureMode.UV_MAPPED "Material mode"
+mesh:                 "Mesh|*.mesh|Scythe|*.phs" "The actual mesh"
+normal map:           TEXTURE_ANY "optional normal map.  Much slower performance, only use for large features like rock formations and boulders.  final versions must be dds format"
+normal map 2:         TEXTURE_ANY "second normal map for dual texture modes"
+specular mult:        0.0 "Specular multiplier (0-1)"
+texture map:          TEXTURE_ANY "diffuse texture, final versions must be dds format"
+texture map 2:        TEXTURE_ANY "second diffuse texture for dual texture modes"
+tile X:               1.0 "texture tiling"
+tile Y:               1.0 "texture tiling"
+[FOLIAGE_MESH,GRASS]
+size:
+max height:           1.0 "size is random between the min and max here.  1.0 is normal, 2.0 is double etc"
+min height:           1.0 "size is random between the min and max here.  1.0 is normal, 2.0 is double etc"
+[GRASS]
+child grass:          GRASS "Add another grass type to mix in, it will share the same coverage area."
+wind factor:          1.0 "Multiplier.  How strongly the grass is affected by wind."
+distribution:
+brightness boost:     3.0 "after noise map generation and zero cutoff, all pixels are multiplied by this number.  A higher number than 1.0 will make the patches more dense and solid around the edges.  It makes them harder."
+cap:                  1.0 "sets the max a pixel can be.  Normally 1.0, but you can lower it slightly to reduce the overall density"
+noise scale:          1.5 "scales the whole thing, smaller number makes the patches smaller"
+zero cutoff:          0.5 "after noise map is generated, any pixels (ranging 0 to 1) below this number will be set to zero (higher number will make smaller, narrow patches, lower number will make bigger ones).  NOTE:  you only need to adjust this a very small amount, like ranging from 0.4 to 0.6."
+distribution 2:
+blackout:             True "generates a second noise map and subtracts it from the main one, erasing random areas.  makes the grass patches into more isolated blobs"
+blackout noise scale: 10.0 "scales the whole blackout noisemap.  Its good for this to be a different number to the other noisemap scale, because it will make it all less uniform looking.  smaller number makes the patches smaller"
+blackout zero cutoff: 0.57 "after noise map is generated, any pixels (ranging 0 to 1) below this number will be set to zero (higher number will make smaller, narrow patches, lower number will make bigger ones).  NOTE:  you only need to adjust this a very small amount, like ranging from 0.4 to 0.6."
+grass:
+color map:            TEXTURE_ANY "used mainly for grass.  This color map will colorise the grass, to help create different patches of color and variation."
+cross quads:          True "makes the grass sprites into cross shapes, makes it look thicker from all angles, but means double the number of sprites"
+density:              1.0 "multiplier.  Overall density of the grass"
+grass sprite:         TEXTURE_ANY "The grass sprite, if this is grass"
+max altitude:         20000.0 "Max altitude where foliage will grow."
+max slope:            10.0 "Max slope this foliage will grow on (affects grass only).  Higher number means steeper slopes."
+min altitude:         0.0 "Max altitude where foliage will grow."
+size:
+max width:            1.0 "size is random between the min and max here.  1.0 is normal, 2.0 is double etc"
+min width:            1.0 "size is random between the min and max here.  1.0 is normal, 2.0 is double etc"
+[HEAD]
+general:
+playable:             True "Sets if it's usable by the player"
+visual:
+mask map:             TEXTURE_DDS "Optional colouring mask map."
+normal map:           TEXTURE_DDS "Optional normal map."
+texture map:          TEXTURE_DDS "Diffuse texture for the head."
+[ITEM]
+item:
+food crop:            False "used to designate that this item is a base food ingredient, so it's affected by the global food price mult"
+item function:        ItemFunction.ITEM_NO_FUNCTION "What this item does."
+persistent:           ItemPersistence.PERSIST_NONE "Rule to determine whether this item gets deleted when it gets unloaded"
+production time:      4 "Number of hours it takes to craft this item (multiplied by the benches output multiplier)"
+[ITEM,MAP_ITEM]
+inventory:
+artifact:             False "true if this is a research artifact.  Adds a tag in the GUI tooltip."
+inventory sound:      InventorySound.Fabric "sound the item makes in the inventory"
+stackable:            1 "number that can be stacked in inventory"
+item:
+charges:              1.0 "Amount of charge this item has if it is expendable"
+profitability:        0.2 "If an item has ingredients then its price will be calculated from them, then this percentage will be added (0-1)"
+quality:              1.0 "1-100, quality level of this item.  Eg a higher number would make a more effective medkit"
+[ITEM,MAP_ITEM,NEST_ITEM]
+item:
+trade item:           False "If true then player can always sell this item for full price"
+[ITEM_PLACEMENT_GROUP]
+armour blueprints:    ARMOUR (100) "Armour blueprint to put in this group, val0 is chance"
+blueprints:           RESEARCH (100) "Blueprints to put in this group, val0 is chance"
+clothing:             ARMOUR (100) "Armour to put in this group, val0 is chance"
+containers:           CONTAINER (100) "Containers to put in this group, val0 is chance"
+items:                ITEM (100) "Items to put in this group, val0 is chance"
+maps:                 MAP_ITEM (100) "Map items to put in this group, val0 is chance"
+weapon manufacturers: WEAPON_MANUFACTURER (100) "Weapon manufacturer based on the selected item, val0 is chance"
+weapons:              WEAPON (100) "Weapons to put in this group, val0 is chance"
+General:
+placeholder:          "" "Specifies the placeholder item mesh to be used in the level editor.\nDefault: Random"
+random yaw:           True "Whether the item orientation is random when the item is spawned"
+Respawn:
+max respawn time:     48 "Maximum item respawn time in hours."
+min respawn time:     24 "Minimum item respawn time in hours."
+[ITEMS_CULTURE]
+forbidden items:      ITEM "Unspawnable items, things you won't find"
+happy buildings:      BUILDING "buildings that are considered great and will make the faction happy"
+illegal buildings:    BUILDING "buildings that are considered illegal and will trigger the dialog event"
+illegal goods:        ITEM "Contraband"
+trade prices:         ITEM (150) "Multiplier for trade prices default 100% (val1)"
+[LIGHT]
+general:
+brightness:           1.0 "The brightness of the light source"
+diffuse:              #FFFFFF "Light diffuse colour"
+effect:               LightEffect.NONE "Dynamic effect for the light"
+radius:               100.0 "Light falloff radius."
+type:                 LightType.POINT "Type of light source"
+variance:             0.0 "Brightness varies by up to this amount per light instance"
+shadows:
+buildings:            False "Do the buildings cast shadows"
+characters:           False "Does characters cast shadows"
+landscape:            False "Does the landscape cast shadows"
+spotlight:
+falloff:              1.0 "Spotlight falloff curve between inner and outer cones.\n1 is linear, >1 for soft edges, <1 for hard edges.\nMust be greater than 0."
+inner:                45.0 "Spotlight inner cone angle"
+outer:                40.0 "Spotlight outer cone angle"
+[LIMB_REPLACEMENT]
+craft time hrs:       10.0 "time to craft in game hours"
+offset:               0.0 "Height offset"
+slot:                 LimbSlot.LEFT_ARM "What part this replaces"
+files:
+mesh female:          "Ogre mesh|*.mesh" "Mesh for female skeleton"
+stats:
+HP:                   100 "max HP"
+HP 1:                 100 "max HP"
+overall mult:         1.0 "an overall multiplier for all the related stats"
+swimming mult:        0.75 "mult for swimming skill"
+swimming mult 1:      0.75 "mult for swimming skill"
+unarmed damage bonus: 0 
+unarmed damage bonus 1: 0 
+stats arms:
+dexterity mult:       1.0 
+dexterity mult 1:     1.0 "at max quality"
+ranged mult:          1.0 
+ranged mult 1:        1.0 "at max quality"
+strength mult:        1.0 
+strength mult 1:      1.0 "at max quality"
+thievery mult:        1.0 
+thievery mult 1:      1.0 "at max quality"
+stats legs:
+athletics mult:       1.0 "run speed"
+athletics mult 1:     1.0 "run speed"
+stealth mult:         1.0 "mult for stealth skill"
+stealth mult 1:       1.0 "mult for stealth skill"
+[LOCATIONAL_DAMAGE]
+body part type:       BodyPartType.PART_TORSO "flags the type of part this is"
+bone name:            "Bip01 Spine2" "Name of the bone in the skeleton that represents this body part"
+bone name 2:          "" "optional additional bone"
+bone name 3:          "" "optional additional bone"
+pain anim:            ANIMATION (0) "animation played as an overlay to express the pain, eg clutching the wound.  number is the percentage of max health at which the animation activates"
+damage effects 0-1:
+affects move speed:   0.0 "If this area is damaged, will it damage move speed?/n1=full damage -> zero's the stat/n0=no effect"
+affects skills:       0.0 "If this area is damaged, will it damage skill?/n1=full damage -> zero's the stat/n0=no effect"
+end result:
+collapse part:        RagdollPart.WHOLE "part of the body that goes limp if collapses=true"
+collapses:            True "If it reaches low level, does the character collapse"
+death:                True "If flesh/organ damage reaches 0, does the character die"
+KO mult:              1.0 "amount that this part adds to KO time if damaged < 0"
+severance:            True "if flesh damage reaches 0, does the bodypart get severed?"
+[MAP_FEATURES]
+bird attractor:       WILDLIFE_BIRDS (1000, 10) "This feature attracts nearby birds.\nValue 1: Radius in meters.\nValue2: Maximum birds to attract"
+effects:              EFFECT (0,0,0) (1,0,0,0) "Effects"
+sounds:               AMBIENT_SOUND (0, 0,0) "Ambient sounds attached to this feature.\nValues are offset position"
+General:
+collision:            "xml|*.xml|phs|*.phs" "Object collision data"
+distance:             2000.0 "Visibility distance for feature"
+hidden:               False "Feature is not visible. Used for markers to attach effects."
+mesh:                 "mesh|*.mesh" "Object mesh"
+texture mode:         MapFeatureMode.UV_MAPPED "How the texture is mapped to the object.\nTerrain mode uses textures from the current biome."
+Material:
+alpha threshold:      0 "Alpha threshold [0-255]. 0 disables alpha."
+local coordinates:    False "Use local coordinates instead of global coordinates for triplanar and terrain mapping"
+normal map:           TEXTURE_ANY "Object normal map"
+normal map 2:         TEXTURE_ANY "Object normal map for dual texture mode"
+specular mult:        1.0 "overall specular strength, 0 to disable"
+texture map:          TEXTURE_ANY "Object texture map"
+texture map 2:        TEXTURE_ANY "second texture map for dual texture mode"
+tile X:               1.0 "Texture tiling"
+tile Y:               1.0 "Texture tiling"
+CONDITIONS:
+condition "alpha threshold" if "texture mode" is MapFeatureMode.FOLIAGE
+condition "normal map" if "texture mode" not MapFeatureMode.TERRAIN
+condition "normal map 2" if "texture mode" is MapFeatureMode.DUAL_TEXTURE or MapFeatureMode.DUAL_TRIPLANAR
+condition "texture map" if "texture mode" not MapFeatureMode.TERRAIN
+condition "texture map 2" if "texture mode" is MapFeatureMode.DUAL_TEXTURE or MapFeatureMode.DUAL_TRIPLANAR
+condition "tile X" if "texture mode" not MapFeatureMode.TERRAIN
+condition "tile Y" if "texture mode" not MapFeatureMode.TERRAIN
+[MAP_ITEM]
+towns:                TOWN (1, 100) "List of towns this map could unlock and how many.\n1. Number of random towns of this type it unlocks. (0 = all of them)\n2. Probability of unlocking."
+map:
+unlock count:         1 "Total number of towns to randomly unlock. This value is clamped by the total sum of each town val0. (0 = all of them)"
+[MATERIAL_SPEC]
+material:             MATERIAL_SPEC (100) "If anything is listed here, the material becomes a collection: any current material settings are ignored and it will randomly choose a material from this list.  val1 is probability, 0 will be set to 100"
+construction:
+scaffolding tex scale: 4.0 "tile the scaffolding material used when under construction"
+material:
+material type:        BuildingShader.DEFAULT "Defines how the building is textured:\nDefault - default shader\nAlpha - uses normal map alpha for transparency\nFoliage - Uses double sided foliage shader with alpha\nDual - Blends between two texture sets using vertex alpha data\nEmissive - Normal map alpha channel becomes emissive glow amount"
+metalness map 2:      TEXTURE_ANY "Optional second metalness map. Blend between them with vertex alpha"
+normal map 2:         TEXTURE_ANY "Optional second normal map. Blend between them with vertex alpha"
+texture map 2:        TEXTURE_ANY "Optional second texture. Blend between them with vertex alpha"
+tile X:               1.0 "optional tiling of textures"
+tile Y:               1.0 "optional tiling of textures"
+[MATERIAL_SPEC,MATERIAL_SPECS_CLOTHING,MATERIAL_SPECS_WEAPON]
+material:
+normal map:           TEXTURE_ANY "Normal map texture."
+specular mult:        1.0 "overall specular strength, 0 to disable"
+texture map:          TEXTURE_ANY "Diffuse texture. Shininess is encoded in the alpha channel"
+[MATERIAL_SPEC,MATERIAL_SPECS_WEAPON]
+material:
+metalness map:        TEXTURE_ANY "For metalic surfaces. Leave blank for non-metalic objects"
+[MATERIAL_SPECS_CLOTHING]
+coloring:
+paint factor 1:       0.0 "how the colorisation mask affects the diffuse.  1.0 means that the colored mask REPLACES the diffuse (eg for paint), 0.0 means that it multiplies, keeping the base luminosity from the diffuse (eg for dyed cloth)."
+paint factor 2:       0.0 "how the colorisation mask affects the diffuse.  1.0 means that the colored mask REPLACES the diffuse (eg for paint), 0.0 means that it multiplies, keeping the base luminosity from the diffuse (eg for dyed cloth)."
+material:
+color map:            TEXTURE_ANY "Mask to use for applying additional colours.\nRed channel applies colour 1.\nGreen channel applies colour 2.\nBlue channel is the metalness map."
+material type:        ItemShader.DEFAULT "Shader to use"
+[MATERIAL_SPECS_COLLECTION]
+material:             MATERIAL_SPEC (100) "One or more materials to choose from, val1 is probability, 0 will be set to 100"
+[MATERIAL_SPECS_WEAPON]
+craft list fixed:     False "outdated weapons are removed from the list of craftable weapons, unless this is true."
+description:          "" multiline "description of this weapon model"
+[MATERIAL_SPECS_WEAPON,WEAPON]
+mod:
+attack mod:           0 "bonus/penalty to melee attack skill"
+defence mod:          0 "bonus/penalty to melee defence skill"
+[NEST_ITEM]
+cluster:              NEST_ITEM (0) "items to cluster around this one, val0=num min, val1=max, val2=range"
+egg:                  ANIMAL_CHARACTER "animal that comes out of this egg (if it's an egg)"
+material:             MATERIAL_SPEC 
+files:
+number of meshes:     0 "If > 1 then you can include a batch of models, named filename1, filename2, filename3 etc."
+item:
+cluster max:          1 "spawns several clustered together"
+cluster min:          1 "spawns several clustered together"
+cluster range:        40 "radius of the cluster area"
+[NEW_GAME_STARTOFF]
+description:          "" multiline "The in-game description."
+difficulty:           "Normal" "difficulty description"
+faction relations:    FACTION (0) "-100 to +100\nrelationship with other factions, if not listed then assumed default"
+force race:           RACE "limits character creation to these races only"
+money:                100 "Starting cash"
+research:             RESEARCH "starting research techs"
+squad:                SQUAD_TEMPLATE "Starting squads"
+style:                "" "The description of what playstyle it best suits."
+town:                 TOWN "starting location, random if left blank"
+position:
+force start pos:      False "Don't start in a town, start at the coordinates specified"
+start pos X:          4000 
+start pos Z:          4000 
+[PERSONALITY]
+tags always:
+tags always0:         PersonalityTags.PT_NONE looped "NPCs are very likely to have this tag.  "
+tags common:
+tags common0:         PersonalityTags.PT_NONE looped "NPCs are likely to have this tag"
+tags never:
+tags never0:          PersonalityTags.PT_NONE looped "these tags will never be used"
+tags rare:
+tags rare0:           PersonalityTags.PT_NONE looped "NPCs rarely have this tag"
+[RACE]
+AI Goals:             AI_TASK (4, 100) "Various goals of the AI, and their priority (val2, as a percentage 0-100+) (matches the enum [taskPriority], generally you want 3-5, maybe 6) (8=EMOTIONAL, 7=PLAYER_ORDER, 6=CONSTANT, 3-5=CHOOSABLE_GOALS)"
+ambient sound:        AMBIENT_SOUND "Emitter for a constant looped sound while character is alive"
+animation files:      ANIMATION_FILE "Files containing additional or override animations for this race"
+attachment points:    "Scythe physics|*.phs" "Additional attachment point information"
+backpacks:            CONTAINER "for animals, if the creature can wear a backpack"
+buy value:            100 "percentage of normal value when bought or sold as a slave"
+cant enter buildings: False "true for large animals that cant fit through doors, prevents pathfinding performance problems"
+combat anatomy:       LOCATIONAL_DAMAGE (100, 100) "list bodypart locations that can be hit on a character, and chance of hitting each part (val 0), and total health (val 1)"
+description:          "" multiline "general description of this race to show in the character editor"
+filenames prefix:     "" "prefix used on filenames relating to this race, used to identify art files to use"
+fists lv1:            WEAPON "for humans, the weapon to use as fists at level 1"
+fists lv100:          WEAPON "for humans, the weapon to use as fists at max level"
+gigantic:             False "prevents the entity from going invisible at long range"
+hair colors:          COLOR_DATA (100) "hair colors available for this race, val1 is % of how commonly used."
+hairs:                ATTACHMENT (100) "hairstyles available for this race, val1 is % of how commonly used."
+heads female:         HEAD (100) "head textures for females"
+heads male:           HEAD (100) "head textures for males"
+limb replacement:     LIMB_REPLACEMENT "Limb stump models for missing limbs with no prosthetic attached"
+morph num:            5 "Number of different morph faces per race and gender. All of them are recreated on new game start"
+natural armour:       ARMOUR "a natural armour that is added on top of anything they are wearing"
+no hats:              False "race has no inventory hat slot"
+no shirts:            False "race has no inventory shirt slot"
+no shoes:             False "race has no inventory boots slot"
+part map female:      TEXTURE_DDS "Texture specifying body parts to hide when equipping certain armours. One channel per part."
+part map male:        TEXTURE_DDS "Texture specifying body parts to hide when equipping certain armours. One channel per part."
+playable:             True "Sets whether the race is playable by the player.\nFor it to be completely playable it must have a editor limits file and be on any race group."
+severed limbs:        ITEM (0) "Severed limb items that are spawned when dismembered.\n values: 0:left arm, 1:right arm, 2:left leg, 3:right leg"
+single gender:        False "if no male/female version"
+special food:         ITEM "allows us to eat ITEM_FOOD_RESTRICTED items"
+swims:                True "if false then this race walks on the bottom of the lake rather than swimming on the surface"
+weather immunity0:    WeatherAffecting.WA_NONE looped "any particular weather types this race is immune to"
+audio:
+barefoot:             False "Does this race use the barefoot footstep sound when not wearing shoes"
+sounds:               RaceSound.HUMAN "Sound effect group."
+blood:
+blood colour:         #800000 "Blood colour"
+blood horizontal:     1 "Horizontal tiling for character blood overlay. (integer 1+)"
+blood vertical:       0.15 "Vertical stretching for character blood overlay"
+editor:
+editor limits:        "XML|*.xml" "min/max proportion limits in the character editor"
+mesh:
+female mesh:          "Ogre meshes|*.mesh" "female character mesh for this race"
+male mesh:            "Ogre meshes|*.mesh" "male character mesh for this race"
+movement:
+combat move speed mult: 1.0 "affects combat speed, 1.0 is standard for human"
+hull size X:          5.0 "size of the click hull"
+hull size Y:          20.0 "size of the click hull"
+hull size Z:          5.0 "size of the click hull"
+pathfind acceleration: 15.0 "acceleration of the entity.  Should be lower for bigger creatures."
+pathfind footprint radius: 2.5 "radius of the entity in pathfinding terms (normally half of hull size X)"
+speed max skill:      120 "the max run speed at highest athletics skill"
+speed min skill:      70 "the max run speed at lowest athletics skill"
+swim offset:          1.0 "num units above/below the water, relative to head position"
+swim speed mult:      1.0 "the swim speed multiplier"
+walk speed:           15.0 "Speed when walking."
+water avoidance:      0.0 "How far characters will go to avoid water. Negative values will try to stay in the water."
+portrait:
+portrait distance:    10.0 
+portrait offset x:    0.0 
+portrait offset y:    0.5 
+portrait offset z:    0.0 
+ragdoll:
+carriable:            True "Sets if the race can be picked up and carried."
+carry bone:           "" "Name of the bone used to be carried by characters. (Animals only)"
+female carry ragdoll: "Scythe physics|*.phs" 
+female ragdoll:       "Scythe physics|*.phs" "female character ragdoll file for this race"
+male carry ragdoll:   "Scythe physics|*.phs" 
+male ragdoll:         "Scythe physics|*.phs" "male character ragdoll file for this race"
+skin:
+body mask female:     TEXTURE_DDS 
+body mask male:       TEXTURE_DDS 
+body texture female:  TEXTURE_DDS 
+body texture male:    TEXTURE_DDS 
+nm female:            TEXTURE_DDS 
+nm female skinny:     TEXTURE_DDS 
+nm female strong:     TEXTURE_DDS 
+nm male:              TEXTURE_DDS 
+nm male skinny:       TEXTURE_DDS 
+nm male strong:       TEXTURE_DDS 
+stats:
+bleed rate:           1.0 "multiplier for bleeding speed.  0.0 means they are a bloodless race"
+dexterity:            1.0 "multipliers for this attribute"
+extra attack slots:   0 "adds to the global [max num attack slots] for this race.  use for big things."
+heal rate:            1.0 "multiplier for healing speed"
+heal stat:            StatsEnumerated.STAT_MEDIC "the first aid skill that is used when healing this race"
+hunger rate:          1.0 "rate that this race gets hungry"
+is robot:             False "If true then attributes (str, dex etc) are fixed and can only be upgraded with parts"
+max blood:            150.0 "Amount of blood, at highest strength/age"
+min blood:            75.0 "Amount of blood, at lowest strength/age"
+self healing:         False "If true, then this race will slowly heal without bandaging"
+stats bad0:           StatsEnumerated.STAT_NONE looped "any stats this race is weaker in"
+stats good0:          StatsEnumerated.STAT_NONE looped "any stats this race is better at"
+strength:             1.0 "multipliers for this attribute"
+vampiric:             False "If true then when eating a character will suck nutrition instead of eating limbs"
+vision range mult:    1.0 "multiplier for how far they can see (ie to detect other characters)"
+CONDITIONS:
+condition "body mask female" if "single gender" is False
+condition "body texture female" if "single gender" is False
+condition "female carry ragdoll" if "single gender" is False
+condition "female mesh" if "single gender" is False
+condition "female ragdoll" if "single gender" is False
+condition "nm female" if "single gender" is False
+condition "nm female skinny" if "single gender" is False
+condition "nm female strong" if "single gender" is False
+condition "part map female" if "single gender" is False
+[RACE_GROUP]
+races:                RACE "List of races that belong to this race group."
+General:
+description:          "" multiline "Description of the race group"
+[REPEATABLE_BUILDING_PART_SLOT]
+parts:                BUILDING_PART (0, 100) "All parts to be used for the random slots.  val2 is chance, val1 is group"
+[RESEARCH]
+blueprint item:       ITEM "Means that this is a physical blueprint item that needs to be found or bought."
+blueprint only:       False "if true then this tech doesnt appear by itself, you have to find the blueprints somewhere"
+category:             "Core" 
+cost:                 ITEM (1) "the cost in resources"
+description:          "" multiline 
+enable armour:        ARMOUR (0, 0) "Enable armour to be crafted\nValue 1 will designate which repetition this item is unlocked on\nValue 2 overrides the tech level of this research item at this repetition value\nValues are ignored if research has no repetitions"
+enable backpack:      CONTAINER (0, 0) "Enable backpacks to be crafted\nValue 1 will designate which repetition this item is unlocked on\nValue 2 overrides the tech level of this research item at this repetition value\nValues are ignored if research has no repetitions"
+enable buildings:     BUILDING (0, 0) "Unlock buildings in the build menu\nValue 1 will designate which repetition this item is unlocked on\nValue 2 overrides the tech level of this research item at this repetition value\nValues are ignored if research has no repetitions"
+enable crossbow:      CROSSBOW (0, 0) "Enable crossbows to be crafted\nValue 1 will designate which repetition this item is unlocked on\nValue 2 overrides the tech level of this research item at this repetition value\nValues are ignored if research has no repetitions"
+enable item:          ITEM (0, 0) "Enable items to be craftedValue 1 will designate which repetition this item is unlocked on\nValue 2 overrides the tech level of this research item at this repetition value\nValues are ignored if research has no repetitions"
+enable robotics:      LIMB_REPLACEMENT (0, 0) "Enable robotic limbs to be crafted\nValue 1 will designate which repetition this item is unlocked on\nValue 2 overrides the tech level of this research item at this repetition value\nValues are ignored if research has no repetitions"
+enable weapon model:  MATERIAL_SPECS_WEAPON (0, 0) "Enable weapon models to be crafted\nValue 1 will designate which repetition this item is unlocked on\nValue 2 overrides the tech level of this research item at this repetition value\nValues are ignored if research has no repetitions"
+enable weapon type:   WEAPON (0, 0) "Unlock weapon model in crafting benched\nValue 1 will designate which repetition this item is unlocked on\nValue 2 overrides the tech level of this research item at this repetition value\nValues are ignored if research has no repetitions"
+improve buildings:    BUILDING "Building improvements will affect the given buildings"
+is level upgrade:     False "true if this is a level up for the current tech level"
+level:                1 "level of research desk required"
+money:                0 "Money required"
+requirements:         RESEARCH (0) "Research required to unlock this item\nValue is research repetition number needed"
+time:                 12 "time required, in game hours"
+building improvements:
+power capacity increase: 0 "Adds this amount to the buildings [power capacity]"
+power increase:       0 "Adds this amount to the buildings [power output]"
+production mult:      1.0 "multiplies the buildings [output rate]"
+repeats:
+repeat mult:          1.0 "if repeating, time/money costs are multiplied by this"
+repeats:              0 "If > 0 this research can be repeated for cumulative upgrades.  val1 of enabled items/buildings etc will represent the repeat number that the item is unlocked at (0 first, then 1, then 2....)"
+[SEASON]
+weathers:             WEATHER (1, 1,120) "Weather list. \n1.- Probability of occurrence \n2.- Minimum duration in minutes \n3.- Maximum duration in minutes"
+Sun:
+sunlight color:       #FFFFFF "Color of the sun"
+Weather:
+weather strength limit max: 1.0 "Maximum interpolation value for the weather strength [0-1]"
+weather strength limit min: 0.0 "Minimum interpolation value for the weather strength [0-1]"
+[SINGLE_DIPLOMATIC_ASSAULT]
+AI packages:          AI_PACKAGE "main list of AI packages, an AI package is an entire shift in behavior"
+delivery AI package:  AI_PACKAGE "Specific, one-off completable packages that have top priority"
+dialogue:             DIALOGUE "override dialog for the main squad leader"
+dialogue announce:    DIALOGUE "override announcement dialog for the main squad leader"
+dialogue squad:       DIALOGUE "dialog for rest of squad that will usually refer player to the leader"
+fallback AI package:  AI_PACKAGE "The fallback AI package, when have nothing else to do (eg patrol, go home)"
+main squad:           SQUAD_TEMPLATE "The main leading squad"
+category:
+is aggressive:        True "important characteristic for the AI to know.  Is this mission aggressive against it's target? Does it launch at allies or enemies?"
+timer:
+repeat timer hours max: 10 "timer for the repeated assaults"
+repeat timer hours min: 10 "timer for the repeated assaults"
+[SQUAD_TEMPLATE]
+AI packages:          AI_PACKAGE (0) "main list of AI packages, an AI package is an entire shift in behavior.  val0 is priority level, so a higher number package will alway override a lower number, and won't go back to the lower one until the upper one is completed."
+housemates:           SQUAD_TEMPLATE (1, 0) "this squad will also spawn these other squads.  Useful when you want to have multiple separate squads living in one building.  vals are min/max number of them to spawn"
+sell home:            False "true if this squad is willing to sell its home building"
+special items:        ITEM (1) "Use this list to spawn any unique special items.  Every item in this list will be spawned in the squad's building somewhere."
+special map items:    MAP_ITEM (1) "Use this list to spawn any unique special map items.  Every item in this list will be spawned in the squad's building somewhere."
+vendors:              VENDOR_LIST (100) "inventory list if this squad is a shop squad, val0 is percentage of items from that vendor"
+content:
+gear artifacts base value: 0 "The base value of gear artifacts (weapons and armours) the squad can get. (0 = No artifacts).  Town needs to also have a max artifact value set for this squad to get anything"
+item artifacts base value: 0 "The base value of item artifacts the squad can get. (0 = No artifacts).  Town needs to also have a max artifact value set for this squad to get anything"
+town residents:
+regenerates:          False "if true for a resident squad, they will slowly regenerate over time, to restore losses and prevent towns getting worn away to nothing"
+vendors:
+buy mult:             1.0 "price multiplier, when the npc buys and sells"
+buys illegal:         False "true if he buys illegal goods like drugs.  NOTE this only applies to the laws of the town they are in, eg a to a swamper drugs are not illegal"
+buys stolen:          False "true if he buys stolen goods"
+is trader:            False "True if this squad is a trading squad. Must have a vendor item list."
+vendor money:         0 "Money available to vendors for buying goods.\nLeave at 0 to use default value calculated from vendor list"
+vendors fill total amount: 15 "Sets the total maximum amount of items the vendor can have."
+vendors refresh time: 24.0 "Time in hours to refresh the trader's inventory items."
+[SQUAD_TEMPLATE,UNIQUE_SQUAD_TEMPLATE]
+animal age random:    0.1 "for animals in the squad, affects how much their age can be randomised (0-1)"
+animals:              ANIMAL_CHARACTER (1, 1,100) "the character templates making up each squad, val0 is min number of them, val1 is max number, val2 is the age: 100=adult, 0=baby"
+animals2:             ANIMAL_CHARACTER (1, 1,100) "the character templates making up each squad, val0 is min number of them, val1 is max number, val2 is the age: 100=adult, 0=baby"
+building:             BUILDING "(optional) For town residents, the preferred building type that this squad lives in"
+building dislike:     BUILDING "(optional) For town residents, prefers NOT to use this building"
+choosefrom list:      CHARACTER (1) "the game will randomly choose characters out of this list [val1] is the chance."
+dialog animal:        DIALOGUE_PACKAGE "Dialog for any animals in the squad."
+dialog leader:        DIALOGUE_PACKAGE "Override dialog for the leader. overrides anything personal."
+dialog squad:         DIALOGUE_PACKAGE "Dialog for the entire squad other than the leader. Overrides any packages set in the character."
+dont multiply:        False "stops this squad size from being affected by the squad size multiplier in the options window"
+faction:              FACTION "Optional, Needed sometimes, often for town residents"
+force speed:          MoveSpeed.NO_SPEED_CHANGE "Forces the characters to always try and move at this speed"
+generation info:      FACTION_TEMPLATE "extra info if you want a more randomised squad"
+leader:               CHARACTER (1) "the character templates making up each squad, val1 is number of them"
+nest:                 TOWN "(optional) here you could add a nest, which will populate the building with debris and loot like a nest does"
+prisoners:            SQUAD_TEMPLATE "any prisoners, will be spawned in the cages, if there are no cages available then they won't be spawned"
+race override:        RACE (100) "forces all the characters to be this race."
+roaming military:     False "If true then forces this squad to count as a roaming squad, meaning it counts as mobile military forces, even if it has a hometown"
+slaves:               SQUAD_TEMPLATE "any slaves owned by this squad"
+squad:                CHARACTER (1, 0) "the character templates making up each squad, val0 is min number of them, val1 is max number (0=non random)"
+squad2:               CHARACTER (1, 0) "optional separate half of squad"
+world state:          WORLD_EVENT_STATE (1) "adds this world state as a AND condition for this squad to spawn.  1=true, 0=false"
+AI:
+blood smell mult:     0.0 "Mainly for animals, affects this squads attraction to the smell of blood and death.  1 is a moderate effect, about 4 is very strong.  You can also go negative to make the squad avoid dangerous zones."
+patrol approaches towns: True "for randomly patrolling squads, this determines if they go for nearby towns (hostile or otherwise)."
+building:
+initial door state:   DoorState.CLOSED "How the building door is when first loaded."
+Choosefrom list:
+num random chars:     0 "the min number of random chars to choose from the [choosefrom list]."
+num random chars max: 0 "the max number of random chars to choose from the [choosefrom list]."
+general:
+malnourished:         False "true to use the skinny normal map for characters"
+town residents:
+bed usage cost:       100 "How much it costs to use a bed"
+building designation: BuildingDesignation.BD_NONE "how this building is considered by the AI"
+building name:        "" "sets the name to display in the buildings GUI panel, if blank then the interior layout name will be used"
+building ruined:      False "true makes this building a ruin"
+layout exterior:      "" "Layout name to use for the specified building"
+layout interior:      "" "Layout name to use for the specified building"
+public beds:          False "Can the player use their beds?"
+public day:           True "If the squad has a home building, sets it public or private"
+public night:         False "If the squad has a home building, sets it public or private"
+vendors:
+crossbow levels:      ArmourRarity.GEAR_CHEAP "avg gear quality level, has chance of being 1 higher or 1 lower"
+robotics levels:      ArmourRarity.GEAR_CHEAP "avg gear quality level, has chance of being 1 higher or 1 lower"
+[STATS]
+attributes:
+dexterity:            1.0 "Dexterity [0-100]"
+strength:             1.0 "Character strength [0-100]"
+toughness2:           1.0 "Toughness [0-100]"
+combat skills:
+attack:               1.0 "Melee attack skill [0-100]"
+defence:              1.0 "Melee defence skill [0-100]"
+dodge:                1.0 "Dodging skill [0-100]"
+unarmed:              1.0 "Martial art skill [0-100]"
+movement:
+athletics:            1.0 "Athletics skill [0-100]"
+swimming:             1.0 "Swimming skill [0-100]"
+science skills:
+engineer:             1.0 "Engineering skill [0-100]"
+medic:                1.0 "Field medic skill [0-100]"
+robotics:             1.0 "Robotics skill [0-100]"
+science:              1.0 "Science skill [0-100]"
+stealth skills:
+assassin:             1.0 "Assasination skill [0-100]"
+lockpicking:          1.0 "Lock picking skill [0-100]"
+stealth:              1.0 "Sneaking skill [0-100]"
+thievery:             1.0 "Stealing skill [0-100]"
+trade skills:
+armour smith:         1.0 "Armour smithing skill [0-100]"
+bow smith:            1.0 "Crossbow smithing skill [0-100]"
+cooking:              1.0 "Cooking skill [0-100]"
+farming:              1.0 "Farming skill [0-100]"
+labouring:            1.0 "Labouring skill [0-100]"
+weapon smith:         1.0 "Weapon smithing skill [0-100]"
+weapon skills:
+blunt:                1.0 "Skill wielding blunt weapons [0-100]"
+bow:                  1.0 "Crossbow skill [0-100]"
+ff:                   1.0 "Precision shooting skill [0-100]"
+hackers:              1.0 "Skill wielding hackers [0-100]"
+heavy weapons:        1.0 "Skill wielding heavy weapons [0-100]"
+katana:               1.0 "Skill wielding katanas [0-100]"
+poles:                1.0 "Skill wielding polearms [0-100]"
+sabres:               1.0 "Skill wielding sabres [0-100]"
+turrets:              1.0 "Skill operating turrets [0-100]"
+[TOWN]
+debris:               NEST_ITEM (0, 10,100) "debris items to scatter around the area, val0+1 is min/max num to spawn, val2 is the mesh scale multiplier (%)"
+debris building:      BUILDING (0, 10,100) "for nests only, building must have no navmesh effect.  debris items to scatter around the area, val0 is num to spawn (+has 50% randomisation) (set to 0 for a 50% chance of 1), val1+2 is the min and max cluster range around the centrepoints of the nest)"
+faction:              FACTION "Town is owned by this faction"
+is public:            True "Lets the public visit.  False for things like military bases"
+is secret:            False "use for crafty secret towns, stops the GUI from displaying buildings factions and giving away suprises"
+loot spawn:           VENDOR_LIST (0, 10) "random items to spawn scattered around, val0+1 is random min max number of items"
+material:             MATERIAL_SPEC "Sets the material used for this town"
+no-foliage range:     2000.0 "no foliage will be spawned within this range"
+override town:        TOWN "(towns) here you can specify a replacement town, with a world state.  If the world state is true it will repopulate the town with the new one.  Use it to change and devastate factions."
+residents:            SQUAD_TEMPLATE (1, 2) "residents of this town.  val0 is number of them, but set it to zero to set one as the default filler resident.  If no residents are listed, then it will use the residents listed in the FACTION as default.  val1 is the priority level, higher number is more important"
+residents override:   False "if true residents list will replace faction default, else will add to it"
+roaming squads:       SQUAD_TEMPLATE (0) "the roaming squads that actually leave town and do stuff, they are tied to the town population"
+town radius mult:     1.0 "multiplies the town radius, should normally be 1 except in special cases, like if a town is so big that the AI considers itself out of town before it leaves the gates"
+trade culture:        ITEMS_CULTURE "specifying a culture object for a town will add overrides to that of the faction culture (only works for the price mults)"
+type:                 TownType.TOWN_OUTPOST "type of town"
+unexplored name:      "" "optional mysterious name for when town is unexplored"
+world state:          WORLD_EVENT_STATE (1) "(nests or override towns) adds this world state as a AND condition for this nest/town to spawn.  1=true, 0=false"
+content:
+gear artifacts max value: 0 "The maximum value of gear artifacts (weapons and armours) in the town. (0 = No artifacts).  IMPORTANT: make sure there is at least 1 resident in this town with the same or higher artifact value, otherwise the artifactts will be lost"
+gear artifacts min value: 0 "The minimum value of gear artifacts (weapons and armours) in the town."
+item artifacts max value: 0 "The maximum value of item artifacts in the town. (0 = No artifacts).  IMPORTANT: make sure there is at least 1 resident in this town with the same or higher artifact value, otherwise the artifactts will be lost"
+item artifacts min value: 0 "The minimum value of item artifacts in the town."
+nests:
+nest resident population: 15 "the max population value, number of animals to spawn for this if its a nest"
+spawn junk:
+num centrepoints:     4 "used for debris buildings, they are spawned in clusters, and this is the number of clusters"
+size radius:          350.0 "affects the overall size of the nest"
+spawn in town centre: False "if true then the nest junk will spawn for any town, otherwise its just for nests"
+[UNIQUE_SQUAD_TEMPLATE]
+missions:             DIPLOMATIC_ASSAULTS "The different types of mission we are capable of doing to a target, val1 is weight 0-100+"
+death:
+persistent:           True "makes this a non-permanent squad"
+replacement time:     24 "time it takes for the faction to replace this squad if it's wiped out"
+[VENDOR_LIST]
+armour blueprints:    ARMOUR (100) "Listing armour here will put the blueprints up for sale"
+backpack blueprints:  CONTAINER (100) "Listing backpacks here will put the blueprints up for sale"
+blueprints:           RESEARCH (100) "value is relative chance"
+clothing:             ARMOUR (100) "value is relative chance"
+containers:           CONTAINER (100) "value is relative chance"
+crossbow blueprints:  CROSSBOW (100) "Listing crossbows here will put the blueprints up for sale"
+crossbows:            CROSSBOW (100) "val0 is relative chance"
+items:                ITEM (100) "value is relative chance"
+maps:                 MAP_ITEM (100) "value is relative chance"
+robotics:             LIMB_REPLACEMENT (100) "val0 is relative chance"
+weapon manufacturers: WEAPON_MANUFACTURER (100) "value is relative chance"
+weapons:              WEAPON (100) "value is relative chance"
+items:
+items count:          40 "Total amount of items that are taken from the vendor list.\nThe actual number of used items will depend of the available space in the inventories."
+[WEAPON]
+length:               14 "The length of the weapon, the maximum reach"
+craft:
+material cost:        4 "amount of material needed to craft"
+damage:
+animal damage mult:   1.0 "damage bonus to animals"
+armour penetration:   0.0 "0-1 value, subtracts this from the armour's defence as a percentage.  So 0.5 = armour loses 50% of its protection.  -0.5 = armour is 50% more effective against this weapon"
+bleed mult:           1.0 "multiplier for the amount of bleeding the weapon type causes"
+blunt damage multiplier: 0.0 "Ranges around 0.0 to 2.0.  This dictates weapon weight.  Is multiplied by stats and is the bulk of the damage for a heavy weapons guy. "
+cut damage multiplier: 1.0 "Ranges around 0.5 to 1.5, this is multiplied by attack skill and is the bulk of the damage for a skilled swordsman"
+human damage mult:    1.0 "damage bonus to non-animals"
+min cut damage mult:  1.0 "(multiplier of the equivalent value in material spec) Only handy for beginners, provides a minimum damage cap.  if damage < min then damage = rand(min)"
+pierce damage multiplier: 0.0 "Ranges 0.5 to 1.5, this is multiplied by attack skill and is the bulk of the damage for a skilled swordsman"
+robot damage mult:    1.0 "damage bonus to robotic creatures"
+files:
+bare sword:           "Ogre mesh|*.mesh" "the sword, bare blade, no sheath"
+sheath:               "Ogre mesh|*.mesh" "sheath only, should line up with the sword mesh."
+inventory icon:
+icon offset H:        -4.0 "align the image horizontally"
+mod:
+indoors mod:          0 "modifier to attk + def if we are indoors"
+weight mult:          1.0 "multiplier for weight, use it to make weapons lighter or heavier without affecting the blunt damage.  Should usually be kept at 1.0"
+type:
+can block:            True "true if this weapon can be used to block.  false for things like knives, fists, bows etc"
+material:             WeaponMaterial.Metal "Material the weapon is made of"
+skill category:       WeaponCategory.SKILL_KATANAS "Indicates the weapon type."
+skill category animation override: WeaponCategory.ATTACK_NULL "use to override animations for unique weapons, mainly changes the guard stance"
+[WEAPON_MANUFACTURER]
+company description:  "" multiline 
+faction owner:        FACTION "optional, if this company is owned by a faction"
+price mod:            1.0 "1.0 multiplier == average prices"
+weapon models:        MATERIAL_SPECS_WEAPON (40, 100) "the individual models of weapon\nval1 == overall level [1-100]\nval2 == chance"
+weapon types:         WEAPON (100) "the base weapon meshes to use.  val2 = chance"
+stats mod:
+blunt damage mod:     1.0 "multiplier"
+cut damage mod:       1.0 "multiplier"
+min cut damage:       1 "Base value.  Only handy for beginners, provides a minimum damage cap.  if damage < min then damage = rand(min)"
+weight mod:           1.0 "multiplier"
+[WEATHER]
+effects:              EFFECT (1, 60,600) "Weather visual/game effects.\n1- Maximum count of effects that there can be active at the same time. (0 = infinite). \n2.- Minimum respawn time (in real seconds). \n3.- Maximum respawn time (in real seconds). (If min and max equals 0, the maximum count it's spawned all at once)"
+affects characters:
+affect strength:      0.5 "0-1"
+affect type:          WeatherAffecting.WA_NONE "does this weather cause any kind of direct affect to characters"
+Audio:
+rain intensity:       0.0 "Intensity of the rain sounds [0-100]"
+wind intensity:       0.0 "Intensity of the wind sounds at maximum strength [0-100]"
+Dust:
+dust:                 0.0 "Dust effect [0-1]"
+dust inside:          0.33 "Multiplier for dust effect inside buildings"
+dust slope:           0.0 "Slope steepness that dust sticks to. [0-1]"
+Fog:
+fog color:            #FFFFFF "Fog color."
+fog distance max:     0.0 "Fog visibility maximum distance. (Based on the wind speed)"
+fog distance min:     0.0 "Fog visibility minimum distance. (Based on the wind speed)"
+fog enabled:          False "Enables fog"
+fog wind max:         0.0 "Wind speed for maximum fog density."
+fog wind min:         0.0 "Wind speed for minimum fog density."
+General:
+effect strength max:  1.0 "Maximum effect strength"
+effect strength min:  1.0 "Minimum effect strength"
+heat haze:            0.0 "Strength of heat haze effect [0-1]"
+wetness:              0.0 "How wet everything gets [0-1]"
+Sky:
+clouds density:       0.0 "Density/coverage of clouds on the sky."
+sky color mult:       #FFFFFF "Sky color multiplier."
+Time of Day:
+end time:             0.0 "Limit this weather to specific times during the day (hour)"
+start time:           0.0 "Limit this weather to specific times during the day (hour)"
+Wind:
+wind speed max:       30.0 "Maximum wind speed (unit/s)"
+wind speed min:       0.0 "Minimum wind speed (unit/s)"
+wind update limit:    20 "The limit variation for the wind update [0-360]"
+wind update time:     360 "Time in minutes to change wind speed and direction"
+[WILDLIFE_BIRDS]
+general:
+distance:             500000.0 "Maximum distance from camera that birds exist"
+mesh:                 "mesh|*.mesh" "Bird mesh"
+scale max:            1.0 "Maximum scale multiplier"
+scale min:            1.0 "Minimum scale multiplier"
+texture:              TEXTURE_ANY "Bird texure"
+movement:
+circling:             False "Do these birds circle?"
+contour strength:     1.0 "How much birds follow contours, or travel straight [0-1]"
+flocking:             True "Do these birds form flocks?"
+ground height:        1000.0 "Target altitude to fly over. Use this to focus on mountains or shorelines etc"
+ground strength:      1.0 "How much ground height affects movement [0-1]"
+height:               800.0 "Height above the ground to fly at"
+speed:                500.0 "Movement speed"
+spawn:
+spawn count:          1 "Number of birds to spawn at each point. Use for spawning flocks."
+spawn height max:     4000.0 "Maximum ground height to spawn at"
+spawn height min:     0.0 "Minimum ground height to spawn at"
+[WORD_SWAPS]
+special:
+persistent use:       False "if true then whichever wordswap gets chosen will be always used by that character for now on."
+[WORLD_EVENT_STATE]
+notes:                "" "not shown in game, just used for design notes"
+NPC is:               CHARACTER (1) "is this unique NPC alive (1) or dead (0) or imprisoned (2)"
+NPC is NOT:           CHARACTER (1) "is this unique NPC NOT alive (1) or dead (0) or imprisoned (2)"
+player ally:          FACTION (1) "is the faction an ally of the player"
+player enemy:         FACTION (1) "is the faction an enemy of the player"
+player involvement:   False "if true, then this state will only be true if the player was involved in at least one of the specified states.  If false, then it won't care about player involvement either way"
+town okay:            TOWN (1) "is this town okay (1) or destroyed (0)"
