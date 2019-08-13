@@ -222,7 +222,7 @@ namespace forgotten_construction_set
 				MinimizeBox = false,
 				MaximizeBox = false,
 				ClientSize = size,
-				Text = "Add column"
+				Text = "ÐÂÔöÁÐ"
 			};
 			ComboBox comboBox = new ComboBox()
 			{

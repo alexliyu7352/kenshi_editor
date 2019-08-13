@@ -143,7 +143,7 @@ namespace forgotten_construction_set
 		{
 			OpenFileDialog openFileDialog = new OpenFileDialog()
 			{
-				Title = "Load changes from another file",
+				Title = "从另一个文件加载更改",
 				InitialDirectory = AppDomain.CurrentDomain.BaseDirectory,
 				FileName = ""
 			};
@@ -268,7 +268,7 @@ namespace forgotten_construction_set
 				GameData.Item item1 = this.tempData.getItem(str2);
 				this.checkItem(item1, true);
 			}
-			MessageBox.Show(string.Concat("Selected ", strs.Count, " missing references"), "Merge");
+			MessageBox.Show(string.Concat("已选择的 ", strs.Count, " 丢失引用"), "合并");
 		}
 
 		private void InitializeComponent()
@@ -299,21 +299,21 @@ namespace forgotten_construction_set
 			this.modBox.Name = "modBox";
 			this.modBox.Size = new System.Drawing.Size(261, 21);
 			this.modBox.TabIndex = 1;
-			this.toolTip.SetToolTip(this.modBox, "Select mod to load changes from");
+			this.toolTip.SetToolTip(this.modBox, "选择mod以加载更改");
 			this.modBox.SelectedIndexChanged += new EventHandler(this.modBox_SelectedIndexChanged);
 			this.label1.AutoSize = true;
 			this.label1.Location = new Point(0, 5);
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(116, 13);
 			this.label1.TabIndex = 2;
-			this.label1.Text = "Add changes from mod";
+			this.label1.Text = "从mod添加更改";
 			this.mergeButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			this.mergeButton.DialogResult = System.Windows.Forms.DialogResult.OK;
 			this.mergeButton.Location = new Point(323, 236);
 			this.mergeButton.Name = "mergeButton";
 			this.mergeButton.Size = new System.Drawing.Size(75, 23);
 			this.mergeButton.TabIndex = 4;
-			this.mergeButton.Text = "Merge";
+			this.mergeButton.Text = "合并";
 			this.mergeButton.UseVisualStyleBackColor = true;
 			this.mergeButton.Click += new EventHandler(this.mergeButton_Click);
 			this.cancelButton.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -322,34 +322,34 @@ namespace forgotten_construction_set
 			this.cancelButton.Name = "cancelButton";
 			this.cancelButton.Size = new System.Drawing.Size(75, 23);
 			this.cancelButton.TabIndex = 5;
-			this.cancelButton.Text = "Cancel";
+			this.cancelButton.Text = "从mod添加更改";
 			this.cancelButton.UseVisualStyleBackColor = true;
 			this.contextMenu.Items.AddRange(new ToolStripItem[] { this.selectAll, this.selectNone, this.toolStripSeparator1, this.selectRecursive, this.selectNoneRecursive, this.toolStripSeparator2, this.fixReferences });
 			this.contextMenu.Name = "contextMenu";
 			this.contextMenu.Size = new System.Drawing.Size(172, 126);
 			this.selectAll.Name = "selectAll";
 			this.selectAll.Size = new System.Drawing.Size(171, 22);
-			this.selectAll.Text = "Select &All";
+			this.selectAll.Text = "选择所有";
 			this.selectAll.Click += new EventHandler(this.selectAll_Click);
 			this.selectNone.Name = "selectNone";
 			this.selectNone.Size = new System.Drawing.Size(171, 22);
-			this.selectNone.Text = "&Deselect All";
+			this.selectNone.Text = "&反向选择所有";
 			this.selectNone.Click += new EventHandler(this.selectNone_Click);
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(168, 6);
 			this.selectRecursive.Name = "selectRecursive";
 			this.selectRecursive.Size = new System.Drawing.Size(171, 22);
-			this.selectRecursive.Text = "Select &Recursive";
+			this.selectRecursive.Text = "选择&递归";
 			this.selectRecursive.Click += new EventHandler(this.selectRecursive_Click);
 			this.selectNoneRecursive.Name = "selectNoneRecursive";
 			this.selectNoneRecursive.Size = new System.Drawing.Size(171, 22);
-			this.selectNoneRecursive.Text = "Deselect R&ecursive";
+			this.selectNoneRecursive.Text = "取消选择 &递归";
 			this.selectNoneRecursive.Click += new EventHandler(this.selectNoneRecursive_Click);
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new System.Drawing.Size(168, 6);
 			this.fixReferences.Name = "fixReferences";
 			this.fixReferences.Size = new System.Drawing.Size(171, 22);
-			this.fixReferences.Text = "F&ix References";
+			this.fixReferences.Text = "修复引用";
 			this.fixReferences.Click += new EventHandler(this.fixReferences_Click);
 			this.tree.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			this.tree.ContextMenuStrip = this.contextMenu;
@@ -375,7 +375,7 @@ namespace forgotten_construction_set
 			this.anyFile.Size = new System.Drawing.Size(26, 23);
 			this.anyFile.TabIndex = 6;
 			this.anyFile.Text = "*";
-			this.toolTip.SetToolTip(this.anyFile, "Select a file to load changes from");
+			this.toolTip.SetToolTip(this.anyFile, "选择要加载更改的文件");
 			this.anyFile.UseVisualStyleBackColor = true;
 			this.anyFile.Click += new EventHandler(this.anyFile_Click);
 			this.leveldata.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -384,7 +384,7 @@ namespace forgotten_construction_set
 			this.leveldata.Name = "leveldata";
 			this.leveldata.Size = new System.Drawing.Size(111, 17);
 			this.leveldata.TabIndex = 7;
-			this.leveldata.Text = "Merge Level Data";
+			this.leveldata.Text = "合并地图数据";
 			this.leveldata.UseVisualStyleBackColor = true;
 			this.leveldata.CheckedChanged += new EventHandler(this.leveldata_CheckedChanged);
 			base.AcceptButton = this.mergeButton;
@@ -401,7 +401,7 @@ namespace forgotten_construction_set
 			base.Controls.Add(this.tree);
 			base.Name = "MergeDialog";
 			base.ShowIcon = false;
-			this.Text = "Merge Mod";
+			this.Text = "合并MOD";
 			this.contextMenu.ResumeLayout(false);
 			base.ResumeLayout(false);
 			base.PerformLayout();

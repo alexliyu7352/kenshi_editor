@@ -149,14 +149,14 @@ namespace forgotten_construction_set
 			this.listView1.View = View.Details;
 			this.listView1.VirtualMode = true;
 			this.listView1.SelectedIndexChanged += new EventHandler(this.listView1_SelectedIndexChanged);
-			this.columnHeader2.Text = "Name";
+			this.columnHeader2.Text = "名称";
 			this.columnHeader2.Width = 241;
 			this.contextMenuStrip1.Items.AddRange(new ToolStripItem[] { this.openToolStripMenuItem });
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
 			this.contextMenuStrip1.Size = new System.Drawing.Size(104, 26);
 			this.openToolStripMenuItem.Name = "openToolStripMenuItem";
 			this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-			this.openToolStripMenuItem.Text = "Open";
+			this.openToolStripMenuItem.Text = "打开";
 			this.openToolStripMenuItem.Click += new EventHandler(this.openItem_Click);
 			this.bOk.Anchor = AnchorStyles.Bottom;
 			this.bOk.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -164,7 +164,7 @@ namespace forgotten_construction_set
 			this.bOk.Name = "bOk";
 			this.bOk.Size = new System.Drawing.Size(75, 23);
 			this.bOk.TabIndex = 3;
-			this.bOk.Text = "Ok";
+			this.bOk.Text = "好的";
 			this.bOk.UseVisualStyleBackColor = true;
 			this.bOk.Click += new EventHandler(this.bOk_Click);
 			this.bCancel.Anchor = AnchorStyles.Bottom;
@@ -173,7 +173,7 @@ namespace forgotten_construction_set
 			this.bCancel.Name = "bCancel";
 			this.bCancel.Size = new System.Drawing.Size(75, 23);
 			this.bCancel.TabIndex = 4;
-			this.bCancel.Text = "Cancel";
+			this.bCancel.Text = "取消";
 			this.bCancel.UseVisualStyleBackColor = true;
 			this.filter.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			this.filter.Location = new Point(0, 436);
@@ -195,7 +195,7 @@ namespace forgotten_construction_set
 			base.Controls.Add(this.listView1);
 			base.Name = "ItemDialog";
 			base.StartPosition = FormStartPosition.CenterParent;
-			this.Text = "Select items to reference";
+			this.Text = "选择要引用的项";
 			this.contextMenuStrip1.ResumeLayout(false);
 			base.ResumeLayout(false);
 			base.PerformLayout();

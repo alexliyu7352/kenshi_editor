@@ -120,7 +120,7 @@ namespace forgotten_construction_set
 				_itemType = itemType.BUILDING;
 				str1 = "is node=true";
 			}
-			ItemDialog itemDialog = new ItemDialog(string.Concat("Select ", str, " reference"), this.nav.ou.gameData, _itemType, true, str1, _itemType);
+			ItemDialog itemDialog = new ItemDialog(string.Concat("选择 ", str, " 的引用"), this.nav.ou.gameData, _itemType, true, str1, _itemType);
 			if (itemDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				if (!(desc.defaultValue is GameData.Instance))
@@ -267,7 +267,7 @@ namespace forgotten_construction_set
 		private void copyData_Click(object sender, EventArgs e)
 		{
 			string str = "";
-			ItemDialog itemDialog = new ItemDialog("Select Object To Copy From", this.nav.ou.gameData, this.Item.type, false, str, itemType.NULL_ITEM);
+			ItemDialog itemDialog = new ItemDialog("选择要从中复制的对象", this.nav.ou.gameData, this.Item.type, false, str, itemType.NULL_ITEM);
 			if (itemDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				this.Item.clearInstances();
@@ -455,19 +455,19 @@ namespace forgotten_construction_set
 			this.contextMenu.Opening += new CancelEventHandler(this.contextMenu_Opening);
 			this.bOpenReference.Name = "bOpenReference";
 			this.bOpenReference.Size = new System.Drawing.Size(179, 22);
-			this.bOpenReference.Text = "Open";
+			this.bOpenReference.Text = "打开";
 			this.bOpenReference.Click += new EventHandler(this.openReference_Click);
 			this.bRemoveReference.Name = "bRemoveReference";
 			this.bRemoveReference.Size = new System.Drawing.Size(179, 22);
-			this.bRemoveReference.Text = "Remove from list";
+			this.bRemoveReference.Text = "从列表中删除";
 			this.bRemoveReference.Click += new EventHandler(this.bRemoveReference_Click);
 			this.bReplaceWithCopy.Name = "bReplaceWithCopy";
 			this.bReplaceWithCopy.Size = new System.Drawing.Size(179, 22);
-			this.bReplaceWithCopy.Text = "Replace with copy";
+			this.bReplaceWithCopy.Text = "替换并复制";
 			this.bReplaceWithCopy.Click += new EventHandler(this.replaceWithCopyToolStripMenuItem_Click);
 			this.bRemoveSection.Name = "bRemoveSection";
 			this.bRemoveSection.Size = new System.Drawing.Size(179, 22);
-			this.bRemoveSection.Text = "Remove all from list";
+			this.bRemoveSection.Text = "从列表中移除所有";
 			this.bRemoveSection.Visible = false;
 			this.bRemoveSection.Click += new EventHandler(this.bRemoveSection_Click);
 			this.additionalCommands.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -476,7 +476,7 @@ namespace forgotten_construction_set
 			this.additionalCommands.Size = new System.Drawing.Size(25, 23);
 			this.additionalCommands.TabIndex = 4;
 			this.additionalCommands.Text = "...";
-			this.tooltips.SetToolTip(this.additionalCommands, "List all game objects that reference this item");
+			this.tooltips.SetToolTip(this.additionalCommands, "列出所有引用这个项目的游戏对象");
 			this.additionalCommands.UseVisualStyleBackColor = true;
 			this.additionalCommands.MouseDown += new MouseEventHandler(this.additionalCommands_MouseDown);
 			this.bAddReference.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -484,8 +484,8 @@ namespace forgotten_construction_set
 			this.bAddReference.Name = "bAddReference";
 			this.bAddReference.Size = new System.Drawing.Size(58, 23);
 			this.bAddReference.TabIndex = 3;
-			this.bAddReference.Text = "Add";
-			this.tooltips.SetToolTip(this.bAddReference, "Add a reference to the listed section");
+			this.bAddReference.Text = "添加";
+			this.tooltips.SetToolTip(this.bAddReference, "向列出的部分添加引用");
 			this.bAddReference.UseVisualStyleBackColor = true;
 			this.bAddReference.Click += new EventHandler(this.bAddReference_Click);
 			this.referenceTypes.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -513,44 +513,44 @@ namespace forgotten_construction_set
 			this.description.Name = "description";
 			this.description.Size = new System.Drawing.Size(517, 44);
 			this.description.TabIndex = 1;
-			this.description.Text = "Description";
+			this.description.Text = "描述";
 			this.selected.AutoSize = true;
 			this.selected.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
 			this.selected.Location = new Point(3, 0);
 			this.selected.Name = "selected";
 			this.selected.Size = new System.Drawing.Size(85, 13);
 			this.selected.TabIndex = 0;
-			this.selected.Text = "Selected Item";
+			this.selected.Text = "选择的项目";
 			this.commandMenu.Items.AddRange(new ToolStripItem[] { this.showReferences, this.copyData, this.addTodo, this.importScene, this.duplicateItem, this.addMissingFields, this.cleanItem });
 			this.commandMenu.Name = "commandMenu";
 			this.commandMenu.Size = new System.Drawing.Size(201, 180);
 			this.showReferences.Name = "showReferences";
 			this.showReferences.Size = new System.Drawing.Size(200, 22);
-			this.showReferences.Text = "Show References";
+			this.showReferences.Text = "显示引用";
 			this.showReferences.Click += new EventHandler(this.showReferences_Click);
 			this.copyData.Name = "copyData";
 			this.copyData.Size = new System.Drawing.Size(200, 22);
-			this.copyData.Text = "Copy data from Item";
+			this.copyData.Text = "从项中复制数据";
 			this.copyData.Click += new EventHandler(this.copyData_Click);
 			this.addTodo.Name = "addTodo";
 			this.addTodo.Size = new System.Drawing.Size(200, 22);
-			this.addTodo.Text = "Add Todo List Item";
+			this.addTodo.Text = "添加一个待办项目";
 			this.addTodo.Click += new EventHandler(this.addTodo_Click);
 			this.importScene.Name = "importScene";
 			this.importScene.Size = new System.Drawing.Size(200, 22);
-			this.importScene.Text = "Import Scene";
+			this.importScene.Text = "导入场景";
 			this.importScene.Click += new EventHandler(this.importScene_Click);
 			this.duplicateItem.Name = "duplicateItem";
 			this.duplicateItem.Size = new System.Drawing.Size(200, 22);
-			this.duplicateItem.Text = "Duplicate Item";
+			this.duplicateItem.Text = "克隆本项目";
 			this.duplicateItem.Click += new EventHandler(this.duplicateItem_Click);
 			this.addMissingFields.Name = "addMissingFields";
 			this.addMissingFields.Size = new System.Drawing.Size(200, 22);
-			this.addMissingFields.Text = "Add Missing Fields";
+			this.addMissingFields.Text = "添加丢失的字段";
 			this.addMissingFields.Click += new EventHandler(this.addMissingFields_Click);
 			this.cleanItem.Name = "cleanItem";
 			this.cleanItem.Size = new System.Drawing.Size(200, 22);
-			this.cleanItem.Text = "Remove Obsolete Fields";
+			this.cleanItem.Text = "删除过时的字段";
 			this.cleanItem.Click += new EventHandler(this.cleanItem_Click);
 			this.AllowDrop = true;
 			base.AutoScaleDimensions = new SizeF(6f, 13f);

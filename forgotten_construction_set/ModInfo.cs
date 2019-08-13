@@ -220,12 +220,12 @@ namespace forgotten_construction_set
 			SteamManager.Instance.AbortUpload();
 			this.updateUploadThread.Join();
 			this.updateUploadThread = null;
-			this.lbStatus.Text = "Canceled";
+			this.lbStatus.Text = "已取消";
 			this.pbUpload.Value = 0;
 			this.pbUpload.Visible = false;
 			this.lbUploadStatus.Visible = false;
 			this.uploading = false;
-			this.btnUpload.Text = "Upload";
+			this.btnUpload.Text = "上传";
 			this.btnUpload.Enabled = true;
 		}
 
@@ -544,7 +544,7 @@ namespace forgotten_construction_set
 			this.lbStatus.Name = "lbStatus";
 			this.lbStatus.Size = new System.Drawing.Size(466, 17);
 			this.lbStatus.Spring = true;
-			this.lbStatus.Text = "Connected";
+			this.lbStatus.Text = "已连接";
 			this.lbStatus.TextAlign = ContentAlignment.MiddleRight;
 			this.btnOpenFolder.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 			this.btnOpenFolder.BackgroundImage = Resources.OpenFolder;
@@ -626,7 +626,7 @@ namespace forgotten_construction_set
 			this.updateEnabled = SteamManager.Instance.Enabled;
 			this.btnUpload.Enabled = SteamManager.Instance.Enabled;
 			this.btnRefreshFromSteam.Enabled = (!SteamManager.Instance.Enabled || this.info == null ? false : this.info.id != (long)0);
-			this.lbStatus.Text = (SteamManager.Instance.Enabled ? "Connected" : "Not connected to Steam");
+			this.lbStatus.Text = (SteamManager.Instance.Enabled ? "已连接" : "未连接到Steam");
 			if (this.Data != null)
 			{
 				string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(this.Data.activeFileName);
@@ -660,7 +660,7 @@ namespace forgotten_construction_set
 			base.BeginInvoke(new MethodInvoker(() => {
 				if (!success)
 				{
-					MessageBox.Show("Error geting mod information.", "Error", MessageBoxButtons.OK);
+					MessageBox.Show("或者MOD信息错误.", "错误", MessageBoxButtons.OK);
 				}
 				else
 				{
@@ -679,7 +679,7 @@ namespace forgotten_construction_set
 		{
 			if (!success)
 			{
-				MessageBox.Show(message, "Error unloading mod", MessageBoxButtons.OK);
+				MessageBox.Show(message, "上传MOD错误", MessageBoxButtons.OK);
 			}
 			this.updateUploadThread.Join();
 			this.updateUploadThread = null;
@@ -689,7 +689,7 @@ namespace forgotten_construction_set
 				this.info.Save();
 			}
 			base.BeginInvoke(new MethodInvoker(() => {
-				this.lbStatus.Text = (success ? "Done" : "Error");
+				this.lbStatus.Text = (success ? "已完成" : "错误");
 				this.pbUpload.Value = 0;
 				this.pbUpload.Visible = false;
 				this.lbUploadStatus.Visible = false;
@@ -827,7 +827,7 @@ namespace forgotten_construction_set
 					this.lbUploadStatus.Text = string.Format("{0,0:0.##} KBs of {1,0:0.##} KBs", (double)((float)processedBytes) / 1024, (double)((float)totalBytes) / 1024);
 					this.lbUploadStatus.Visible = true;
 				}
-				this.lbStatus.Text = (state == SteamManager.UploadState.Creating ? "Creating..." : "Uploading...");
+				this.lbStatus.Text = (state == SteamManager.UploadState.Creating ? "正在创建..." : "正在上传...");
 			}
 		}
 	}
