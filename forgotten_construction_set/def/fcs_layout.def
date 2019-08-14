@@ -1,0 +1,86 @@
+[FCS_LAYOUT]
+建筑 :            BUILDING "building category!=DOORS;building category!=WALLS;is interior furniture=false;is exterior furniture=false;is node=false"
+	墙:               BUILDING "building category==WALLS"
+	家具:           BUILDING "is interior furniture=true"
+	外部:            BUILDING "is exterior furniture=true"
+	结点:               BUILDING "is node=true"
+	门:               BUILDING "building category==DOORS"
+	部分:               BUILDING_PART
+	材料:           MATERIAL_SPEC
+	功能:       BUILDING_FUNCTIONALITY
+	农场数据:           FARM_DATA
+	灯:              LIGHT
+	植物:              FARM_PART
+
+项目:                 ITEM "item function!=ITEM_BOOK"
+	武器:             WEAPON
+		模型:            MATERIAL_SPECS_WEAPON
+		制造商:      WEAPON_MANUFACTURER
+	远程武器:      GUN_DATA
+	十字弓:           CROSSBOW
+	盔甲:              ARMOUR
+	袋子:                CONTAINER
+	材料:           MATERIAL_SPECS_CLOTHING
+	可放置组:    ITEM_PLACEMENT_GROUP
+	嵌套项:          NEST_ITEM
+	物理附件:  CHARACTER_PHYSICS_ATTACHMENT
+	地图:                MAP_ITEM
+	书:               ITEM "item function=ITEM_BOOK"
+	四肢置换术:    LIMB_REPLACEMENT
+
+对话包:      DIALOGUE_PACKAGE
+	对话:            DIALOGUE
+	外交攻击: DIPLOMATIC_ASSAULTS
+	文字交换:          WORD_SWAPS
+	世界各国:        WORLD_EVENT_STATE
+	γ线:              DIALOGUE_LINE
+
+种族:                 RACE
+	组:              RACE_GROUP
+
+人物:            CHARACTER
+	统计数据:               STATS
+	figure体格:         PERSONALITY
+	头发:                ATTACHMENT
+	头:                HEAD
+	动物:             ANIMAL_CHARACTER
+
+动画:             ANIMATION
+	动画事件:    ANIMATION_EVENT
+	动物动画:   ANIMAL_ANIMATION
+	作战技术:   COMBAT_TECHNIQUE
+	动画文件:     ANIMATION_FILE
+
+派别:               FACTION
+	小队:              SQUAD_TEMPLATE
+	特种部队:      UNIQUE_SQUAD_TEMPLATE
+	派系模板:   FACTION_TEMPLATE
+	建筑物交换:     BUILDINGS_SWAP
+	贸易文化:       ITEMS_CULTURE
+
+城镇:                 TOWN
+位置损伤:     LOCATIONAL_DAMAGE
+
+生物群系:                BIOMES
+	叶层:      FOLIAGE_LAYER
+	网格:              FOLIAGE_MESH
+	草:               GRASS
+	地图功能:        MAP_FEATURES
+	鸟:               WILDLIFE_BIRDS
+	天气:             WEATHER
+	刷新区:          BIOME_GROUP
+	资源:           ENVIRONMENT_RESOURCES
+	季节:             SEASON
+
+人工智能包:           AI_PACKAGE
+	目标:               AI_TASK
+	战争战役:       FACTION_CAMPAIGN
+
+供应商列表:          VENDOR_LIST
+颜色方案:         COLOR_DATA
+研究:              RESEARCH
+游戏开局:           NEW_GAME_STARTOFF
+
+效果:               EFFECT
+	效果体积:      EFFECT_FOG_VOLUME
+	环境声音:      AMBIENT_SOUND

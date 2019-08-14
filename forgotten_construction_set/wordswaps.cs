@@ -1,18 +1,21 @@
+using forgotten_construction_set.dialog;
 using System;
 using System.Windows.Forms;
 
 namespace forgotten_construction_set
 {
-	public class wordswaps : conversation
+	public class Wordswaps : Conversation
 	{
-		public wordswaps(GameData.Item item, navigation nav) : base(item, nav)
+
+        
+        public Wordswaps(GameData.Item item, navigation nav) : base(item, nav)
 		{
 			this.btnAddChild.Enabled = false;
 			this.btnAddInterjection.Enabled = false;
 			this.addChild.Visible = false;
 			this.addInterjection.Visible = false;
-			this.Text = "Word Swapper";
-			this.tree.Nodes[0].Text = "Word Swaps";
+			this.Text = "Ìæ»»´Ê";
+			this.tree.Nodes[0].Text = "Ìæ»»´Ê";
 			this.tree.AfterSelect += new TreeViewEventHandler(this.tree_AfterSelect);
 			this.btnAddChild.Click -= new EventHandler(this.addChild_Click);
 			this.btnAddChild.Click += new EventHandler(this.addChild_Click);

@@ -10,15 +10,12 @@ using System.Windows.Forms;
 
 namespace forgotten_construction_set.dialog
 {
-	public class ConditionControl : UserControl
+    partial class ConditionControl : UserControl
 	{
-		private navigation nav;
+        private navigation nav;
+        private System.ComponentModel.IContainer components = null;
 
-		private static Dictionary<DialogConditionEnum, object> conditionDefaults;
-
-		private IContainer components;
-
-		private ComboBox possibleConditions;
+        private ComboBox possibleConditions;
 
 		private NumericUpDown conditionsValue;
 
@@ -48,31 +45,6 @@ namespace forgotten_construction_set.dialog
 
 		private ColumnHeader columnHeader6;
 
-		public GameData.Item CurrentLine
-		{
-			get;
-			set;
-		}
-
-		public GameData.Item Item
-		{
-			get;
-			set;
-		}
-
-		static ConditionControl()
-		{
-			ConditionControl.conditionDefaults = new Dictionary<DialogConditionEnum, object>();
-		}
-
-		public ConditionControl()
-		{
-			this.InitializeComponent();
-			if (ConditionControl.conditionDefaults.Count == 0)
-			{
-				ConditionControl.createDefaults();
-			}
-		}
 
 		private void addCondition_Click(object sender, EventArgs e)
 		{
@@ -99,13 +71,6 @@ namespace forgotten_construction_set.dialog
 			}
 		}
 
-		public static void createDefaults()
-		{
-			ConditionControl.conditionDefaults.Add(DialogConditionEnum.DC_HAS_TAG, CharacterPerceptionTags_LongTerm.LT_NONE);
-			ConditionControl.conditionDefaults.Add(DialogConditionEnum.DC_PERSONALITY_TAG, PersonalityTags.PT_NONE);
-			ConditionControl.conditionDefaults.Add(DialogConditionEnum.DC_FACTION_VARIABLE, "");
-		}
-
 		protected override void Dispose(bool disposing)
 		{
 			if (disposing && this.components != null)
@@ -117,7 +82,8 @@ namespace forgotten_construction_set.dialog
 
 		private void InitializeComponent()
 		{
-			this.possibleConditions = new ComboBox();
+            this.components = new System.ComponentModel.Container();
+            this.possibleConditions = new ComboBox();
 			this.conditionsValue = new NumericUpDown();
 			this.conditionMethod = new ComboBox();
 			this.listView1conditions = new ListView();

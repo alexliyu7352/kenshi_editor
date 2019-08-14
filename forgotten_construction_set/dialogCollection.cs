@@ -1,4 +1,5 @@
 using forgotten_construction_set.dialog;
+using forgotten_construction_set.Components;
 using PropertyGrid;
 using System;
 using System.Collections;
@@ -228,14 +229,14 @@ namespace forgotten_construction_set
 			TreeNode[] treeNodeArray = this.treeView1.Nodes.Find(item, true);
 			for (int i = 0; i < (int)treeNodeArray.Length; i++)
 			{
-				conversation.refreshNode(treeNodeArray[i]);
+				Conversation.refreshNode(treeNodeArray[i]);
 			}
 		}
 
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(dialogCollection));
+            System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(dialogCollection));
 			this.treeView1 = new TreeView();
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.editItem = new ToolStripMenuItem();
@@ -504,7 +505,7 @@ namespace forgotten_construction_set
 				TreeNode stateColor = this.treeView1.Nodes.Add(item1.Name);
 				stateColor.ForeColor = StateColours.GetStateColor(this.Item.getState("dialogs", keyValuePair.Key));
 				stateColor.Tag = item1;
-				conversation.createConversationTree(this.nav.ou.gameData, item1, stateColor.Nodes);
+                Conversation.createConversationTree(this.nav.ou.gameData, item1, stateColor.Nodes);
 			}
 			this.conditionControl1.refresh(this.SelectedItem);
 			this.objectPropertyBox1.refresh(this.SelectedItem);

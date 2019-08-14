@@ -91,7 +91,6 @@ namespace forgotten_construction_set
 						disposable.Dispose();
 					}
 				}
-				return _navigation;
 			}
 		}
 
@@ -202,7 +201,7 @@ namespace forgotten_construction_set
 			this.groupBox1.Size = new System.Drawing.Size(1298, 75);
 			this.groupBox1.TabIndex = 0;
 			this.groupBox1.TabStop = false;
-			this.groupBox1.Text = "Input Files";
+			this.groupBox1.Text = "输入文件";
 			this.save.Anchor = AnchorStyles.Top | AnchorStyles.Right;
 			this.save.Image = Resources.Save;
 			this.save.Location = new Point(1257, 22);
@@ -210,7 +209,7 @@ namespace forgotten_construction_set
 			this.save.Size = new System.Drawing.Size(29, 30);
 			this.save.TabIndex = 4;
 			this.save.Text = "...";
-			this.toolTip1.SetToolTip(this.save, "Export merged file");
+			this.toolTip1.SetToolTip(this.save, "导出合并文件");
 			this.save.UseVisualStyleBackColor = true;
 			this.save.Click += new EventHandler(this.save_Click);
 			this.loadB.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -219,7 +218,7 @@ namespace forgotten_construction_set
 			this.loadB.Size = new System.Drawing.Size(29, 21);
 			this.loadB.TabIndex = 3;
 			this.loadB.Text = "...";
-			this.toolTip1.SetToolTip(this.loadB, "Browse for file B");
+			this.toolTip1.SetToolTip(this.loadB, "浏览文件 B");
 			this.loadB.UseVisualStyleBackColor = true;
 			this.loadB.Click += new EventHandler(this.loadB_Click);
 			this.loadA.Anchor = AnchorStyles.Top | AnchorStyles.Right;
@@ -228,7 +227,7 @@ namespace forgotten_construction_set
 			this.loadA.Size = new System.Drawing.Size(29, 22);
 			this.loadA.TabIndex = 2;
 			this.loadA.Text = "...";
-			this.toolTip1.SetToolTip(this.loadA, "Browse for file A");
+			this.toolTip1.SetToolTip(this.loadA, "浏览文件 A");
 			this.loadA.UseVisualStyleBackColor = true;
 			this.loadA.Click += new EventHandler(this.loadA_Click);
 			this.fileB.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -255,7 +254,7 @@ namespace forgotten_construction_set
 			this.listView.SelectedIndexChanged += new EventHandler(this.listView_SelectedIndexChanged);
 			this.listView.DoubleClick += new EventHandler(this.listView_DoubleClick);
 			this.listView.PreviewKeyDown += new PreviewKeyDownEventHandler(this.listView_PreviewKeyDown);
-			this.Original.Text = "Original";
+			this.Original.Text = "原始的";
 			this.Original.Width = 308;
 			this.A.Text = "A";
 			this.A.Width = 484;
@@ -303,32 +302,32 @@ namespace forgotten_construction_set
 			this.stats.Name = "stats";
 			this.stats.Size = new System.Drawing.Size(127, 13);
 			this.stats.TabIndex = 4;
-			this.stats.Text = "stats";
+			this.stats.Text = "状态";
 			this.stats.TextAlign = ContentAlignment.TopRight;
 			this.itmType.AutoSize = true;
 			this.itmType.Location = new Point(193, 0);
 			this.itmType.Name = "itmType";
 			this.itmType.Size = new System.Drawing.Size(44, 13);
 			this.itmType.TabIndex = 3;
-			this.itmType.Text = "itmType";
+			this.itmType.Text = "项目类型";
 			this.itemKey.AutoSize = true;
 			this.itemKey.Location = new Point(589, 0);
 			this.itemKey.Name = "itemKey";
 			this.itemKey.Size = new System.Drawing.Size(44, 13);
 			this.itemKey.TabIndex = 2;
-			this.itemKey.Text = "itemKey";
+			this.itemKey.Text = "项目Key";
 			this.itemName.AutoSize = true;
 			this.itemName.Location = new Point(380, -1);
 			this.itemName.Name = "itemName";
 			this.itemName.Size = new System.Drawing.Size(54, 13);
 			this.itemName.TabIndex = 1;
-			this.itemName.Text = "itemName";
+			this.itemName.Text = "项目名称";
 			this.itemID.AutoSize = true;
 			this.itemID.Location = new Point(8, 0);
 			this.itemID.Name = "itemID";
 			this.itemID.Size = new System.Drawing.Size(37, 13);
 			this.itemID.TabIndex = 0;
-			this.itemID.Text = "itemID";
+			this.itemID.Text = "项目ID";
 			this.openFile.FileName = "openFileDialog1";
 			this.openFile.Filter = "Translations|*.translation";
 			this.saveFile.DefaultExt = "translation";
@@ -341,7 +340,7 @@ namespace forgotten_construction_set
 			base.MinimizeBox = false;
 			base.Name = "TranslationFix";
 			base.ShowIcon = false;
-			this.Text = "TranslationFix";
+			this.Text = "翻译修复";
 			this.groupBox1.ResumeLayout(false);
 			this.groupBox1.PerformLayout();
 			this.splitContainer1.Panel1.ResumeLayout(false);

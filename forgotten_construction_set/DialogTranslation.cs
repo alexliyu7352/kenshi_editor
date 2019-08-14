@@ -276,7 +276,7 @@ namespace forgotten_construction_set
 
 		private void InitializeComponent()
 		{
-			ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(DialogTranslation));
+            System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(DialogTranslation));
 			this.lbSpeaker = new Label();
 			this.lbTarget = new Label();
 			this.splitContainer1 = new SplitContainer();

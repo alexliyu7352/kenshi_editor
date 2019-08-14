@@ -1,4 +1,5 @@
-﻿using System;
+using forgotten_construction_set;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -8,14 +9,11 @@ using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
+
 namespace forgotten_construction_set.Components
 {
-    partial class ChangeListTree: ListView
+    public class ChangeListTree : ListView
     {
-        /// <summary> 
-        /// 必需的设计器变量。
-        /// </summary>
-        private System.ComponentModel.IContainer components = null;
         private List<ChangeListTree.TreeNode> mappedNodes;
 
         private ListViewItem[] itemCache;
@@ -25,26 +23,27 @@ namespace forgotten_construction_set.Components
         private List<ChangeListTree.TreeNode> mSelected;
 
         private int checkSize;
-        /// <summary> 
-        /// 清理所有正在使用的资源。
-        /// </summary>
-        /// <param name="disposing">如果应释放托管资源，为 true；否则为 false。</param>
-        protected override void Dispose(bool disposing)
+
+        private IContainer components;
+
+        public ItemFilter Filter
         {
-            if (disposing && (components != null))
-            {
-                components.Dispose();
-            }
-            base.Dispose(disposing);
+            get;
+            set;
         }
 
-        #region 组件设计器生成的代码
+        public GameData GameData
+        {
+            get;
+            set;
+        }
 
-        /// <summary> 
-        /// 设计器支持所需的方法 - 不要修改
-        /// 使用代码编辑器修改此方法的内容。
-        /// </summary>
-        /// 
+        public List<ChangeListTree.RootNode> Nodes
+        {
+            get;
+            set;
+        }
+
         public new List<ChangeListTree.TreeNode> SelectedItems
         {
             get
@@ -60,6 +59,42 @@ namespace forgotten_construction_set.Components
                 return this.mSelected;
             }
         }
+
+        public bool ShowChanged
+        {
+            get;
+            set;
+        }
+
+        public bool ShowDeleted
+        {
+            get;
+            set;
+        }
+
+        public bool ShowNew
+        {
+            get;
+            set;
+        }
+
+        public string SortKey
+        {
+            get;
+            set;
+        }
+
+        public ChangeListTree()
+        {
+            this.setup();
+        }
+
+        public ChangeListTree(IContainer container)
+        {
+            container.Add(this);
+            this.setup();
+        }
+
         private void collapseNode(ChangeListTree.TreeNode n)
         {
             if (n.Expanded)
@@ -73,6 +108,15 @@ namespace forgotten_construction_set.Components
                 this.itemCache = null;
                 this.Invalidate();
             }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && this.components != null)
+            {
+                this.components.Dispose();
+            }
+            base.Dispose(disposing);
         }
 
         private void DrawColumnHeaderFunc(object sender, DrawListViewColumnHeaderEventArgs e)
@@ -521,6 +565,246 @@ namespace forgotten_construction_set.Components
             this.mSelected = null;
         }
 
-        #endregion
+        public event ChangeListTree.ItemCheckedEventHandler ItemChecked;
+
+        public class ChangeData : ChangeListTree.TreeNode
+        {
+            public Color Colour
+            {
+                get;
+                set;
+            }
+
+            public string Key
+            {
+                get;
+                set;
+            }
+
+            public object NewValue
+            {
+                get;
+                set;
+            }
+
+            public object OldValue
+            {
+                get;
+                set;
+            }
+
+            public string Section
+            {
+                get;
+                set;
+            }
+
+            public string Text
+            {
+                get;
+                set;
+            }
+
+            public ChangeListTree.ChangeType Type
+            {
+                get;
+                set;
+            }
+
+            public ChangeData(ChangeListTree.ChangeType type, object oldVal, object newVal, GameData.State state)
+            {
+                this.Type = type;
+                this.OldValue = oldVal;
+                this.NewValue = newVal;
+                this.Colour = StateColours.GetStateColor(state);
+            }
+
+            public ChangeData(ChangeListTree.ChangeType type, string key, object oldVal, object newVal, GameData.State state)
+            {
+                this.Type = type;
+                this.OldValue = oldVal;
+                this.NewValue = newVal;
+                this.Key = key;
+                this.Colour = StateColours.GetStateColor(state);
+            }
+
+            public ChangeData(ChangeListTree.ChangeType type, string section, string key, object oldVal, object newVal, GameData.State state)
+            {
+                this.Type = type;
+                this.OldValue = oldVal;
+                this.NewValue = newVal;
+                this.Key = key;
+                this.Section = section;
+                this.Colour = StateColours.GetStateColor(state);
+            }
+
+            public ChangeData(ChangeListTree.ChangeType type, string key, GameData.State state)
+            {
+                this.Type = type;
+                this.Key = key;
+                this.Colour = StateColours.GetStateColor(state);
+            }
+
+            public override string ToString()
+            {
+                if (this.OldValue == null || this.NewValue == null)
+                {
+                    if (this.NewValue == null)
+                    {
+                        return "";
+                    }
+                    return string.Concat("[", this.NewValue.ToString(), "]");
+                }
+                return string.Concat(new string[] { "[", this.OldValue.ToString(), "] => [", this.NewValue.ToString(), "]" });
+            }
+        }
+
+        public enum ChangeType
+        {
+            NAME,
+            VALUE,
+            NEWREF,
+            MODREF,
+            DELREF,
+            NEWINST,
+            MODINST,
+            INSTVALUE,
+            INVALIDREF
+        }
+
+        public class ItemCheckedEventArgs : EventArgs
+        {
+            public ChangeListTree.TreeNode Node
+            {
+                get;
+                private set;
+            }
+
+            public ItemCheckedEventArgs(ChangeListTree.TreeNode node)
+            {
+                this.Node = node;
+            }
+        }
+
+        public delegate void ItemCheckedEventHandler(object sender, ChangeListTree.ItemCheckedEventArgs e);
+
+        public enum ItemElement
+        {
+            NONE,
+            TEXT,
+            EXPAND,
+            CHECKBOX,
+            INDENT
+        }
+
+        public class RootNode : ChangeListTree.TreeNode
+        {
+            public GameData.Item Item
+            {
+                get;
+                set;
+            }
+
+            public RootNode(GameData.Item item)
+            {
+                this.Item = item;
+                base.Expanded = false;
+                base.Checked = false;
+            }
+        }
+
+        public class TreeNode
+        {
+            public bool Checked
+            {
+                get;
+                set;
+            }
+
+            public List<ChangeListTree.TreeNode> Children
+            {
+                get;
+                set;
+            }
+
+            public bool Expanded
+            {
+                get;
+                set;
+            }
+
+            public bool HasChildren
+            {
+                get
+                {
+                    if (this.Children == null)
+                    {
+                        return false;
+                    }
+                    return this.Children.Count > 0;
+                }
+            }
+
+            public int Level
+            {
+                get;
+                set;
+            }
+
+            public ChangeListTree.TreeNode Parent
+            {
+                get;
+                private set;
+            }
+
+            public TreeNode()
+            {
+                this.Expanded = false;
+                this.Checked = false;
+                this.Level = 0;
+            }
+
+            public void Add(ChangeListTree.TreeNode n)
+            {
+                if (this.Children == null)
+                {
+                    this.Children = new List<ChangeListTree.TreeNode>();
+                }
+                this.Children.Add(n);
+                n.Level = this.Level + 1;
+                n.Parent = this;
+            }
+
+            public int getVisibleChildNodeCount()
+            {
+                int visibleChildNodeCount = 0;
+                if (this.Expanded && this.Children != null)
+                {
+                    foreach (ChangeListTree.ChangeData child in this.Children)
+                    {
+                        visibleChildNodeCount = visibleChildNodeCount + 1 + child.getVisibleChildNodeCount();
+                    }
+                }
+                return visibleChildNodeCount;
+            }
+
+            public void getVisibleChildNodes(List<ChangeListTree.TreeNode> list, int after)
+            {
+                if (this.Expanded && this.Children != null)
+                {
+                    foreach (ChangeListTree.ChangeData child in this.Children)
+                    {
+                        int num = after + 1;
+                        after = num;
+                        list.Insert(num, child);
+                        if (!child.Expanded)
+                        {
+                            continue;
+                        }
+                        child.getVisibleChildNodes(list, after);
+                    }
+                }
+            }
+        }
     }
 }

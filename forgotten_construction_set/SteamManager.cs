@@ -127,7 +127,7 @@ namespace forgotten_construction_set
 
 		public void Init()
 		{
-			if (this.Enabled)
+			if (!this.Enabled)
 			{
 				SteamManager.logger.Warn("Steam API not enabled");
 				return;

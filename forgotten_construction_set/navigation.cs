@@ -1,3 +1,4 @@
+using forgotten_construction_set.dialog;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -246,7 +247,7 @@ namespace forgotten_construction_set
 				DialogResult = System.Windows.Forms.DialogResult.OK,
 				Name = "okButton",
 				Size = new System.Drawing.Size(75, 23),
-				Text = "&Add",
+				Text = "(&A)添加",
 				Location = new Point(size.Width - 80 - 80, 39)
 			};
 			form.Controls.Add(button);
@@ -255,7 +256,7 @@ namespace forgotten_construction_set
 				DialogResult = System.Windows.Forms.DialogResult.Cancel,
 				Name = "cancelButton",
 				Size = new System.Drawing.Size(75, 23),
-				Text = "&Cancel",
+				Text = "(&C)取消",
 				Location = new Point(size.Width - 80, 39)
 			};
 			form.Controls.Add(button1);
@@ -303,7 +304,7 @@ namespace forgotten_construction_set
 				MinimizeBox = false,
 				MaximizeBox = false,
 				ClientSize = size,
-				Text = "Add List Column"
+				Text = "添加列表列"
 			};
 			ComboBox comboBox = new ComboBox()
 			{
@@ -324,7 +325,7 @@ namespace forgotten_construction_set
 			form.Controls.Add(comboBox);
 			CheckBox checkBox = new CheckBox()
 			{
-				Text = "Items",
+				Text = "项目",
 				Checked = false,
 				Size = new System.Drawing.Size((size.Width - 10) / 2, 23),
 				Location = new Point(5, 30)
@@ -332,7 +333,7 @@ namespace forgotten_construction_set
 			form.Controls.Add(checkBox);
 			CheckBox checkBox1 = new CheckBox()
 			{
-				Text = "Values",
+				Text = "值",
 				Checked = false,
 				Size = new System.Drawing.Size((size.Width - 10) / 2, 23),
 				Location = new Point(size.Width / 2, 30)
@@ -343,7 +344,7 @@ namespace forgotten_construction_set
 				DialogResult = System.Windows.Forms.DialogResult.OK,
 				Name = "okButton",
 				Size = new System.Drawing.Size(75, 23),
-				Text = "&Add",
+				Text = "(&A)添加",
 				Location = new Point(size.Width - 80 - 80, 56)
 			};
 			form.Controls.Add(button);
@@ -352,7 +353,7 @@ namespace forgotten_construction_set
 				DialogResult = System.Windows.Forms.DialogResult.Cancel,
 				Name = "cancelButton",
 				Size = new System.Drawing.Size(75, 23),
-				Text = "&Cancel",
+				Text = "(&C)取消",
 				Location = new Point(size.Width - 80, 56)
 			};
 			form.Controls.Add(button1);
@@ -395,7 +396,7 @@ namespace forgotten_construction_set
 
 		public void addTodoMenuItem()
 		{
-			ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem("Add Todo Item");
+			ToolStripMenuItem toolStripMenuItem = new ToolStripMenuItem("添加待办项目");
 			toolStripMenuItem.Click += new EventHandler(this.Todo_Click);
 			this.contextMenuStrip1.Items.Insert(2, toolStripMenuItem);
 		}
@@ -474,81 +475,82 @@ namespace forgotten_construction_set
 
 		private void createCategories()
 		{
+            //TODO 不知道应该不应该修改
 			this.treeView.Nodes.Clear();
-			this.AddCategory("Building", new navigation.Filter(itemType.BUILDING, "building category!=DOORS;building category!=WALLS;is interior furniture=false;is exterior furniture=false;is node=false"));
-			this.AddCategory("Building", "Walls", new navigation.Filter(itemType.BUILDING, "building category==WALLS"));
-			this.AddCategory("Building", "Furniture", new navigation.Filter(itemType.BUILDING, "is interior furniture=true"));
-			this.AddCategory("Building", "Exterior Furniture", new navigation.Filter(itemType.BUILDING, "is exterior furniture=true"));
-			this.AddCategory("Building", "Nodes", new navigation.Filter(itemType.BUILDING, "is node=true"));
-			this.AddCategory("Building", "Doors", new navigation.Filter(itemType.BUILDING, "building category==DOORS"));
-			this.AddCategory("Building", "Parts", itemType.BUILDING_PART);
-			this.AddCategory("Building", "Materials", itemType.MATERIAL_SPEC);
-			this.AddCategory("Building", "Functionality", itemType.BUILDING_FUNCTIONALITY);
-			this.AddCategory("Building", "Farm Data", itemType.FARM_DATA);
-			this.AddCategory("Building", "Lights", itemType.LIGHT);
-			this.AddCategory("Farm Data", "Plants", itemType.FARM_PART);
-			this.AddCategory("Items", new navigation.Filter(itemType.ITEM, "item function!=ITEM_BOOK"));
-			this.AddCategory("Items", "Weapons", itemType.WEAPON);
+			this.AddCategory("建筑", new navigation.Filter(itemType.BUILDING, "building category!=DOORS;building category!=WALLS;is interior furniture=false;is exterior furniture=false;is node=false"));
+			this.AddCategory("建筑", "Walls", new navigation.Filter(itemType.BUILDING, "building category==WALLS"));
+			this.AddCategory("建筑", "Furniture", new navigation.Filter(itemType.BUILDING, "is interior furniture=true"));
+			this.AddCategory("建筑", "Exterior Furniture", new navigation.Filter(itemType.BUILDING, "is exterior furniture=true"));
+			this.AddCategory("建筑", "Nodes", new navigation.Filter(itemType.BUILDING, "is node=true"));
+			this.AddCategory("建筑", "Doors", new navigation.Filter(itemType.BUILDING, "building category==DOORS"));
+			this.AddCategory("建筑", "Parts", itemType.BUILDING_PART);
+			this.AddCategory("建筑", "Materials", itemType.MATERIAL_SPEC);
+			this.AddCategory("建筑", "Functionality", itemType.BUILDING_FUNCTIONALITY);
+			this.AddCategory("建筑", "Farm Data", itemType.FARM_DATA);
+			this.AddCategory("建筑", "Lights", itemType.LIGHT);
+			this.AddCategory("农业数据", "Plants", itemType.FARM_PART);
+			this.AddCategory("物品", new navigation.Filter(itemType.ITEM, "item function!=ITEM_BOOK"));
+			this.AddCategory("物品", "Weapons", itemType.WEAPON);
 			this.AddCategory("Weapons", "Models", itemType.MATERIAL_SPECS_WEAPON);
 			this.AddCategory("Weapons", "Manufacturer", itemType.WEAPON_MANUFACTURER);
-			this.AddCategory("Items", "Ranged Weapons", itemType.GUN_DATA);
-			this.AddCategory("Items", "Crossbows", itemType.CROSSBOW);
-			this.AddCategory("Items", "Armour", itemType.ARMOUR);
-			this.AddCategory("Items", "Bags", itemType.CONTAINER);
-			this.AddCategory("Items", "Materials", itemType.MATERIAL_SPECS_CLOTHING);
-			this.AddCategory("Items", "Placeable Groups", itemType.ITEM_PLACEMENT_GROUP);
-			this.AddCategory("Items", "Nest Items", itemType.NEST_ITEM);
-			this.AddCategory("Items", "Physics Attachment", itemType.CHARACTER_PHYSICS_ATTACHMENT);
-			this.AddCategory("Items", "Maps", itemType.MAP_ITEM);
-			this.AddCategory("Items", "Books", new navigation.Filter(itemType.ITEM, "item function=ITEM_BOOK"));
-			this.AddCategory("Items", "Limb replacement", itemType.LIMB_REPLACEMENT);
-			this.AddCategory("Dialogue Package", itemType.DIALOGUE_PACKAGE);
-			this.AddCategory("Dialogue Package", "Dialogue", itemType.DIALOGUE);
-			this.AddCategory("Dialogue Package", "Diplomatic Assaults", itemType.DIPLOMATIC_ASSAULTS);
-			this.AddCategory("Dialogue Package", "Word Swaps", itemType.WORD_SWAPS);
-			this.AddCategory("Dialogue Package", "World States", itemType.WORLD_EVENT_STATE);
-			this.AddCategory("Dialogue Package", "_lines", itemType.DIALOGUE_LINE);
-			this.AddCategory("Races", itemType.RACE);
-			this.AddCategory("Races", "Groups", itemType.RACE_GROUP);
-			this.AddCategory("Characters", itemType.CHARACTER);
-			this.AddCategory("Characters", "Stats", itemType.STATS);
-			this.AddCategory("Characters", "Personality", itemType.PERSONALITY);
-			this.AddCategory("Characters", "Hair", itemType.ATTACHMENT);
-			this.AddCategory("Characters", "Head", itemType.HEAD);
-			this.AddCategory("Characters", "Animals", itemType.ANIMAL_CHARACTER);
-			this.AddCategory("Animation", itemType.ANIMATION);
-			this.AddCategory("Animation", "Animation Events", itemType.ANIMATION_EVENT);
-			this.AddCategory("Animation", "Animal Animations", itemType.ANIMAL_ANIMATION);
-			this.AddCategory("Animation", "Combat Techniques", itemType.COMBAT_TECHNIQUE);
-			this.AddCategory("Animation", "Animation Files", itemType.ANIMATION_FILE);
-			this.AddCategory("Faction", itemType.FACTION);
-			this.AddCategory("Faction", "Squads", itemType.SQUAD_TEMPLATE);
-			this.AddCategory("Faction", "Special Squads", itemType.UNIQUE_SQUAD_TEMPLATE);
-			this.AddCategory("Faction", "Faction Templates", itemType.FACTION_TEMPLATE);
-			this.AddCategory("Faction", "Buildings swaps", itemType.BUILDINGS_SWAP);
-			this.AddCategory("Faction", "Trade Culture", itemType.ITEMS_CULTURE);
-			this.AddCategory("Towns", itemType.TOWN);
-			this.AddCategory("Locational Damage", itemType.LOCATIONAL_DAMAGE);
-			this.AddCategory("Biomes", itemType.BIOMES);
-			this.AddCategory("Biomes", "Foliage Layers", itemType.FOLIAGE_LAYER);
-			this.AddCategory("Foliage Layers", "Meshes", itemType.FOLIAGE_MESH);
-			this.AddCategory("Foliage Layers", "Grass", itemType.GRASS);
-			this.AddCategory("Biomes", "Map Features", itemType.MAP_FEATURES);
-			this.AddCategory("Biomes", "Birds", itemType.WILDLIFE_BIRDS);
-			this.AddCategory("Biomes", "Weather", itemType.WEATHER);
-			this.AddCategory("Biomes", "Spawn Area", itemType.BIOME_GROUP);
-			this.AddCategory("Biomes", "Resources", itemType.ENVIRONMENT_RESOURCES);
-			this.AddCategory("Weather", "Seasons", itemType.SEASON);
-			this.AddCategory("AI Packages", itemType.AI_PACKAGE);
-			this.AddCategory("AI Packages", "Goals", itemType.AI_TASK);
-			this.AddCategory("AI Packages", "War Campaigns", itemType.FACTION_CAMPAIGN);
-			this.AddCategory("Vendor Lists", itemType.VENDOR_LIST);
-			this.AddCategory("Colour Scheme", itemType.COLOR_DATA);
-			this.AddCategory("Research", itemType.RESEARCH);
-			this.AddCategory("Game Starts", itemType.NEW_GAME_STARTOFF);
-			this.AddCategory("Effects", itemType.EFFECT);
-			this.AddCategory("Effects", "Effect volumes", itemType.EFFECT_FOG_VOLUME);
-			this.AddCategory("Ambient Sounds", itemType.AMBIENT_SOUND);
+			this.AddCategory("物品", "Ranged Weapons", itemType.GUN_DATA);
+			this.AddCategory("物品", "Crossbows", itemType.CROSSBOW);
+			this.AddCategory("物品", "Armour", itemType.ARMOUR);
+			this.AddCategory("物品", "Bags", itemType.CONTAINER);
+			this.AddCategory("物品", "Materials", itemType.MATERIAL_SPECS_CLOTHING);
+			this.AddCategory("物品", "Placeable Groups", itemType.ITEM_PLACEMENT_GROUP);
+			this.AddCategory("物品", "Nest Items", itemType.NEST_ITEM);
+			this.AddCategory("物品", "Physics Attachment", itemType.CHARACTER_PHYSICS_ATTACHMENT);
+			this.AddCategory("物品", "Maps", itemType.MAP_ITEM);
+			this.AddCategory("物品", "Books", new navigation.Filter(itemType.ITEM, "item function=ITEM_BOOK"));
+			this.AddCategory("物品", "Limb replacement", itemType.LIMB_REPLACEMENT);
+			this.AddCategory("对话包", itemType.DIALOGUE_PACKAGE);
+			this.AddCategory("对话包", "Dialogue", itemType.DIALOGUE);
+			this.AddCategory("对话包", "Diplomatic Assaults", itemType.DIPLOMATIC_ASSAULTS);
+			this.AddCategory("对话包", "Word Swaps", itemType.WORD_SWAPS);
+			this.AddCategory("对话包", "World States", itemType.WORLD_EVENT_STATE);
+			this.AddCategory("对话包", "_lines", itemType.DIALOGUE_LINE);
+			this.AddCategory("种族", itemType.RACE);
+			this.AddCategory("种族", "Groups", itemType.RACE_GROUP);
+			this.AddCategory("角色", itemType.CHARACTER);
+			this.AddCategory("角色", "Stats", itemType.STATS);
+			this.AddCategory("角色", "Personality", itemType.PERSONALITY);
+			this.AddCategory("角色", "Hair", itemType.ATTACHMENT);
+			this.AddCategory("角色", "Head", itemType.HEAD);
+			this.AddCategory("角色", "Animals", itemType.ANIMAL_CHARACTER);
+			this.AddCategory("动画", itemType.ANIMATION);
+			this.AddCategory("动画", "Animation Events", itemType.ANIMATION_EVENT);
+			this.AddCategory("动画", "Animal Animations", itemType.ANIMAL_ANIMATION);
+			this.AddCategory("动画", "Combat Techniques", itemType.COMBAT_TECHNIQUE);
+			this.AddCategory("动画", "Animation Files", itemType.ANIMATION_FILE);
+			this.AddCategory("阵营", itemType.FACTION);
+			this.AddCategory("阵营", "Squads", itemType.SQUAD_TEMPLATE);
+			this.AddCategory("阵营", "Special Squads", itemType.UNIQUE_SQUAD_TEMPLATE);
+			this.AddCategory("阵营", "Faction Templates", itemType.FACTION_TEMPLATE);
+			this.AddCategory("阵营", "Buildings swaps", itemType.BUILDINGS_SWAP);
+			this.AddCategory("阵营", "Trade Culture", itemType.ITEMS_CULTURE);
+			this.AddCategory("城镇", itemType.TOWN);
+			this.AddCategory("部位伤害", itemType.LOCATIONAL_DAMAGE);
+			this.AddCategory("生物群落", itemType.BIOMES);
+			this.AddCategory("生物群落", "Foliage Layers", itemType.FOLIAGE_LAYER);
+			this.AddCategory("植被层", "Meshes", itemType.FOLIAGE_MESH);
+			this.AddCategory("植被层", "Grass", itemType.GRASS);
+			this.AddCategory("生物群落", "Map Features", itemType.MAP_FEATURES);
+			this.AddCategory("生物群落", "Birds", itemType.WILDLIFE_BIRDS);
+			this.AddCategory("生物群落", "Weather", itemType.WEATHER);
+			this.AddCategory("生物群落", "Spawn Area", itemType.BIOME_GROUP);
+			this.AddCategory("生物群落", "Resources", itemType.ENVIRONMENT_RESOURCES);
+			this.AddCategory("天气", "Seasons", itemType.SEASON);
+			this.AddCategory("AI包", itemType.AI_PACKAGE);
+			this.AddCategory("AI包", "Goals", itemType.AI_TASK);
+			this.AddCategory("AI包", "War Campaigns", itemType.FACTION_CAMPAIGN);
+			this.AddCategory("供应商列表", itemType.VENDOR_LIST);
+			this.AddCategory("色彩方案", itemType.COLOR_DATA);
+			this.AddCategory("研究", itemType.RESEARCH);
+			this.AddCategory("游戏开局", itemType.NEW_GAME_STARTOFF);
+			this.AddCategory("效果", itemType.EFFECT);
+			this.AddCategory("效果", "效果大小", itemType.EFFECT_FOG_VOLUME);
+			this.AddCategory("环境声", itemType.AMBIENT_SOUND);
 		}
 
 		private void deleteItem_Click(object sender, EventArgs e)
@@ -636,7 +638,7 @@ namespace forgotten_construction_set
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(navigation));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(navigation));
 			this.splitContainer1 = new SplitContainer();
 			this.treeView = new TreeView();
 			this.filter = new TextBox();
@@ -716,7 +718,7 @@ namespace forgotten_construction_set
 			this.listView1.DoubleClick += new EventHandler(this.listView1_DoubleClick);
 			this.listView1.KeyDown += new KeyEventHandler(this.listView1_KeyDown);
 			this.columnHeader2.Tag = "Name";
-			this.columnHeader2.Text = "Name";
+			this.columnHeader2.Text = "名称";
 			this.columnHeader2.Width = 308;
 			this.contextMenuStrip1.Items.AddRange(new ToolStripItem[] { this.openItem, this.listReferences, this.toolStripSeparator3, this.newItem, this.duplicateItem, this.toolStripSeparator1, this.cleanItem, this.setField, this.clearChanges, this.deleteItem, this.toolStripSeparator2, this.columnsMenu });
 			this.contextMenuStrip1.Name = "contextMenuStrip1";
@@ -724,46 +726,46 @@ namespace forgotten_construction_set
 			this.contextMenuStrip1.Opening += new CancelEventHandler(this.contextMenuStrip1_Opening);
 			this.openItem.Name = "openItem";
 			this.openItem.Size = new System.Drawing.Size(156, 22);
-			this.openItem.Text = "Open Item";
+			this.openItem.Text = "打开项目";
 			this.openItem.Click += new EventHandler(this.openItem_Click);
 			this.listReferences.Name = "listReferences";
 			this.listReferences.Size = new System.Drawing.Size(156, 22);
-			this.listReferences.Text = "List References";
+			this.listReferences.Text = "列出引用";
 			this.listReferences.Click += new EventHandler(this.listReferences_Click);
 			this.toolStripSeparator3.Name = "toolStripSeparator3";
 			this.toolStripSeparator3.Size = new System.Drawing.Size(153, 6);
 			this.newItem.Name = "newItem";
 			this.newItem.Size = new System.Drawing.Size(156, 22);
-			this.newItem.Text = "New Item";
+			this.newItem.Text = "新项目";
 			this.newItem.Click += new EventHandler(this.newItem_Click);
 			this.duplicateItem.Name = "duplicateItem";
 			this.duplicateItem.Size = new System.Drawing.Size(156, 22);
-			this.duplicateItem.Text = "Duplicate Item";
+			this.duplicateItem.Text = "克隆项目";
 			this.duplicateItem.Click += new EventHandler(this.duplicateItem_Click);
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(153, 6);
 			this.cleanItem.Name = "cleanItem";
 			this.cleanItem.Size = new System.Drawing.Size(156, 22);
-			this.cleanItem.Text = "Clean Item";
+			this.cleanItem.Text = "清理项目";
 			this.cleanItem.Click += new EventHandler(this.cleanItem_Click);
 			this.setField.Name = "setField";
 			this.setField.Size = new System.Drawing.Size(156, 22);
-			this.setField.Text = "Set Field";
+			this.setField.Text = "设置字段";
 			this.setField.Click += new EventHandler(this.setField_Click);
 			this.clearChanges.Name = "clearChanges";
 			this.clearChanges.Size = new System.Drawing.Size(156, 22);
-			this.clearChanges.Text = "Revert Changes";
+			this.clearChanges.Text = "还原修改";
 			this.clearChanges.Click += new EventHandler(this.clearChanges_Click);
 			this.deleteItem.Name = "deleteItem";
 			this.deleteItem.Size = new System.Drawing.Size(156, 22);
-			this.deleteItem.Text = "Delete Item";
+			this.deleteItem.Text = "删除项目";
 			this.deleteItem.Click += new EventHandler(this.deleteItem_Click);
 			this.toolStripSeparator2.Name = "toolStripSeparator2";
 			this.toolStripSeparator2.Size = new System.Drawing.Size(153, 6);
 			this.columnsMenu.DropDownItems.AddRange(new ToolStripItem[] { this.showStringID, this.showRef, this.showType, this.showData, this.toolStripSeparator4, this.addColumn, this.addRefColumn });
 			this.columnsMenu.Name = "columnsMenu";
 			this.columnsMenu.Size = new System.Drawing.Size(156, 22);
-			this.columnsMenu.Text = "Columns";
+			this.columnsMenu.Text = "列";
 			this.showStringID.CheckOnClick = true;
 			this.showStringID.Name = "showStringID";
 			this.showStringID.Size = new System.Drawing.Size(117, 22);
@@ -772,36 +774,36 @@ namespace forgotten_construction_set
 			this.showRef.CheckOnClick = true;
 			this.showRef.Name = "showRef";
 			this.showRef.Size = new System.Drawing.Size(117, 22);
-			this.showRef.Text = "Ref";
+			this.showRef.Text = "引用";
 			this.showRef.Click += new EventHandler(this.showColumn_Click);
 			this.showType.CheckOnClick = true;
 			this.showType.Name = "showType";
 			this.showType.Size = new System.Drawing.Size(117, 22);
-			this.showType.Text = "Type";
+			this.showType.Text = "类型";
 			this.showType.Click += new EventHandler(this.showColumn_Click);
 			this.showData.CheckOnClick = true;
 			this.showData.Name = "showData";
 			this.showData.Size = new System.Drawing.Size(117, 22);
-			this.showData.Text = "Data";
+			this.showData.Text = "数据";
 			this.showData.Click += new EventHandler(this.showColumn_Click);
 			this.toolStripSeparator4.Name = "toolStripSeparator4";
 			this.toolStripSeparator4.Size = new System.Drawing.Size(114, 6);
 			this.addColumn.Name = "addColumn";
 			this.addColumn.Size = new System.Drawing.Size(117, 22);
-			this.addColumn.Text = "Add";
+			this.addColumn.Text = "添加属性列";
 			this.addColumn.Click += new EventHandler(this.addColumn_Click);
 			this.addRefColumn.Name = "addRefColumn";
 			this.addRefColumn.Size = new System.Drawing.Size(117, 22);
-			this.addRefColumn.Text = "Add List";
+			this.addRefColumn.Text = "添加列表列";
 			this.addRefColumn.Click += new EventHandler(this.addRefColumn_Click);
 			base.AutoScaleDimensions = new SizeF(6f, 13f);
 			base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			base.ClientSize = new System.Drawing.Size(800, 564);
 			base.ControlBox = false;
 			base.Controls.Add(this.splitContainer1);
-			base.Icon = (System.Drawing.Icon)componentResourceManager.GetObject("$this.Icon");
+			base.Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
 			base.Name = "navigation";
-			this.Text = "Game World";
+			this.Text = "游戏世界";
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);
 			this.splitContainer1.Panel2.PerformLayout();
@@ -851,7 +853,7 @@ namespace forgotten_construction_set
 			GameData.Item item = this.listView1.SelectedItems[0];
 			if (item.getState() == GameData.State.REMOVED)
 			{
-				if (MessageBox.Show(string.Concat("Item ", item.Name, " has been removed by the active mod.\nDo you want to restore it?"), "Removed", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
+				if (MessageBox.Show(string.Concat("项目 ", item.Name, " 已经被激活的MOD给删除.\n你是否想要恢复它?"), "已删除", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.No)
 				{
 					return;
 				}
@@ -860,7 +862,7 @@ namespace forgotten_construction_set
 			}
 			else if (item.getState() == GameData.State.LOCKED_REMOVED)
 			{
-				MessageBox.Show(string.Concat("Item ", item.Name, " has been removed by a later mod."), "Removed");
+				MessageBox.Show(string.Concat("项目 ", item.Name, " 已被后面的MOD删除."), "已删除");
 				return;
 			}
 			this.showItemProperties(item);
@@ -1017,11 +1019,11 @@ namespace forgotten_construction_set
 			}
 			else if (item.type == itemType.WORD_SWAPS)
 			{
-				itemproperty = new wordswaps(item, this);
+				itemproperty = new Wordswaps(item, this);
 			}
 			else if (item.type == itemType.DIALOGUE)
 			{
-				itemproperty = new conversation(item, this);
+				itemproperty = new Conversation(item, this);
 			}
 			else if (item.type == itemType.DIALOGUE_PACKAGE)
 			{
@@ -1043,26 +1045,26 @@ namespace forgotten_construction_set
 					if (navigation.forms.ContainsKey(parentDialogueFromLine))
 					{
 						navigation.forms[parentDialogueFromLine].BringToFront();
-						if (navigation.forms[parentDialogueFromLine] is conversation)
+						if (navigation.forms[parentDialogueFromLine] is Conversation)
 						{
-							(navigation.forms[parentDialogueFromLine] as conversation).SelectLine(item);
+							(navigation.forms[parentDialogueFromLine] as Conversation).SelectLine(item);
 						}
 						return;
 					}
 					if (item.type != itemType.WORD_SWAPS)
 					{
-						itemproperty = new conversation(parentDialogueFromLine, this);
+						itemproperty = new Conversation(parentDialogueFromLine, this);
 					}
 					else
 					{
-						itemproperty = new wordswaps(parentDialogueFromLine, this);
+						itemproperty = new Wordswaps(parentDialogueFromLine, this);
 					}
-					(itemproperty as conversation).SelectLine(item);
+					(itemproperty as Conversation).SelectLine(item);
 					item = parentDialogueFromLine;
 				}
 				else
 				{
-					MessageBox.Show("Dialogue line is not associated with any dialogue", "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+					MessageBox.Show("对话语句并没有关联任何对话", "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 					itemproperty = new itemproperties(item, this);
 				}
 			}

@@ -47,7 +47,7 @@ namespace forgotten_construction_set
 			this.name = string.Concat(this.name, ".mod");
 			if ((new FileInfo(str1)).Exists)
 			{
-				MessageBox.Show(string.Concat(this.name, " already exists"), "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				MessageBox.Show(string.Concat(this.name, " 已经存在"), "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 				return;
 			}
 			Directory.CreateDirectory(str);
@@ -75,7 +75,7 @@ namespace forgotten_construction_set
 			this.create.Name = "create";
 			this.create.Size = new System.Drawing.Size(78, 26);
 			this.create.TabIndex = 1;
-			this.create.Text = "Create";
+			this.create.Text = "创建";
 			this.create.UseVisualStyleBackColor = true;
 			this.create.Click += new EventHandler(this.create_Click);
 			this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -83,7 +83,7 @@ namespace forgotten_construction_set
 			this.cancel.Name = "cancel";
 			this.cancel.Size = new System.Drawing.Size(79, 25);
 			this.cancel.TabIndex = 2;
-			this.cancel.Text = "Cancel";
+			this.cancel.Text = "取消";
 			this.cancel.UseVisualStyleBackColor = true;
 			this.cancel.Click += new EventHandler(this.cancel_Click);
 			this.label1.AutoSize = true;
@@ -91,7 +91,7 @@ namespace forgotten_construction_set
 			this.label1.Name = "label1";
 			this.label1.Size = new System.Drawing.Size(112, 17);
 			this.label1.TabIndex = 4;
-			this.label1.Text = "Enter mod name";
+			this.label1.Text = "输入MOD名称";
 			this.modName.Location = new Point(8, 36);
 			this.modName.Name = "modName";
 			this.modName.Size = new System.Drawing.Size(266, 22);
@@ -108,7 +108,7 @@ namespace forgotten_construction_set
 			base.Controls.Add(this.cancel);
 			base.Controls.Add(this.create);
 			base.Name = "NewMod";
-			this.Text = "New Kenshi Mod";
+			this.Text = "新Kenshi Mod";
 			base.ResumeLayout(false);
 			base.PerformLayout();
 		}

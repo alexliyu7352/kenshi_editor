@@ -1,4 +1,5 @@
 using forgotten_construction_set.dialog;
+using forgotten_construction_set.Components;
 using PropertyGrid;
 using System;
 using System.Collections;
@@ -17,9 +18,9 @@ namespace forgotten_construction_set
 
 		private GameData gameData;
 
-		private IContainer components;
+        private System.ComponentModel.IContainer components = null;
 
-		private System.Windows.Forms.ContextMenuStrip contextMenu;
+        private System.Windows.Forms.ContextMenuStrip contextMenu;
 
 		private ToolStripMenuItem deleteItem;
 
@@ -92,8 +93,10 @@ namespace forgotten_construction_set
 				return (GameData.Item)this.tree.SelectedNode.Tag;
 			}
 		}
-
-		public conversation(GameData.Item item, navigation nav)
+        public conversation()
+        {
+        }
+            public conversation(GameData.Item item, navigation nav)
 		{
 			this.InitializeComponent();
 			this.Item = item;
@@ -496,7 +499,7 @@ namespace forgotten_construction_set
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(conversation));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(conversation));
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.addChild = new ToolStripMenuItem();
 			this.addInterjection = new ToolStripMenuItem();
@@ -670,7 +673,7 @@ namespace forgotten_construction_set
 			this.buttonRemoveEffect.UseVisualStyleBackColor = true;
 			this.buttonRemoveEffect.Click += new EventHandler(this.buttonRemoveEffect_Click);
 			this.referenceList1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-			this.referenceList1.Exclusions = (ArrayList)componentResourceManager.GetObject("referenceList1.Exclusions");
+			this.referenceList1.Exclusions = (ArrayList)resources.GetObject("referenceList1.Exclusions");
 			this.referenceList1.Location = new Point(1162, 7);
 			this.referenceList1.Name = "referenceList1";
 			this.referenceList1.ReadOnly = false;
@@ -746,7 +749,7 @@ namespace forgotten_construction_set
 			base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			base.ClientSize = new System.Drawing.Size(1390, 624);
 			base.Controls.Add(this.splitContainer1);
-			base.Icon = (System.Drawing.Icon)componentResourceManager.GetObject("$this.Icon");
+			base.Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
 			base.Margin = new System.Windows.Forms.Padding(2);
 			base.Name = "conversation";
 			this.Text = "»á»°±à¼­Æ÷";

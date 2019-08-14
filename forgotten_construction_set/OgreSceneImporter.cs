@@ -56,7 +56,7 @@ namespace forgotten_construction_set
 		{
 			itemType item = this.Item.type;
 			string str = "";
-			ItemDialog itemDialog = new ItemDialog("Select Object To Copy Nodes From", this.nav.ou.gameData, item, true, str, itemType.NULL_ITEM);
+			ItemDialog itemDialog = new ItemDialog("选择要从中复制节点的对象", this.nav.ou.gameData, item, true, str, itemType.NULL_ITEM);
 			if (itemDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 			{
 				foreach (GameData.Item item1 in itemDialog.Items)
@@ -260,8 +260,8 @@ namespace forgotten_construction_set
 			this.bImport.Name = "bImport";
 			this.bImport.Size = new System.Drawing.Size(75, 23);
 			this.bImport.TabIndex = 0;
-			this.bImport.Text = "Import";
-			this.toolTip1.SetToolTip(this.bImport, "Import selected items.");
+			this.bImport.Text = "导入";
+			this.toolTip1.SetToolTip(this.bImport, "导入已选择的项目.");
 			this.bImport.UseVisualStyleBackColor = true;
 			this.bImport.Click += new EventHandler(this.bImport_Click);
 			this.bCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -270,15 +270,15 @@ namespace forgotten_construction_set
 			this.bCancel.Name = "bCancel";
 			this.bCancel.Size = new System.Drawing.Size(75, 23);
 			this.bCancel.TabIndex = 1;
-			this.bCancel.Text = "Cancel";
+			this.bCancel.Text = "取消";
 			this.bCancel.UseVisualStyleBackColor = true;
 			this.bLoad.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
 			this.bLoad.Location = new Point(12, 237);
 			this.bLoad.Name = "bLoad";
 			this.bLoad.Size = new System.Drawing.Size(92, 23);
 			this.bLoad.TabIndex = 2;
-			this.bLoad.Text = "Load Scene File";
-			this.toolTip1.SetToolTip(this.bLoad, "Load ogre scfene to import items");
+			this.bLoad.Text = "加载场景文件";
+			this.toolTip1.SetToolTip(this.bLoad, "加载ORGE的场景来导入物品");
 			this.bLoad.UseVisualStyleBackColor = true;
 			this.bLoad.Click += new EventHandler(this.bLoad_Click);
 			this.bTarget.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -287,8 +287,8 @@ namespace forgotten_construction_set
 			this.bTarget.Name = "bTarget";
 			this.bTarget.Size = new System.Drawing.Size(63, 22);
 			this.bTarget.TabIndex = 4;
-			this.bTarget.Text = "Target";
-			this.toolTip1.SetToolTip(this.bTarget, "Set target item for checked items.\r\nLeave blank to create new targets.");
+			this.bTarget.Text = "目标";
+			this.toolTip1.SetToolTip(this.bTarget, "为选中的项设置目标项.\r\n留空以创建新目标.");
 			this.bTarget.UseVisualStyleBackColor = true;
 			this.bTarget.Click += new EventHandler(this.bTarget_Click);
 			this.tree.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -306,7 +306,7 @@ namespace forgotten_construction_set
 			this.bCopyNodes.Name = "bCopyNodes";
 			this.bCopyNodes.Size = new System.Drawing.Size(75, 23);
 			this.bCopyNodes.TabIndex = 5;
-			this.bCopyNodes.Text = "CopyFrom";
+			this.bCopyNodes.Text = "复制自";
 			this.bCopyNodes.UseVisualStyleBackColor = true;
 			this.bCopyNodes.Click += new EventHandler(this.bCopyNodes_Click);
 			base.AcceptButton = this.bImport;
@@ -325,7 +325,7 @@ namespace forgotten_construction_set
 			this.MinimumSize = new System.Drawing.Size(385, 200);
 			base.Name = "OgreSceneImporter";
 			base.ShowIcon = false;
-			this.Text = "Ogre Scene Importer";
+			this.Text = "Ogre场景导入器";
 			base.ResumeLayout(false);
 		}
 
@@ -348,7 +348,7 @@ namespace forgotten_construction_set
 		Label0:
 			if (xmlElement == null)
 			{
-				MessageBox.Show("Scene is empty", "Ogre scene importer", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				MessageBox.Show("场景为空", "Ogre场景导入器", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 				return true;
 			}
 			foreach (XmlElement xmlElement1 in xmlElement)

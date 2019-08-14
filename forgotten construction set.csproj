@@ -63,6 +63,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System.Core" />
+    <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
@@ -78,6 +79,42 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="forgotten_construction_set\Components\ChangeListTree.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\Components\ChangeListTree.Designer.cs">
+      <DependentUpon>ChangeListTree.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forgotten_construction_set\Components\ObjectPropertyBox.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\Components\ObjectPropertyBox.Designer.cs">
+      <DependentUpon>ObjectPropertyBox.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forgotten_construction_set\Components\ReferenceList.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\Components\ReferenceList.Designer.cs">
+      <DependentUpon>ReferenceList.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forgotten_construction_set\dialog\ConditionControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\dialog\ConditionControl.Designer.cs">
+      <DependentUpon>ConditionControl.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forgotten_construction_set\dialog\Conversation.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\dialog\Conversation.Designer.cs">
+      <DependentUpon>Conversation.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forgotten_construction_set\dialog\UserControl1.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\dialog\UserControl1.Designer.cs">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -304,11 +341,6 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\dialog\ConditionControl.Designer.cs">
-      <AutoGen>true</AutoGen>
-      <DependentUpon>ConditionControl.resx</DependentUpon>
-      <DesignTimeSharedInput>true</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="forgotten_construction_set\Program.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -317,11 +349,6 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
       <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="forgotten_construction_set\Components\ChangeListTree.Designer.cs">
-      <AutoGen>true</AutoGen>
-      <DependentUpon>ChangeListTree.resx</DependentUpon>
-      <DesignTimeSharedInput>true</DesignTimeSharedInput>
     </Compile>
     <Compile Include="forgotten_construction_set\ItemFilter.cs">
       <AutoGen>false</AutoGen>
@@ -339,19 +366,9 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\ReferenceList.Designer.cs">
-      <AutoGen>true</AutoGen>
-      <DependentUpon>ReferenceList.resx</DependentUpon>
-      <DesignTimeSharedInput>true</DesignTimeSharedInput>
-    </Compile>
     <Compile Include="forgotten_construction_set\Components\QuatProperty.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
-    </Compile>
-    <Compile Include="forgotten_construction_set\ObjectPropertyBox.Designer.cs">
-      <AutoGen>true</AutoGen>
-      <DependentUpon>ObjectPropertyBox.resx</DependentUpon>
-      <DesignTimeSharedInput>true</DesignTimeSharedInput>
     </Compile>
     <Compile Include="forgotten_construction_set\SharedEnums.cs">
       <AutoGen>false</AutoGen>
@@ -503,11 +520,6 @@
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="forgotten_construction_set\conversation.cs">
-      <AutoGen>false</AutoGen>
-      <DesignTimeSharedInput>false</DesignTimeSharedInput>
-      <SubType>Form</SubType>
-    </Compile>
     <Compile Include="forgotten_construction_set\SetFieldValue.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -591,6 +603,15 @@
     <EmbeddedResource Include="forgotten_construction_set\AssetList.resx">
       <DependentUpon>AssetList.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forgotten_construction_set\Components\ReferenceList.resx">
+      <DependentUpon>ReferenceList.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forgotten_construction_set\dialog\Conversation.resx">
+      <DependentUpon>Conversation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="forgotten_construction_set\dialog\UserControl1.resx">
+      <DependentUpon>UserControl1.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forgotten_construction_set\NavigationTranslation.resx">
       <DependentUpon>NavigationTranslation.cs</DependentUpon>
     </EmbeddedResource>
@@ -611,9 +632,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="forgotten_construction_set\OgreSceneImporter.resx">
       <DependentUpon>OgreSceneImporter.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forgotten_construction_set\conversation.resx">
-      <DependentUpon>conversation.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="forgotten_construction_set\SetFieldValue.resx">
       <DependentUpon>SetFieldValue.cs</DependentUpon>
@@ -664,28 +682,13 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="forgotten_construction_set\dialog\ConditionControl.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ConditionControl.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forgotten_construction_set\Components\ChangeListTree.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ChangeListTree.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forgotten_construction_set\ReferenceList.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ReferenceList.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="forgotten_construction_set\ObjectPropertyBox.resx">
-      <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>ObjectPropertyBox.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
     <None Include="forgotten construction set_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

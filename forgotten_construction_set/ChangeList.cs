@@ -95,8 +95,8 @@ namespace forgotten_construction_set
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-			this.tree = new ChangeListTree(this.components);
-			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            this.tree = new ChangeListTree(this.components);
+            this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.openItem = new ToolStripMenuItem();
 			this.revertItem = new ToolStripMenuItem();
 			this.toolStripSeparator1 = new ToolStripSeparator();

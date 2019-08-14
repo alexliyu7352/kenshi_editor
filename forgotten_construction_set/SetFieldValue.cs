@@ -65,7 +65,7 @@ namespace forgotten_construction_set
 					_itemType = itemType.BUILDING;
 					str = "is node=true";
 				}
-				ItemDialog itemDialog = new ItemDialog(string.Concat("Select ", this.fieldName.Text, " reference"), this.nav.ou.gameData, _itemType, true, str, _itemType);
+				ItemDialog itemDialog = new ItemDialog(string.Concat("选择 ", this.fieldName.Text, " 的关联"), this.nav.ou.gameData, _itemType, true, str, _itemType);
 				if (itemDialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
 				{
 					List<string> strs = new List<string>();
@@ -97,7 +97,7 @@ namespace forgotten_construction_set
 			object str = null;
 			if (defaultValue == null)
 			{
-				MessageBox.Show("Invalid field name");
+				MessageBox.Show("无效字段名称");
 				return;
 			}
 			if (defaultValue is bool)
@@ -291,7 +291,7 @@ namespace forgotten_construction_set
 			this.bOk.Name = "bOk";
 			this.bOk.Size = new System.Drawing.Size(77, 27);
 			this.bOk.TabIndex = 1;
-			this.bOk.Text = "Set Value";
+			this.bOk.Text = "设置值";
 			this.bOk.UseVisualStyleBackColor = true;
 			this.bOk.Click += new EventHandler(this.bOk_Click);
 			this.fieldValue.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -305,7 +305,7 @@ namespace forgotten_construction_set
 			this.bCancel.Name = "bCancel";
 			this.bCancel.Size = new System.Drawing.Size(77, 26);
 			this.bCancel.TabIndex = 3;
-			this.bCancel.Text = "Cancel";
+			this.bCancel.Text = "取消";
 			this.bCancel.UseVisualStyleBackColor = true;
 			this.bCancel.Click += new EventHandler(this.bCancel_Click);
 			this.enumValue.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -344,7 +344,7 @@ namespace forgotten_construction_set
 			this.MinimumSize = new System.Drawing.Size(351, 102);
 			base.Name = "SetFieldValue";
 			base.ShowInTaskbar = false;
-			this.Text = "Set Field Value";
+			this.Text = "设置字段值";
 			base.ResumeLayout(false);
 			base.PerformLayout();
 		}

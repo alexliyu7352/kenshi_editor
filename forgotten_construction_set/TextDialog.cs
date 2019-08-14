@@ -86,7 +86,7 @@ namespace forgotten_construction_set
 			this.bConfirm.Size = new System.Drawing.Size(75, 23);
 			this.bConfirm.TabIndex = 1;
 			this.bConfirm.TabStop = false;
-			this.bConfirm.Text = "Ok";
+			this.bConfirm.Text = "好的";
 			this.bConfirm.UseVisualStyleBackColor = true;
 			this.bConfirm.Click += new EventHandler(this.bConfirm_Click);
 			this.bCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -95,7 +95,7 @@ namespace forgotten_construction_set
 			this.bCancel.Name = "bCancel";
 			this.bCancel.Size = new System.Drawing.Size(75, 23);
 			this.bCancel.TabIndex = 2;
-			this.bCancel.Text = "Cancel";
+			this.bCancel.Text = "取消";
 			this.bCancel.UseVisualStyleBackColor = true;
 			this.split.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
 			this.split.Location = new Point(2, 3);
@@ -125,7 +125,7 @@ namespace forgotten_construction_set
 			base.MaximizeBox = false;
 			base.MinimizeBox = false;
 			base.Name = "TextDialog";
-			this.Text = "Text Editor";
+			this.Text = "文本编辑器";
 			this.split.Panel1.ResumeLayout(false);
 			this.split.Panel1.PerformLayout();
 			this.split.Panel2.ResumeLayout(false);

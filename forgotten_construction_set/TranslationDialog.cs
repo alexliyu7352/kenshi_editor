@@ -65,10 +65,10 @@ namespace forgotten_construction_set
 			System.Windows.Forms.Cursor.Current = Cursors.Default;
 			if (num <= 0)
 			{
-				MessageBox.Show("No matches found", "Translation", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+				MessageBox.Show("没有匹配的搜索结果", "翻译", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 				return;
 			}
-			MessageBox.Show(string.Concat("Added translations for ", num, " additional dialogue lines"), "Translation", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+			MessageBox.Show(string.Concat("增加了 ", num, " 个额外对话行的翻译"), "翻译", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 			this.navTranslation.Refresh();
 			this.Calculate();
 		}
@@ -81,15 +81,15 @@ namespace forgotten_construction_set
 				base.BeginInvoke(new MethodInvoker(() => {
 					if (!str.Contains(":"))
 					{
-						MessageBox.Show(str, "Export failed", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+						MessageBox.Show(str, "导出失败", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 					}
 					else if (!this.cbExportDialogue.Checked)
 					{
-						MessageBox.Show(string.Format("Exported base game data to {0}.", str), "Export complete", MessageBoxButtons.OK);
+						MessageBox.Show(string.Format("已导出基本游戏数据到 {0}.", str), "导出完成", MessageBoxButtons.OK);
 					}
 					else
 					{
-						MessageBox.Show(string.Format("Exported base game data and dialogue to {0}.", str), "Export complete", MessageBoxButtons.OK);
+						MessageBox.Show(string.Format("已导出基本游戏数据与对话到 {0}.", str), "导出完成", MessageBoxButtons.OK);
 					}
 					this.Enabled = true;
 				}));
@@ -110,11 +110,11 @@ namespace forgotten_construction_set
 					base.BeginInvoke(new MethodInvoker(() => {
 						if (!flag)
 						{
-							MessageBox.Show("Error importing. Please try again.", "Import error", MessageBoxButtons.OK);
+							MessageBox.Show("导入错误. 请再次尝试.", "导入错误", MessageBoxButtons.OK);
 						}
 						else
 						{
-							MessageBox.Show(string.Concat("Total lines imported: ", num.ToString()), "Import successful", MessageBoxButtons.OK);
+							MessageBox.Show(string.Concat("已导入对话行: ", num.ToString()), "导入成功", MessageBoxButtons.OK);
 							if (num > 0)
 							{
 								this.nav.HasChanges = true;
@@ -132,7 +132,7 @@ namespace forgotten_construction_set
 
 		public void Calculate()
 		{
-			this.gbStats.Text = "Dialogue Statistics (Calculating...)";
+			this.gbStats.Text = "对话统计(计算...)";
 			this.statsThread = new Thread(() => {
 				float single;
 				int num;
@@ -177,7 +177,7 @@ namespace forgotten_construction_set
 					this.lblWordsTotal.Text = num1.ToString();
 					this.lblWordsExtra.Text = num2.ToString();
 					this.lblTranslatedWords.Text = length.ToString();
-					this.gbStats.Text = "Dialogue Statistics";
+					this.gbStats.Text = "对话统计";
 				}));
 			});
 			this.statsThread.Start();
@@ -229,39 +229,39 @@ namespace forgotten_construction_set
 			label.Name = "label1";
 			label.Size = new System.Drawing.Size(63, 13);
 			label.TabIndex = 1;
-			label.Text = "Complete:";
+			label.Text = "完成:";
 			font.AutoSize = true;
 			font.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
 			font.Location = new Point(6, 40);
 			font.Name = "label2";
 			font.Size = new System.Drawing.Size(150, 13);
 			font.TabIndex = 1;
-			font.Text = "Translated source words:";
-			this.toolTip.SetToolTip(font, "Number of words in the lines you have translated");
+			font.Text = "已翻译的源词:";
+			this.toolTip.SetToolTip(font, "您已翻译的语句中的单词数");
 			point.AutoSize = true;
 			point.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
 			point.Location = new Point(6, 59);
 			point.Name = "label3";
 			point.Size = new System.Drawing.Size(119, 13);
 			point.TabIndex = 1;
-			point.Text = "Total source words:";
-			this.toolTip.SetToolTip(point, "Total words to be translated");
+			point.Text = "总共的原词数:";
+			this.toolTip.SetToolTip(point, "要翻译的总词数");
 			size.AutoSize = true;
 			size.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
 			size.Location = new Point(6, 95);
 			size.Name = "label5";
 			size.Size = new System.Drawing.Size(77, 13);
 			size.TabIndex = 3;
-			size.Text = "Extra words:";
-			this.toolTip.SetToolTip(size, "Words you have written that are no longer used");
+			size.Text = "额外的词数:";
+			this.toolTip.SetToolTip(size, "你写的不再使用的单词");
 			label1.AutoSize = true;
 			label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
 			label1.Location = new Point(6, 78);
 			label1.Name = "label4";
 			label1.Size = new System.Drawing.Size(111, 13);
 			label1.TabIndex = 4;
-			label1.Text = "Translated Words:";
-			this.toolTip.SetToolTip(label1, "Total number of words you have written");
+			label1.Text = "已翻译的词数:";
+			this.toolTip.SetToolTip(label1, "你写的总字数");
 			this.btnImport.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
 			this.btnImport.Image = Resources.Import_grey_16x;
 			this.btnImport.ImageAlign = ContentAlignment.MiddleRight;
@@ -269,9 +269,9 @@ namespace forgotten_construction_set
 			this.btnImport.Name = "btnImport";
 			this.btnImport.Size = new System.Drawing.Size(200, 51);
 			this.btnImport.TabIndex = 0;
-			this.btnImport.Text = "Import";
+			this.btnImport.Text = "导入";
 			this.btnImport.TextImageRelation = TextImageRelation.ImageBeforeText;
-			this.toolTip.SetToolTip(this.btnImport, "Import gamedata.po and any dialogue translations in the dialogue subfolder");
+			this.toolTip.SetToolTip(this.btnImport, "导入gamedata.po以及任何在对话子目录中的对话翻译");
 			this.btnImport.UseVisualStyleBackColor = true;
 			this.btnImport.Click += new EventHandler(this.btnImport_Click);
 			this.btnExport.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -281,9 +281,9 @@ namespace forgotten_construction_set
 			this.btnExport.Name = "btnExport";
 			this.btnExport.Size = new System.Drawing.Size(200, 51);
 			this.btnExport.TabIndex = 0;
-			this.btnExport.Text = "Export";
+			this.btnExport.Text = "导出";
 			this.btnExport.TextImageRelation = TextImageRelation.ImageBeforeText;
-			this.toolTip.SetToolTip(this.btnExport, "Export gamedata pot file");
+			this.toolTip.SetToolTip(this.btnExport, "导出gamedata pot文件");
 			this.btnExport.UseVisualStyleBackColor = true;
 			this.btnExport.Click += new EventHandler(this.btnExport_Click);
 			this.gbStep2.Controls.Add(this.btnImport);
@@ -292,7 +292,7 @@ namespace forgotten_construction_set
 			this.gbStep2.Size = new System.Drawing.Size(212, 76);
 			this.gbStep2.TabIndex = 1;
 			this.gbStep2.TabStop = false;
-			this.gbStep2.Text = "Import translation files";
+			this.gbStep2.Text = "导入翻译文件";
 			this.gbStep1.Controls.Add(this.cbExportChangesOnly);
 			this.gbStep1.Controls.Add(this.cbExportDialogue);
 			this.gbStep1.Controls.Add(this.btnExport);
@@ -301,23 +301,23 @@ namespace forgotten_construction_set
 			this.gbStep1.Size = new System.Drawing.Size(212, 99);
 			this.gbStep1.TabIndex = 0;
 			this.gbStep1.TabStop = false;
-			this.gbStep1.Text = "Export game data strings";
+			this.gbStep1.Text = "导出游戏数据字符串";
 			this.cbExportChangesOnly.AutoSize = true;
 			this.cbExportChangesOnly.Enabled = false;
 			this.cbExportChangesOnly.Location = new Point(114, 76);
 			this.cbExportChangesOnly.Name = "cbExportChangesOnly";
 			this.cbExportChangesOnly.Size = new System.Drawing.Size(92, 17);
 			this.cbExportChangesOnly.TabIndex = 2;
-			this.cbExportChangesOnly.Text = "Changes Only";
-			this.toolTip.SetToolTip(this.cbExportChangesOnly, "Only export dialogue pot files for dialogue that is not already fully translated");
+			this.cbExportChangesOnly.Text = "仅限更改";
+			this.toolTip.SetToolTip(this.cbExportChangesOnly, "仅导出尚未完全翻译的对话的对话文件");
 			this.cbExportChangesOnly.UseVisualStyleBackColor = true;
 			this.cbExportDialogue.AutoSize = true;
 			this.cbExportDialogue.Location = new Point(6, 76);
 			this.cbExportDialogue.Name = "cbExportDialogue";
 			this.cbExportDialogue.Size = new System.Drawing.Size(99, 17);
 			this.cbExportDialogue.TabIndex = 1;
-			this.cbExportDialogue.Text = "Export dialogue";
-			this.toolTip.SetToolTip(this.cbExportDialogue, "Export dialogue packages as pot files");
+			this.cbExportDialogue.Text = "导出对话";
+			this.toolTip.SetToolTip(this.cbExportDialogue, "将对话包导出为pot文件");
 			this.cbExportDialogue.UseVisualStyleBackColor = true;
 			this.cbExportDialogue.CheckedChanged += new EventHandler(this.cbExportDialogue_CheckedChanged);
 			this.gbStats.Controls.Add(this.lblTranslatedWords);
@@ -335,7 +335,7 @@ namespace forgotten_construction_set
 			this.gbStats.Size = new System.Drawing.Size(212, 128);
 			this.gbStats.TabIndex = 2;
 			this.gbStats.TabStop = false;
-			this.gbStats.Text = "Statistics";
+			this.gbStats.Text = "统计";
 			this.lblTranslatedWords.Location = new Point(145, 78);
 			this.lblTranslatedWords.Name = "lblTranslatedWords";
 			this.lblTranslatedWords.Size = new System.Drawing.Size(61, 13);
@@ -370,8 +370,8 @@ namespace forgotten_construction_set
 			this.btnAutoTranslate.Name = "btnAutoTranslate";
 			this.btnAutoTranslate.Size = new System.Drawing.Size(95, 23);
 			this.btnAutoTranslate.TabIndex = 3;
-			this.btnAutoTranslate.Text = "Auto-Translate";
-			this.toolTip.SetToolTip(this.btnAutoTranslate, "Copy translations for new lines from existing translations");
+			this.btnAutoTranslate.Text = "自动翻译";
+			this.toolTip.SetToolTip(this.btnAutoTranslate, "从现有翻译中复制翻译为新语句");
 			this.btnAutoTranslate.UseVisualStyleBackColor = true;
 			this.btnAutoTranslate.Click += new EventHandler(this.btnAutoTranslate_Click);
 			base.AutoScaleDimensions = new SizeF(6f, 13f);
@@ -387,7 +387,7 @@ namespace forgotten_construction_set
 			base.Name = "TranslationDialog";
 			base.ShowIcon = false;
 			base.ShowInTaskbar = false;
-			this.Text = "Translation";
+			this.Text = "翻译";
 			base.FormClosing += new FormClosingEventHandler(this.TranslationDialog_FormClosing);
 			this.gbStep2.ResumeLayout(false);
 			this.gbStep1.ResumeLayout(false);

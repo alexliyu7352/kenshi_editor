@@ -68,14 +68,14 @@ namespace forgotten_construction_set
 			label.Name = "lblLanguage";
 			label.Size = new System.Drawing.Size(58, 13);
 			label.TabIndex = 3;
-			label.Text = "Language:";
+			label.Text = "语言:";
 			this.btnCancel.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
 			this.btnCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
 			this.btnCancel.Location = new Point(206, 52);
 			this.btnCancel.Name = "btnCancel";
 			this.btnCancel.Size = new System.Drawing.Size(75, 23);
 			this.btnCancel.TabIndex = 0;
-			this.btnCancel.Text = "Cancel";
+			this.btnCancel.Text = "取消";
 			this.btnCancel.UseVisualStyleBackColor = true;
 			this.btnCancel.Click += new EventHandler(this.btnCancel_Click);
 			this.btnAccept.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
@@ -83,7 +83,7 @@ namespace forgotten_construction_set
 			this.btnAccept.Name = "btnAccept";
 			this.btnAccept.Size = new System.Drawing.Size(75, 23);
 			this.btnAccept.TabIndex = 1;
-			this.btnAccept.Text = "Create";
+			this.btnAccept.Text = "创建";
 			this.btnAccept.UseVisualStyleBackColor = true;
 			this.btnAccept.Click += new EventHandler(this.btnAccept_Click);
 			this.cbLanguage.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -111,7 +111,7 @@ namespace forgotten_construction_set
 			base.Name = "NewTranslationModDialog";
 			base.ShowIcon = false;
 			base.ShowInTaskbar = false;
-			this.Text = "New translation mod";
+			this.Text = "新翻译MOD";
 			base.Load += new EventHandler(this.NewTranslationModDialog_Load);
 			base.ResumeLayout(false);
 			base.PerformLayout();

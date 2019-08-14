@@ -43,8 +43,8 @@ namespace forgotten_construction_set
 		public NavigationTranslation()
 		{
 			this.InitializeComponent();
-			this.treeCategories.Nodes.Add("Dialogue", "Dialogue").Tag = itemType.DIALOGUE;
-			this.treeCategories.Nodes.Add("Word Swaps", "Word Swaps").Tag = itemType.WORD_SWAPS;
+			this.treeCategories.Nodes.Add("Dialogue", "对话").Tag = itemType.DIALOGUE;
+			this.treeCategories.Nodes.Add("Word Swaps", "词互换").Tag = itemType.WORD_SWAPS;
 		}
 
 		public static bool contains(string pattern, string text)
@@ -152,11 +152,11 @@ namespace forgotten_construction_set
 			this.contextMenu.Opening += new CancelEventHandler(this.contextMenu_Opening);
 			this.newWordSwap.Name = "newWordSwap";
 			this.newWordSwap.Size = new System.Drawing.Size(152, 22);
-			this.newWordSwap.Text = "New";
+			this.newWordSwap.Text = "新增";
 			this.newWordSwap.Click += new EventHandler(this.newWordSwap_Click);
 			this.deleteWordSwap.Name = "deleteWordSwap";
 			this.deleteWordSwap.Size = new System.Drawing.Size(152, 22);
-			this.deleteWordSwap.Text = "Delete";
+			this.deleteWordSwap.Text = "删除";
 			this.deleteWordSwap.Click += new EventHandler(this.deleteWordSwap_Click);
 			this.toolStripSeparator1.Name = "toolStripSeparator1";
 			this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
@@ -165,21 +165,21 @@ namespace forgotten_construction_set
 			this.filterTranslated.CheckState = CheckState.Checked;
 			this.filterTranslated.Name = "filterTranslated";
 			this.filterTranslated.Size = new System.Drawing.Size(152, 22);
-			this.filterTranslated.Text = "Translated";
+			this.filterTranslated.Text = "已翻译";
 			this.filterTranslated.Click += new EventHandler(this.filterTranslated_Click);
 			this.filterUntranslated.Checked = true;
 			this.filterUntranslated.CheckOnClick = true;
 			this.filterUntranslated.CheckState = CheckState.Checked;
 			this.filterUntranslated.Name = "filterUntranslated";
 			this.filterUntranslated.Size = new System.Drawing.Size(152, 22);
-			this.filterUntranslated.Text = "Untranslated";
+			this.filterUntranslated.Text = "未翻译";
 			this.filterUntranslated.Click += new EventHandler(this.filterTranslated_Click);
 			this.filterUpdated.Checked = true;
 			this.filterUpdated.CheckOnClick = true;
 			this.filterUpdated.CheckState = CheckState.Checked;
 			this.filterUpdated.Name = "filterUpdated";
 			this.filterUpdated.Size = new System.Drawing.Size(152, 22);
-			this.filterUpdated.Text = "Updated";
+			this.filterUpdated.Text = "已更新";
 			this.filterUpdated.Click += new EventHandler(this.filterTranslated_Click);
 			base.AutoScaleDimensions = new SizeF(6f, 13f);
 			base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -187,7 +187,7 @@ namespace forgotten_construction_set
 			base.ControlBox = false;
 			base.Controls.Add(this.splitContainer1);
 			base.Name = "NavigationTranslation";
-			this.Text = "Translation";
+			this.Text = "翻译";
 			base.VisibleChanged += new EventHandler(this.NavigationTranslation_VisibleChanged);
 			this.splitContainer1.Panel1.ResumeLayout(false);
 			this.splitContainer1.Panel2.ResumeLayout(false);

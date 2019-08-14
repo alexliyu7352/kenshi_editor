@@ -107,7 +107,7 @@ namespace forgotten_construction_set
 		{
 			string str = this.addList.SelectedItem.ToString();
 			GameData.Desc desc = GameData.getDesc(this.Item.type, str);
-			ItemDialog itemDialog = new ItemDialog(string.Concat("Select ", str, " reference"), this.nav.ou.gameData, desc.list, true, "", itemType.NULL_ITEM);
+			ItemDialog itemDialog = new ItemDialog(string.Concat("选择 ", str, " 的关联"), this.nav.ou.gameData, desc.list, true, "", itemType.NULL_ITEM);
 			if (itemDialog.ShowDialog() == DialogResult.OK)
 			{
 				foreach (GameData.Item item in itemDialog.Items)
@@ -216,15 +216,15 @@ namespace forgotten_construction_set
 			this.contextMenu.Opening += new CancelEventHandler(this.contextMenu_Opening);
 			this.openItem.Name = "openItem";
 			this.openItem.Size = new System.Drawing.Size(117, 22);
-			this.openItem.Text = "Open";
+			this.openItem.Text = "打开";
 			this.openItem.Click += new EventHandler(this.openItem_Click);
 			this.revertItem.Name = "revertItem";
 			this.revertItem.Size = new System.Drawing.Size(117, 22);
-			this.revertItem.Text = "Revert";
+			this.revertItem.Text = "还原";
 			this.revertItem.Click += new EventHandler(this.revertItem_Click);
 			this.removeItem.Name = "removeItem";
 			this.removeItem.Size = new System.Drawing.Size(117, 22);
-			this.removeItem.Text = "Remove";
+			this.removeItem.Text = "移除";
 			this.removeItem.Click += new EventHandler(this.removeItem_Click);
 			this.split.Dock = DockStyle.Fill;
 			this.split.Location = new Point(0, 0);
@@ -259,7 +259,7 @@ namespace forgotten_construction_set
 			this.addButton.Name = "addButton";
 			this.addButton.Size = new System.Drawing.Size(56, 21);
 			this.addButton.TabIndex = 34;
-			this.addButton.Text = "Add";
+			this.addButton.Text = "添加";
 			this.addButton.UseVisualStyleBackColor = true;
 			this.addButton.Click += new EventHandler(this.addButton_Click);
 			this.grid.AutoScroll = true;
@@ -275,14 +275,14 @@ namespace forgotten_construction_set
 			this.description.Name = "description";
 			this.description.Size = new System.Drawing.Size(206, 28);
 			this.description.TabIndex = 1;
-			this.description.Text = "Description";
+			this.description.Text = "描述";
 			this.selection.AutoSize = true;
 			this.selection.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
 			this.selection.Location = new Point(3, 0);
 			this.selection.Name = "selection";
 			this.selection.Size = new System.Drawing.Size(85, 13);
 			this.selection.TabIndex = 0;
-			this.selection.Text = "Selected Item";
+			this.selection.Text = "已选择的项目";
 			base.AutoScaleDimensions = new SizeF(6f, 13f);
 			base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			base.Controls.Add(this.split);

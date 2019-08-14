@@ -1,4 +1,5 @@
 using forgotten_construction_set.dialog;
+using forgotten_construction_set.Components;
 using PropertyGrid;
 using System;
 using System.Collections;
@@ -112,7 +113,7 @@ namespace forgotten_construction_set
 
 		private void InitializeComponent()
 		{
-			ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(diplomat));
+            System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(diplomat));
 			this.nameBox = new TextBox();
 			this.nameLabel = new Label();
 			this.addAssault = new Button();

@@ -394,7 +394,7 @@ namespace forgotten_construction_set
 
 		private void InitializeComponent()
 		{
-			ComponentResourceManager componentResourceManager = new ComponentResourceManager(typeof(baseForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(baseForm));
 			this.toolStrip1 = new ToolStrip();
 			this.openMod = new ToolStripButton();
 			this.saveMod = new ToolStripButton();
@@ -472,7 +472,7 @@ namespace forgotten_construction_set
 			this.cleanupAll.Name = "cleanupAll";
 			this.cleanupAll.Size = new System.Drawing.Size(71, 22);
 			this.cleanupAll.Text = "清理";
-			this.cleanupAll.ToolTipText = "Delete obsolete data from old versions";
+			this.cleanupAll.ToolTipText = "删除来自旧版本中的过时的数据";
 			this.cleanupAll.Click += new EventHandler(this.cleanupAll_Click);
 			this.changeList.Enabled = false;
 			this.changeList.Image = Resources.ChangesetGroup_16x;
@@ -546,7 +546,7 @@ namespace forgotten_construction_set
 			base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			base.ClientSize = new System.Drawing.Size(1083, 676);
 			base.Controls.Add(this.toolStrip1);
-			base.Icon = (System.Drawing.Icon)componentResourceManager.GetObject("$this.Icon");
+			base.Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
 			base.IsMdiContainer = true;
 			base.Name = "baseForm";
 			base.WindowState = FormWindowState.Maximized;
