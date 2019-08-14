@@ -77,8 +77,11 @@ namespace forgotten_construction_set
 		private ToolStripButton btnTranslations;
 
 		private ToolStripSeparator toolStripSeparator3;
-
-		private ToolStripButton translationFixMode;
+        private ToolStripSeparator toolStripSeparator7;
+        private ToolStripDropDownButton toolStripDropDownButton1;
+        private ToolStripMenuItem updateStripMenuItem;
+        private ToolStripMenuItem aboutMenuItem;
+        private ToolStripButton translationFixMode;
 
 		static baseForm()
 		{
@@ -395,168 +398,302 @@ namespace forgotten_construction_set
 		private void InitializeComponent()
 		{
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(baseForm));
-			this.toolStrip1 = new ToolStrip();
-			this.openMod = new ToolStripButton();
-			this.saveMod = new ToolStripButton();
-			this.toolStripSeparator2 = new ToolStripSeparator();
-			this.Info = new ToolStripButton();
-			this.toolStripSeparator1 = new ToolStripSeparator();
-			this.globalSettings = new ToolStripButton();
-			this.artifactsSettings = new ToolStripButton();
-			this.toolStripSeparator4 = new ToolStripSeparator();
-			this.cleanupAll = new ToolStripButton();
-			this.changeList = new ToolStripButton();
-			this.assetList = new ToolStripButton();
-			this.toolStripSeparator6 = new ToolStripSeparator();
-			this.mergeMod = new ToolStripButton();
-			this.toolStripSeparator5 = new ToolStripSeparator();
-			this.exportModsFile = new ToolStripButton();
-			this.toolStripSeparator10 = new ToolStripSeparator();
-			this.btnTranslations = new ToolStripButton();
-			this.translationFixMode = new ToolStripButton();
-			this.toolStripSeparator3 = new ToolStripSeparator();
-			this.toolStripSeparator11 = new ToolStripSeparator();
-			this.openAny = new ToolStripButton();
-			this.saveFileDialog = new SaveFileDialog();
-			this.openFileDialog = new OpenFileDialog();
-			this.toolStrip1.SuspendLayout();
-			base.SuspendLayout();
-			this.toolStrip1.Items.AddRange(new ToolStripItem[] { this.openMod, this.saveMod, this.toolStripSeparator2, this.Info, this.toolStripSeparator1, this.globalSettings, this.artifactsSettings, this.toolStripSeparator4, this.cleanupAll, this.changeList, this.assetList, this.toolStripSeparator6, this.mergeMod, this.toolStripSeparator5, this.exportModsFile, this.toolStripSeparator10, this.btnTranslations, this.translationFixMode, this.toolStripSeparator3, this.toolStripSeparator11, this.openAny });
-			this.toolStrip1.Location = new Point(0, 0);
-			this.toolStrip1.Name = "toolStrip1";
-			this.toolStrip1.Size = new System.Drawing.Size(1083, 25);
-			this.toolStrip1.TabIndex = 1;
-			this.toolStrip1.Text = "toolStrip1";
-			this.openMod.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			this.openMod.Image = Resources.OpenFolder;
-			this.openMod.Name = "openMod";
-			this.openMod.Size = new System.Drawing.Size(23, 22);
-			this.openMod.Text = "加载";
-			this.openMod.Click += new EventHandler(this.openMod_Click);
-			this.saveMod.DisplayStyle = ToolStripItemDisplayStyle.Image;
-			this.saveMod.Enabled = false;
-			this.saveMod.Image = Resources.Save;
-			this.saveMod.ImageTransparentColor = Color.Magenta;
-			this.saveMod.Name = "saveMod";
-			this.saveMod.Size = new System.Drawing.Size(23, 22);
-			this.saveMod.Text = "保存";
-			this.saveMod.Click += new EventHandler(this.saveMod_Click);
-			this.toolStripSeparator2.Name = "toolStripSeparator2";
-			this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
-			this.Info.Enabled = false;
-			this.Info.Image = Resources.UIAboutBox;
-			this.Info.Name = "Info";
-			this.Info.Size = new System.Drawing.Size(76, 22);
-			this.Info.Text = "Mod信息";
-			this.Info.Click += new EventHandler(this.info_Click);
-			this.toolStripSeparator1.Name = "toolStripSeparator1";
-			this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
-			this.globalSettings.BackColor = SystemColors.Control;
-			this.globalSettings.Enabled = false;
-			this.globalSettings.Image = Resources.Settings;
-			this.globalSettings.Name = "globalSettings";
-			this.globalSettings.Size = new System.Drawing.Size(138, 22);
-			this.globalSettings.Text = "全局游戏设置";
-			this.globalSettings.Click += new EventHandler(this.globalSettings_Click);
-			this.artifactsSettings.BackColor = SystemColors.Control;
-			this.artifactsSettings.Enabled = false;
-			this.artifactsSettings.Image = Resources.SettingsFile;
-			this.artifactsSettings.Name = "artifactsSettings";
-			this.artifactsSettings.Size = new System.Drawing.Size(115, 22);
-			this.artifactsSettings.Text = "文物设置";
-			this.artifactsSettings.Click += new EventHandler(this.artifactsSettings_Click);
-			this.toolStripSeparator4.Name = "toolStripSeparator4";
-			this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
-			this.cleanupAll.Enabled = false;
-			this.cleanupAll.Image = Resources.CleanData_16x;
-			this.cleanupAll.Name = "cleanupAll";
-			this.cleanupAll.Size = new System.Drawing.Size(71, 22);
-			this.cleanupAll.Text = "清理";
-			this.cleanupAll.ToolTipText = "删除来自旧版本中的过时的数据";
-			this.cleanupAll.Click += new EventHandler(this.cleanupAll_Click);
-			this.changeList.Enabled = false;
-			this.changeList.Image = Resources.ChangesetGroup_16x;
-			this.changeList.Name = "changeList";
-			this.changeList.Size = new System.Drawing.Size(73, 22);
-			this.changeList.Text = "已改变的";
-			this.changeList.ToolTipText = "列出当前已激活mod包含的所有更改";
-			this.changeList.Click += new EventHandler(this.changeList_Click);
-			this.assetList.Enabled = false;
-			this.assetList.Image = Resources.AppRoot_16x;
-			this.assetList.ImageTransparentColor = Color.Magenta;
-			this.assetList.Name = "assetList";
-			this.assetList.Size = new System.Drawing.Size(60, 22);
-			this.assetList.Text = "资源";
-			this.assetList.ToolTipText = "列出所有的引用的文件";
-			this.assetList.Click += new EventHandler(this.assetList_Click);
-			this.toolStripSeparator6.Name = "toolStripSeparator6";
-			this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
-			this.mergeMod.Enabled = false;
-			this.mergeMod.Image = Resources.Merge_24x;
-			this.mergeMod.Name = "mergeMod";
-			this.mergeMod.Size = new System.Drawing.Size(89, 22);
-			this.mergeMod.Text = "合并MOD";
-			this.mergeMod.ToolTipText = "合并来自另一个mod的更改";
-			this.mergeMod.Click += new EventHandler(this.mergebutton_Click);
-			this.toolStripSeparator5.Name = "toolStripSeparator5";
-			this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
-			this.exportModsFile.Enabled = false;
-			this.exportModsFile.Image = Resources.ExportData_16x;
-			this.exportModsFile.Name = "exportModsFile";
-			this.exportModsFile.Size = new System.Drawing.Size(112, 22);
-			this.exportModsFile.Text = "导出MOD文件";
-			this.exportModsFile.Click += new EventHandler(this.exportModsFile_Click);
-			this.toolStripSeparator10.Name = "toolStripSeparator10";
-			this.toolStripSeparator10.Size = new System.Drawing.Size(6, 25);
-			this.btnTranslations.Enabled = false;
-			this.btnTranslations.Image = Resources.TranslateDocument_32x;
-			this.btnTranslations.ImageTransparentColor = Color.Magenta;
-			this.btnTranslations.Name = "btnTranslations";
-			this.btnTranslations.Size = new System.Drawing.Size(90, 22);
-			this.btnTranslations.Text = "翻译";
-			this.btnTranslations.Click += new EventHandler(this.btnTranslations_Click);
-			this.translationFixMode.Enabled = false;
-			this.translationFixMode.Image = Resources.ModSets_16x;
-			this.translationFixMode.ImageTransparentColor = Color.Magenta;
-			this.translationFixMode.Name = "translationFixMode";
-			this.translationFixMode.Size = new System.Drawing.Size(99, 22);
-			this.translationFixMode.Text = "翻译修复";
-			this.translationFixMode.Click += new EventHandler(this.translationFixMode_Click);
-			this.toolStripSeparator3.Name = "toolStripSeparator3";
-			this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
-			this.toolStripSeparator11.Name = "toolStripSeparator11";
-			this.toolStripSeparator11.Size = new System.Drawing.Size(6, 25);
-			this.openAny.Image = Resources.Open;
-			this.openAny.Name = "openAny";
-			this.openAny.Size = new System.Drawing.Size(78, 20);
-			this.openAny.Text = "打开任何文件";
-			this.openAny.ToolTipText = "打开任何数据文件类型（一般用来打开其他不在MOD目录下的MOD）";
-			this.openAny.Click += new EventHandler(this.openAny_Click);
-			this.saveFileDialog.DefaultExt = "mod";
-			this.saveFileDialog.Filter = "Kenshi gamedata (*.mod)|*.mod";
-			this.saveFileDialog.RestoreDirectory = true;
-			this.saveFileDialog.Title = "保存新文件";
-			this.openFileDialog.DefaultExt = "mod";
-			this.openFileDialog.FileName = "openFileDialog1";
-			this.openFileDialog.Filter = "All files|*.*|Kenshi gamedata (*.mod)|*.mod";
-			this.openFileDialog.RestoreDirectory = true;
-			this.openFileDialog.Title = "打开文件";
-			this.AllowDrop = true;
-			base.AutoScaleDimensions = new SizeF(6f, 13f);
-			base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-			base.ClientSize = new System.Drawing.Size(1083, 676);
-			base.Controls.Add(this.toolStrip1);
-			base.Icon = (System.Drawing.Icon)resources.GetObject("$this.Icon");
-			base.IsMdiContainer = true;
-			base.Name = "baseForm";
-			base.WindowState = FormWindowState.Maximized;
-			base.FormClosing += new FormClosingEventHandler(this.baseForm_FormClosing);
-			base.DragDrop += new DragEventHandler(this.baseForm_DragDrop);
-			base.DragEnter += new DragEventHandler(this.baseForm_DragEnter);
-			this.toolStrip1.ResumeLayout(false);
-			this.toolStrip1.PerformLayout();
-			base.ResumeLayout(false);
-			base.PerformLayout();
+            this.toolStrip1 = new System.Windows.Forms.ToolStrip();
+            this.openMod = new System.Windows.Forms.ToolStripButton();
+            this.saveMod = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.Info = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
+            this.globalSettings = new System.Windows.Forms.ToolStripButton();
+            this.artifactsSettings = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.cleanupAll = new System.Windows.Forms.ToolStripButton();
+            this.changeList = new System.Windows.Forms.ToolStripButton();
+            this.assetList = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
+            this.mergeMod = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
+            this.exportModsFile = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator10 = new System.Windows.Forms.ToolStripSeparator();
+            this.btnTranslations = new System.Windows.Forms.ToolStripButton();
+            this.translationFixMode = new System.Windows.Forms.ToolStripButton();
+            this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
+            this.openAny = new System.Windows.Forms.ToolStripButton();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
+            this.updateStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStrip1.SuspendLayout();
+            this.SuspendLayout();
+            // 
+            // toolStrip1
+            // 
+            this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openMod,
+            this.saveMod,
+            this.toolStripSeparator2,
+            this.Info,
+            this.toolStripSeparator1,
+            this.globalSettings,
+            this.artifactsSettings,
+            this.toolStripSeparator4,
+            this.cleanupAll,
+            this.changeList,
+            this.assetList,
+            this.toolStripSeparator6,
+            this.mergeMod,
+            this.toolStripSeparator5,
+            this.exportModsFile,
+            this.toolStripSeparator10,
+            this.btnTranslations,
+            this.translationFixMode,
+            this.toolStripSeparator3,
+            this.toolStripSeparator11,
+            this.openAny,
+            this.toolStripSeparator7,
+            this.toolStripDropDownButton1});
+            this.toolStrip1.Location = new System.Drawing.Point(0, 0);
+            this.toolStrip1.Name = "toolStrip1";
+            this.toolStrip1.Size = new System.Drawing.Size(1083, 25);
+            this.toolStrip1.TabIndex = 1;
+            this.toolStrip1.Text = "toolStrip1";
+            // 
+            // openMod
+            // 
+            this.openMod.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.openMod.Image = global::forgotten_construction_set.Properties.Resources.OpenFolder;
+            this.openMod.Name = "openMod";
+            this.openMod.Size = new System.Drawing.Size(23, 22);
+            this.openMod.Text = "加载";
+            this.openMod.Click += new System.EventHandler(this.openMod_Click);
+            // 
+            // saveMod
+            // 
+            this.saveMod.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.saveMod.Enabled = false;
+            this.saveMod.Image = global::forgotten_construction_set.Properties.Resources.Save;
+            this.saveMod.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.saveMod.Name = "saveMod";
+            this.saveMod.Size = new System.Drawing.Size(23, 22);
+            this.saveMod.Text = "保存";
+            this.saveMod.Click += new System.EventHandler(this.saveMod_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(6, 25);
+            // 
+            // Info
+            // 
+            this.Info.Enabled = false;
+            this.Info.Image = global::forgotten_construction_set.Properties.Resources.UIAboutBox;
+            this.Info.Name = "Info";
+            this.Info.Size = new System.Drawing.Size(80, 22);
+            this.Info.Text = "Mod信息";
+            this.Info.Click += new System.EventHandler(this.info_Click);
+            // 
+            // toolStripSeparator1
+            // 
+            this.toolStripSeparator1.Name = "toolStripSeparator1";
+            this.toolStripSeparator1.Size = new System.Drawing.Size(6, 25);
+            // 
+            // globalSettings
+            // 
+            this.globalSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.globalSettings.Enabled = false;
+            this.globalSettings.Image = global::forgotten_construction_set.Properties.Resources.Settings;
+            this.globalSettings.Name = "globalSettings";
+            this.globalSettings.Size = new System.Drawing.Size(100, 22);
+            this.globalSettings.Text = "全局游戏设置";
+            this.globalSettings.Click += new System.EventHandler(this.globalSettings_Click);
+            // 
+            // artifactsSettings
+            // 
+            this.artifactsSettings.BackColor = System.Drawing.SystemColors.Control;
+            this.artifactsSettings.Enabled = false;
+            this.artifactsSettings.Image = global::forgotten_construction_set.Properties.Resources.SettingsFile;
+            this.artifactsSettings.Name = "artifactsSettings";
+            this.artifactsSettings.Size = new System.Drawing.Size(76, 22);
+            this.artifactsSettings.Text = "文物设置";
+            this.artifactsSettings.Click += new System.EventHandler(this.artifactsSettings_Click);
+            // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(6, 25);
+            // 
+            // cleanupAll
+            // 
+            this.cleanupAll.Enabled = false;
+            this.cleanupAll.Image = global::forgotten_construction_set.Properties.Resources.CleanData_16x;
+            this.cleanupAll.Name = "cleanupAll";
+            this.cleanupAll.Size = new System.Drawing.Size(52, 22);
+            this.cleanupAll.Text = "清理";
+            this.cleanupAll.ToolTipText = "删除来自旧版本中的过时的数据";
+            this.cleanupAll.Click += new System.EventHandler(this.cleanupAll_Click);
+            // 
+            // changeList
+            // 
+            this.changeList.Enabled = false;
+            this.changeList.Image = global::forgotten_construction_set.Properties.Resources.ChangesetGroup_16x;
+            this.changeList.Name = "changeList";
+            this.changeList.Size = new System.Drawing.Size(76, 22);
+            this.changeList.Text = "已改变的";
+            this.changeList.ToolTipText = "列出当前已激活mod包含的所有更改";
+            this.changeList.Click += new System.EventHandler(this.changeList_Click);
+            // 
+            // assetList
+            // 
+            this.assetList.Enabled = false;
+            this.assetList.Image = global::forgotten_construction_set.Properties.Resources.AppRoot_16x;
+            this.assetList.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.assetList.Name = "assetList";
+            this.assetList.Size = new System.Drawing.Size(52, 22);
+            this.assetList.Text = "资源";
+            this.assetList.ToolTipText = "列出所有的引用的文件";
+            this.assetList.Click += new System.EventHandler(this.assetList_Click);
+            // 
+            // toolStripSeparator6
+            // 
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(6, 25);
+            // 
+            // mergeMod
+            // 
+            this.mergeMod.Enabled = false;
+            this.mergeMod.Image = global::forgotten_construction_set.Properties.Resources.Merge_24x;
+            this.mergeMod.Name = "mergeMod";
+            this.mergeMod.Size = new System.Drawing.Size(83, 22);
+            this.mergeMod.Text = "合并MOD";
+            this.mergeMod.ToolTipText = "合并来自另一个mod的更改";
+            this.mergeMod.Click += new System.EventHandler(this.mergebutton_Click);
+            // 
+            // toolStripSeparator5
+            // 
+            this.toolStripSeparator5.Name = "toolStripSeparator5";
+            this.toolStripSeparator5.Size = new System.Drawing.Size(6, 25);
+            // 
+            // exportModsFile
+            // 
+            this.exportModsFile.Enabled = false;
+            this.exportModsFile.Image = global::forgotten_construction_set.Properties.Resources.ExportData_16x;
+            this.exportModsFile.Name = "exportModsFile";
+            this.exportModsFile.Size = new System.Drawing.Size(107, 22);
+            this.exportModsFile.Text = "导出MOD文件";
+            this.exportModsFile.Click += new System.EventHandler(this.exportModsFile_Click);
+            // 
+            // toolStripSeparator10
+            // 
+            this.toolStripSeparator10.Name = "toolStripSeparator10";
+            this.toolStripSeparator10.Size = new System.Drawing.Size(6, 25);
+            // 
+            // btnTranslations
+            // 
+            this.btnTranslations.Enabled = false;
+            this.btnTranslations.Image = global::forgotten_construction_set.Properties.Resources.TranslateDocument_32x;
+            this.btnTranslations.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.btnTranslations.Name = "btnTranslations";
+            this.btnTranslations.Size = new System.Drawing.Size(52, 22);
+            this.btnTranslations.Text = "翻译";
+            this.btnTranslations.Click += new System.EventHandler(this.btnTranslations_Click);
+            // 
+            // translationFixMode
+            // 
+            this.translationFixMode.Enabled = false;
+            this.translationFixMode.Image = global::forgotten_construction_set.Properties.Resources.ModSets_16x;
+            this.translationFixMode.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.translationFixMode.Name = "translationFixMode";
+            this.translationFixMode.Size = new System.Drawing.Size(76, 22);
+            this.translationFixMode.Text = "翻译修复";
+            this.translationFixMode.Click += new System.EventHandler(this.translationFixMode_Click);
+            // 
+            // toolStripSeparator3
+            // 
+            this.toolStripSeparator3.Name = "toolStripSeparator3";
+            this.toolStripSeparator3.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripSeparator11
+            // 
+            this.toolStripSeparator11.Name = "toolStripSeparator11";
+            this.toolStripSeparator11.Size = new System.Drawing.Size(6, 25);
+            // 
+            // openAny
+            // 
+            this.openAny.Image = global::forgotten_construction_set.Properties.Resources.Open;
+            this.openAny.Name = "openAny";
+            this.openAny.Size = new System.Drawing.Size(100, 22);
+            this.openAny.Text = "打开任何文件";
+            this.openAny.ToolTipText = "打开任何数据文件类型（一般用来打开其他不在MOD目录下的MOD）";
+            this.openAny.Click += new System.EventHandler(this.openAny_Click);
+            // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "mod";
+            this.saveFileDialog.Filter = "Kenshi gamedata (*.mod)|*.mod";
+            this.saveFileDialog.RestoreDirectory = true;
+            this.saveFileDialog.Title = "保存新文件";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.DefaultExt = "mod";
+            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.Filter = "All files|*.*|Kenshi gamedata (*.mod)|*.mod";
+            this.openFileDialog.RestoreDirectory = true;
+            this.openFileDialog.Title = "打开文件";
+            // 
+            // toolStripSeparator7
+            // 
+            this.toolStripSeparator7.Name = "toolStripSeparator7";
+            this.toolStripSeparator7.Size = new System.Drawing.Size(6, 25);
+            // 
+            // toolStripDropDownButton1
+            // 
+            this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.updateStripMenuItem,
+            this.aboutMenuItem});
+            this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
+            this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(45, 22);
+            this.toolStripDropDownButton1.Text = "关于&更新";
+            // 
+            // updateStripMenuItem
+            // 
+            this.updateStripMenuItem.Name = "updateStripMenuItem";
+            this.updateStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.updateStripMenuItem.Text = "更新地址";
+            this.updateStripMenuItem.Click += new System.EventHandler(this.UpdateStripMenuItem_Click);
+            // 
+            // aboutMenuItem
+            // 
+            this.aboutMenuItem.Name = "aboutMenuItem";
+            this.aboutMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.aboutMenuItem.Text = "关于";
+            this.aboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
+            // 
+            // baseForm
+            // 
+            this.AllowDrop = true;
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1083, 624);
+            this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
+            this.Name = "baseForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.baseForm_FormClosing);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.baseForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.baseForm_DragEnter);
+            this.toolStrip1.ResumeLayout(false);
+            this.toolStrip1.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
 		}
 
 		public void loadFile(bool mergeMode)
@@ -746,5 +883,21 @@ namespace forgotten_construction_set
 			}
 			this.Text = stringBuilder.ToString();
 		}
-	}
+
+        private void UpdateStripMenuItem_Click(object sender, EventArgs e)
+        {
+            System.Diagnostics.Process.Start("https://github.com/alexliyu7352/kenshi_editor");
+
+        }
+
+        private void AboutMenuItem_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show("这个版本的编辑器是基于Kenshi官方编辑器, 并由虚空入侵MOD制作组的Alexliyu进行制作,除了汉化以外还修复了一些编辑器本身的问题以及添加了一些功能.\n" +
+                "我们无意侵犯任何版权,也尊重开发者的权益.制作本编辑器只是为了弥补使用官方版本开发时候的一些不便捷或者产生BUG的地方.\n" +
+                "因此请各位能多多支持Kenshi游戏正版,当然也希望能支持虚空入侵MOD工作组, 毕竟我们是用爱来发电的一群大叔.\n如果发现BUG或者有什么修改建议请在编辑器的主页进行反馈.\n" +
+                "另外再次重申:这个项目源码已经开放，一切仅仅只是为了研究血裔使用, 切勿商用,否则一些后果概不负责.\n" +
+                "我们的联系方式: qq群:672036449, https://github.com/alexliyu7352/kenshi_editor"
+                , "关于本版本的编辑器", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+    }
 }

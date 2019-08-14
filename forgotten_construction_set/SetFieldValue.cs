@@ -367,12 +367,12 @@ namespace forgotten_construction_set
 				}
 				if (j == null)
 				{
-					MessageBox.Show(string.Concat("Invalid reference ", str));
+					MessageBox.Show(string.Concat("无效的引用 ", str));
 					return null;
 				}
 				if (j.type != desc.list)
 				{
-					MessageBox.Show("Incorrect referenced item type");
+					MessageBox.Show("不正确的引用项类型");
 					return null;
 				}
 				GameData.TripleInt tripleInt = new GameData.TripleInt(desc.defaultValue as GameData.TripleInt);

@@ -599,7 +599,7 @@ namespace forgotten_construction_set
 			if (dependencyState == InheritFiles.DependencyState.MISSING_DEPENDENCIES)
 			{
 				if (MessageBox.Show(string.Concat("您正在尝试加载缺少依赖文件的 ", string.Join(", ", strs), ". 这将导致任何已修改的项目显示为已损坏或缺少某些数据.\n你确定要继续么?"), "缺少依赖", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.No)
-				{
+                {
 					return;
 				}
 			}

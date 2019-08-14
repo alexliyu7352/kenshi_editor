@@ -177,7 +177,7 @@ namespace forgotten_construction_set
 			}
 			catch (Exception exception)
 			{
-				MessageBox.Show(string.Concat("File not found: ", file), "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				MessageBox.Show(string.Concat("文件未找到: ", file), "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 				flag = false;
 			}
 			return flag;
@@ -215,7 +215,7 @@ namespace forgotten_construction_set
 			}
 			catch (Exception exception)
 			{
-				MessageBox.Show(string.Concat("Directory does not exist: ", str), "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				MessageBox.Show(string.Concat("目录不存在: ", str), "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 				flag = false;
 			}
 			return flag;

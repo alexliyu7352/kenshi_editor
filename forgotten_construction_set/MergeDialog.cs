@@ -624,7 +624,7 @@ namespace forgotten_construction_set
 				}
 			}
 			this.Cursor = Cursors.Default;
-			MessageBox.Show(str, "Merge", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+			MessageBox.Show(str, "ºÏ²¢", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
 		}
 
 		public static string mergeLevelData(string srcPath, string destPath)

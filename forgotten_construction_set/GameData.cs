@@ -401,7 +401,7 @@ namespace forgotten_construction_set
 				catch (Exception exception1)
 				{
 					Exception exception = exception1;
-					MessageBox.Show(string.Concat("Corrupt mod file: ", fileName), "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+					MessageBox.Show(string.Concat("无法读取MOD文件: ", fileName), "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 					baseForm.logger.Error(exception, "Error reading mod file '{0}'.", new object[] { fileName });
 				}
 				memoryStream.Position = (long)0;
@@ -468,7 +468,7 @@ namespace forgotten_construction_set
 					catch (Exception exception3)
 					{
 						Exception exception2 = exception3;
-						MessageBox.Show(string.Concat("Corrupt mod file: ", fileName), "Error", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+						MessageBox.Show(string.Concat("无效的MOD文件: ", fileName), "错误", MessageBoxButtons.OK, MessageBoxIcon.Hand);
 						baseForm.logger.Error(exception2, "Error processing mod file '{0}'.", new object[] { fileName });
 						flag = false;
 					}
@@ -643,7 +643,7 @@ namespace forgotten_construction_set
 			}
 			if (GameData.desc[type].ContainsKey(name) && GameData.isListType(GameData.desc[type][name]) != GameData.isListType(d))
 			{
-				MessageBox.Show(string.Concat("Error: Paramerter conflict - ", type.ToString(), ":", name));
+				MessageBox.Show(string.Concat("错误: 参数冲突 - ", type.ToString(), ":", name));
 			}
 			GameData.desc[type][name] = d;
 			return d;
@@ -1771,7 +1771,7 @@ namespace forgotten_construction_set
 				bool flag = false;
 				if (fileVersion < 14 && this.type == itemType.CONSTANTS)
 				{
-					MessageBox.Show("Old mod type detected.  Modifications to GLOBAL CONSTANTS have been lost, please re-do your changes and re-save the mod to update it.");
+					MessageBox.Show("检测到旧mod类型.  对全局常量的修改已经丢失，请重新进行修改并重新保存mod来更新它.");
 					strs = new SortedList<string, object>();
 				}
 				Dictionary<string, bool> strs1 = null;

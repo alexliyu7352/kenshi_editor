@@ -159,7 +159,7 @@ namespace forgotten_construction_set
 				}
 				catch (Exception exception)
 				{
-					MessageBox.Show("Error deleting image.", "Error", MessageBoxButtons.OK);
+					MessageBox.Show("É¾³ýÍ¼Æ¬´íÎó.", "´íÎó", MessageBoxButtons.OK);
 				}
 			}
 			this.imgPreview.Refresh();
@@ -178,7 +178,7 @@ namespace forgotten_construction_set
 				FileInfo fileInfo = new FileInfo(openFileDialog.FileName);
 				if (fileInfo.Length > (long)1048576)
 				{
-					MessageBox.Show("Image must be under 1MB in size.", "Error", MessageBoxButtons.OK);
+					MessageBox.Show("Í¼Æ¬±ØÐëÐ¡ÓÚ1MB.", "´íÎó", MessageBoxButtons.OK);
 					return;
 				}
 				fileInfo.CopyTo(this.info.GetImagePath(), true);

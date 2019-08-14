@@ -135,7 +135,7 @@ namespace forgotten_construction_set
 			}
 			else if (referenceValue.v2 != 0)
 			{
-				MessageBox.Show("Too many references to this dialog object, a dialogue package can only reference an object up to 3 times", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+				MessageBox.Show("对该对话对象引用过多，对话包最多只能引用一个对象3次", "错误", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
 			}
 			else
 			{

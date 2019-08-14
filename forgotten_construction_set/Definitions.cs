@@ -330,7 +330,7 @@ namespace forgotten_construction_set
 			}
 			if (Definitions.errors.Length > 0)
 			{
-				MessageBox.Show(Definitions.errors, string.Concat(filename, " errors"), MessageBoxButtons.OK, MessageBoxIcon.Hand);
+				MessageBox.Show(Definitions.errors, string.Concat(filename, " ´íÎó"), MessageBoxButtons.OK, MessageBoxIcon.Hand);
 			}
 			return true;
 		}

@@ -1026,7 +1026,7 @@ namespace forgotten_construction_set
         public static void UpdateLinkedLines(TranslationManager.TranslationDialogueLine.Line line, bool prompt)
         {
             List<KeyValuePair<TranslationManager.TranslationDialogueLine, TranslationManager.TranslationDialogueLine.Line>> item = TranslationManager.LinkedLines[line.LinkedGroup];
-            if (prompt && MessageBox.Show(string.Concat("Line is duplicated in ", item.Count - 1, " other places. Do you want to change them all?"), "Translation", MessageBoxButtons.YesNo) == DialogResult.No)
+            if (prompt && MessageBox.Show(string.Concat("Line is duplicated in ", item.Count - 1, " other places. Do you want to change them all?"), "З­вы", MessageBoxButtons.YesNo) == DialogResult.No)
             {
                 TranslationManager.UnlinkLine(line);
                 return;

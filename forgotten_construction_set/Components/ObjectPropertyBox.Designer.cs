@@ -193,7 +193,7 @@ namespace forgotten_construction_set.Components
                     string str = this.validateFile(e.Item.Value.ToString());
                     if (str == null)
                     {
-                        MessageBox.Show("Files must be somewhere in the game data directory or in your mod directory", "Invalid path", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        MessageBox.Show("文件必须在游戏data目录或者你MOD目录下的某个地方", "无效路径", MessageBoxButtons.OK, MessageBoxIcon.Hand);
                         e.Item.Value = e.OldValue;
                     }
                     else
