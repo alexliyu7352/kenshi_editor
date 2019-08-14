@@ -250,7 +250,7 @@ namespace forgotten_construction_set.dialog
                         red.BackColor = Color.Red;
                         red.ForeColor = Color.White;
                         TreeNode treeNode = red;
-                        treeNode.Text = string.Concat(treeNode.Text, " (Error: line removed)");
+                        treeNode.Text = string.Concat(treeNode.Text, " (错误: 语句已被删除)");
                     }
                     if (keyValuePair.Value.v0 != 50)
                     {
@@ -263,7 +263,7 @@ namespace forgotten_construction_set.dialog
                 }
                 else
                 {
-                    TreeNode white = n.Add(keyValuePair.Key, string.Concat("ERROR: Dialog line missing: ", keyValuePair.Key));
+                    TreeNode white = n.Add(keyValuePair.Key, string.Concat("错误: 对话语句丢失: ", keyValuePair.Key));
                     white.BackColor = Color.Red;
                     white.ForeColor = Color.White;
                 }
@@ -272,7 +272,7 @@ namespace forgotten_construction_set.dialog
 
         private void deleteBranch_Click(object sender, EventArgs e)
         {
-            if (this.tree.SelectedNode.Nodes.Count > 0 && MessageBox.Show("Delete this entire conversation branch?", "Conversation", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Cancel)
+            if (this.tree.SelectedNode.Nodes.Count > 0 && MessageBox.Show("删除整个对话分支?", "对话", MessageBoxButtons.OKCancel, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Cancel)
             {
                 return;
             }
@@ -306,10 +306,10 @@ namespace forgotten_construction_set.dialog
                 int references = this.nav.ou.gameData.getReferences(selectedItem, null) - 1;
                 if (references > 0)
                 {
-                    object[] objArray = new object[] { "This line is linked from ", references, " other place", null, null };
+                    object[] objArray = new object[] { "这条语句已链接自 ", references, " 的其他地方", null, null };
                     objArray[3] = (references > 1 ? "s" : "");
                     objArray[4] = ". Delete it and all links?";
-                    if (MessageBox.Show(string.Concat(objArray), "Delete line", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Cancel)
+                    if (MessageBox.Show(string.Concat(objArray), "删除这个语句", MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation) == System.Windows.Forms.DialogResult.Cancel)
                     {
                         return;
                     }
@@ -469,13 +469,13 @@ namespace forgotten_construction_set.dialog
             this.buttonAddEffect = new System.Windows.Forms.Button();
             this.effectValue = new System.Windows.Forms.NumericUpDown();
             this.buttonRemoveEffect = new System.Windows.Forms.Button();
-            this.referenceList1 = new forgotten_construction_set.Components.ReferenceList();
             this.btnAddInterjection = new System.Windows.Forms.Button();
-            this.conditionControl1 = new forgotten_construction_set.dialog.ConditionControl();
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.tree = new System.Windows.Forms.TreeView();
+            this.referenceList1 = new forgotten_construction_set.Components.ReferenceList();
+            this.conditionControl1 = new forgotten_construction_set.dialog.ConditionControl();
             this.lineProperties = new forgotten_construction_set.Components.ObjectPropertyBox();
             this.contextMenu.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -507,14 +507,14 @@ namespace forgotten_construction_set.dialog
             // 
             this.addChild.Name = "addChild";
             this.addChild.Size = new System.Drawing.Size(169, 22);
-            this.addChild.Text = "Add Line";
+            this.addChild.Text = "添加语句";
             this.addChild.Click += new System.EventHandler(this.addChild_Click);
             // 
             // addInterjection
             // 
             this.addInterjection.Name = "addInterjection";
             this.addInterjection.Size = new System.Drawing.Size(169, 22);
-            this.addInterjection.Text = "Add Interjection";
+            this.addInterjection.Text = "添加插话";
             this.addInterjection.Click += new System.EventHandler(this.addInterjection_Click);
             // 
             // toolStripSeparator1
@@ -526,7 +526,7 @@ namespace forgotten_construction_set.dialog
             // 
             this.expandAll.Name = "expandAll";
             this.expandAll.Size = new System.Drawing.Size(169, 22);
-            this.expandAll.Text = "Expand All";
+            this.expandAll.Text = "展开所有";
             this.expandAll.Click += new System.EventHandler(this.expandAll_Click);
             // 
             // toolStripSeparator2
@@ -538,16 +538,16 @@ namespace forgotten_construction_set.dialog
             // 
             this.deleteItem.Name = "deleteItem";
             this.deleteItem.Size = new System.Drawing.Size(169, 22);
-            this.deleteItem.Text = "Delete";
-            this.deleteItem.ToolTipText = "Delete line and reconnect children";
+            this.deleteItem.Text = "删除";
+            this.deleteItem.ToolTipText = "删除语句并重新连接子语句";
             this.deleteItem.Click += new System.EventHandler(this.deleteItem_Click);
             // 
             // deleteBranch
             // 
             this.deleteBranch.Name = "deleteBranch";
             this.deleteBranch.Size = new System.Drawing.Size(169, 22);
-            this.deleteBranch.Text = "Delete Branch";
-            this.deleteBranch.ToolTipText = "Delete this entire conversation branch";
+            this.deleteBranch.Text = "删除分支";
+            this.deleteBranch.ToolTipText = "删除这个对话分支";
             this.deleteBranch.Click += new System.EventHandler(this.deleteBranch_Click);
             // 
             // listView2
@@ -573,12 +573,12 @@ namespace forgotten_construction_set.dialog
             // 
             // columnHeader2
             // 
-            this.columnHeader2.Text = "Effects";
+            this.columnHeader2.Text = "效果";
             this.columnHeader2.Width = 158;
             // 
             // columnHeader3
             // 
-            this.columnHeader3.Text = "Value";
+            this.columnHeader3.Text = "值";
             this.columnHeader3.Width = 55;
             // 
             // conversationName
@@ -598,7 +598,7 @@ namespace forgotten_construction_set.dialog
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
             this.label1.TabIndex = 8;
-            this.label1.Text = "Name";
+            this.label1.Text = "名称";
             // 
             // btnAddChild
             // 
@@ -608,7 +608,7 @@ namespace forgotten_construction_set.dialog
             this.btnAddChild.Name = "btnAddChild";
             this.btnAddChild.Size = new System.Drawing.Size(120, 19);
             this.btnAddChild.TabIndex = 11;
-            this.btnAddChild.Text = "Add Line";
+            this.btnAddChild.Text = "添加语句";
             this.btnAddChild.UseVisualStyleBackColor = true;
             this.btnAddChild.Click += new System.EventHandler(this.addChild_Click);
             // 
@@ -623,7 +623,6 @@ namespace forgotten_construction_set.dialog
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.AutoScroll = true;
             this.splitContainer1.Panel1.Controls.Add(this.effectsPanel);
             this.splitContainer1.Panel1.Controls.Add(this.referenceList1);
             this.splitContainer1.Panel1.Controls.Add(this.btnAddInterjection);
@@ -633,6 +632,7 @@ namespace forgotten_construction_set.dialog
             this.splitContainer1.Panel1.Controls.Add(this.conversationName);
             this.splitContainer1.Panel1.Controls.Add(this.btnAddChild);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
+            this.splitContainer1.Panel1.Margin = new System.Windows.Forms.Padding(0, 0, 0, 3);
             // 
             // splitContainer1.Panel2
             // 
@@ -656,7 +656,7 @@ namespace forgotten_construction_set.dialog
             this.effectsPanel.Size = new System.Drawing.Size(231, 212);
             this.effectsPanel.TabIndex = 41;
             this.effectsPanel.TabStop = false;
-            this.effectsPanel.Text = "Effects";
+            this.effectsPanel.Text = "效果";
             // 
             // PossibleEffects
             // 
@@ -675,7 +675,7 @@ namespace forgotten_construction_set.dialog
             this.buttonAddEffect.Name = "buttonAddEffect";
             this.buttonAddEffect.Size = new System.Drawing.Size(56, 19);
             this.buttonAddEffect.TabIndex = 13;
-            this.buttonAddEffect.Text = "Add";
+            this.buttonAddEffect.Text = "添加";
             this.buttonAddEffect.UseVisualStyleBackColor = true;
             this.buttonAddEffect.Click += new System.EventHandler(this.buttonAddEffect_Click);
             // 
@@ -704,22 +704,9 @@ namespace forgotten_construction_set.dialog
             this.buttonRemoveEffect.Name = "buttonRemoveEffect";
             this.buttonRemoveEffect.Size = new System.Drawing.Size(56, 18);
             this.buttonRemoveEffect.TabIndex = 14;
-            this.buttonRemoveEffect.Text = "Remove";
+            this.buttonRemoveEffect.Text = "删除";
             this.buttonRemoveEffect.UseVisualStyleBackColor = true;
             this.buttonRemoveEffect.Click += new System.EventHandler(this.buttonRemoveEffect_Click);
-            // 
-            // referenceList1
-            // 
-            this.referenceList1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.referenceList1.AutoScroll = true;
-            this.referenceList1.Exclusions = ((System.Collections.ArrayList)(resources.GetObject("referenceList1.Exclusions")));
-            this.referenceList1.Location = new System.Drawing.Point(945, 2);
-            this.referenceList1.Name = "referenceList1";
-            this.referenceList1.ReadOnly = false;
-            this.referenceList1.ShowDescription = true;
-            this.referenceList1.Size = new System.Drawing.Size(306, 211);
-            this.referenceList1.TabIndex = 40;
             // 
             // btnAddInterjection
             // 
@@ -728,20 +715,9 @@ namespace forgotten_construction_set.dialog
             this.btnAddInterjection.Name = "btnAddInterjection";
             this.btnAddInterjection.Size = new System.Drawing.Size(120, 21);
             this.btnAddInterjection.TabIndex = 39;
-            this.btnAddInterjection.Text = "Add Interjection";
+            this.btnAddInterjection.Text = "添加插话";
             this.btnAddInterjection.UseVisualStyleBackColor = true;
             this.btnAddInterjection.Click += new System.EventHandler(this.addInterjection_Click);
-            // 
-            // conditionControl1
-            // 
-            this.conditionControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left)));
-            this.conditionControl1.CurrentLine = null;
-            this.conditionControl1.Item = null;
-            this.conditionControl1.Location = new System.Drawing.Point(308, 5);
-            this.conditionControl1.Name = "conditionControl1";
-            this.conditionControl1.Size = new System.Drawing.Size(395, 210);
-            this.conditionControl1.TabIndex = 34;
             // 
             // checkBox2
             // 
@@ -750,7 +726,7 @@ namespace forgotten_construction_set.dialog
             this.checkBox2.Name = "checkBox2";
             this.checkBox2.Size = new System.Drawing.Size(126, 16);
             this.checkBox2.TabIndex = 30;
-            this.checkBox2.Text = "Can talk to enemy";
+            this.checkBox2.Text = "可以同敌人讲话";
             this.checkBox2.UseVisualStyleBackColor = true;
             this.checkBox2.CheckedChanged += new System.EventHandler(this.checkBox2_CheckedChanged);
             // 
@@ -761,7 +737,7 @@ namespace forgotten_construction_set.dialog
             this.checkBox1.Name = "checkBox1";
             this.checkBox1.Size = new System.Drawing.Size(102, 16);
             this.checkBox1.TabIndex = 20;
-            this.checkBox1.Text = "Run once only";
+            this.checkBox1.Text = "只运行一次";
             this.checkBox1.UseVisualStyleBackColor = true;
             this.checkBox1.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
             // 
@@ -804,6 +780,30 @@ namespace forgotten_construction_set.dialog
             this.tree.KeyDown += new System.Windows.Forms.KeyEventHandler(this.tree_KeyDown);
             this.tree.MouseDown += new System.Windows.Forms.MouseEventHandler(this.tree_MouseDown);
             // 
+            // referenceList1
+            // 
+            this.referenceList1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.referenceList1.AutoScroll = true;
+            this.referenceList1.Exclusions = ((System.Collections.ArrayList)(resources.GetObject("referenceList1.Exclusions")));
+            this.referenceList1.Location = new System.Drawing.Point(945, 2);
+            this.referenceList1.Name = "referenceList1";
+            this.referenceList1.ReadOnly = false;
+            this.referenceList1.ShowDescription = true;
+            this.referenceList1.Size = new System.Drawing.Size(306, 211);
+            this.referenceList1.TabIndex = 40;
+            // 
+            // conditionControl1
+            // 
+            this.conditionControl1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left)));
+            this.conditionControl1.CurrentLine = null;
+            this.conditionControl1.Item = null;
+            this.conditionControl1.Location = new System.Drawing.Point(308, 5);
+            this.conditionControl1.Name = "conditionControl1";
+            this.conditionControl1.Size = new System.Drawing.Size(395, 210);
+            this.conditionControl1.TabIndex = 34;
+            // 
             // lineProperties
             // 
             this.lineProperties.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -823,7 +823,7 @@ namespace forgotten_construction_set.dialog
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Conversation";
-            this.Text = "Conversation Editor";
+            this.Text = "对话编辑器";
             this.contextMenu.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
@@ -895,7 +895,7 @@ namespace forgotten_construction_set.dialog
                 return;
             }
             bool flag = (!tag.ContainsKey("interjection") ? false : tag.bdata["interjection"]);
-            node.Text = (flag ? "*Interjection Node*" : Conversation.getLineText(tag));
+            node.Text = (flag ? "*插话节点*" : Conversation.getLineText(tag));
             string str = "";
             int num = 0;
             if (tag.getState() != GameData.State.ORIGINAL)

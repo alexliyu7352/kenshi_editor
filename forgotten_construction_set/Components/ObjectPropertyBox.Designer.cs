@@ -244,7 +244,7 @@ namespace forgotten_construction_set.Components
             this.split.SuspendLayout();
             this.contextMenu.SuspendLayout();
             base.SuspendLayout();
-            this.split.Dock = DockStyle.Top;
+            this.split.Dock = DockStyle.Fill;
             this.split.Location = new Point(0, 0);
             this.split.Name = "split";
             this.split.Orientation = Orientation.Horizontal;
@@ -255,7 +255,7 @@ namespace forgotten_construction_set.Components
             this.split.SplitterDistance = 222;
             this.split.TabIndex = 1;
             this.split.TabStop = false;
-            this.split.IsSplitterFixed = true;
+            //this.split.IsSplitterFixed = true;
             
 
             this.grid.AutoScroll = true;

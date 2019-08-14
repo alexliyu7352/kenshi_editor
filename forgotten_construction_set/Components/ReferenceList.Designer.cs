@@ -58,7 +58,7 @@ namespace forgotten_construction_set.Components
         {
             string str = this.addList.SelectedItem.ToString();
             GameData.Desc desc = GameData.getDesc(this.Item.type, str);
-            ItemDialog itemDialog = new ItemDialog(string.Concat("选择 ", str, " 的关联"), this.nav.ou.gameData, desc.list, true, "", itemType.NULL_ITEM);
+            ItemDialog itemDialog = new ItemDialog(string.Concat("选择与 ", str, " 进行关联"), this.nav.ou.gameData, desc.list, true, "", itemType.NULL_ITEM);
             if (itemDialog.ShowDialog() == DialogResult.OK)
             {
                 foreach (GameData.Item item in itemDialog.Items)
@@ -196,6 +196,8 @@ namespace forgotten_construction_set.Components
             // split
             // 
             this.split.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.split.FixedPanel = System.Windows.Forms.FixedPanel.Panel1;
+            this.split.IsSplitterFixed = true;
             this.split.Location = new System.Drawing.Point(0, 0);
             this.split.Name = "split";
             this.split.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -206,9 +208,9 @@ namespace forgotten_construction_set.Components
             // 
             // split.Panel2
             // 
-            this.split.Panel2.AutoScroll = true;
             this.split.Panel2.Controls.Add(this.description);
             this.split.Panel2.Controls.Add(this.selection);
+            this.split.Panel2.Margin = new System.Windows.Forms.Padding(3);
             this.split.Size = new System.Drawing.Size(221, 194);
             this.split.SplitterDistance = 152;
             this.split.TabIndex = 36;
@@ -216,6 +218,9 @@ namespace forgotten_construction_set.Components
             // 
             // splitContainer1
             // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
@@ -239,7 +244,7 @@ namespace forgotten_construction_set.Components
             this.addList.FormattingEnabled = true;
             this.addList.Location = new System.Drawing.Point(6, 8);
             this.addList.Name = "addList";
-            this.addList.Size = new System.Drawing.Size(150, 20);
+            this.addList.Size = new System.Drawing.Size(148, 20);
             this.addList.TabIndex = 37;
             this.addList.SelectedIndexChanged += new System.EventHandler(this.addList_SelectedIndexChanged);
             this.addList.Enter += new System.EventHandler(this.addList_Enter);
@@ -247,7 +252,7 @@ namespace forgotten_construction_set.Components
             // addButton
             // 
             this.addButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.addButton.Location = new System.Drawing.Point(162, 8);
+            this.addButton.Location = new System.Drawing.Point(160, 8);
             this.addButton.Name = "addButton";
             this.addButton.Size = new System.Drawing.Size(56, 19);
             this.addButton.TabIndex = 34;
@@ -257,14 +262,16 @@ namespace forgotten_construction_set.Components
             // 
             // grid
             // 
+            this.grid.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grid.AutoScroll = true;
             this.grid.ContextMenuStrip = this.contextMenu;
-            this.grid.Dock = System.Windows.Forms.DockStyle.Fill;
             this.grid.LineHeight = 17;
             this.grid.Location = new System.Drawing.Point(0, 0);
             this.grid.Name = "grid";
             this.grid.Size = new System.Drawing.Size(221, 114);
             this.grid.TabIndex = 0;
+           
             // 
             // description
             // 
