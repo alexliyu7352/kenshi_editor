@@ -322,7 +322,8 @@ namespace forgotten_construction_set
 							}
 							else
 							{
-								Definitions.parseLayout(streamReader, nav);
+                                //TODO 不需要外部翻译
+								//Definitions.parseLayout(streamReader, nav);
 							}
 						}
 					}
@@ -432,7 +433,8 @@ namespace forgotten_construction_set
 			int num1 = 3;
 			while (num1 < strs1.Count)
 			{
-				string item1 = strs1[num1];
+                string tansedStr = "";
+                string item1 = strs1[num1];
 				if (item1 != ",")
 				{
 					if (item1 == "}")
@@ -448,10 +450,24 @@ namespace forgotten_construction_set
 					{
 						max = int.Parse(strs1[num1 + 2]);
 						num1 += 3;
-					}
-					fCSEnums.addValue(item1, max);
-				}
-				else
+                    }
+                    if (!(bool)NativeTranslte.enumDict.TryGetValue(item1, out tansedStr))
+                    {
+                        tansedStr = item1;
+                    }
+                    // Console.Write(tansedStr, max);
+                    try
+                    {
+                        fCSEnums.addValue(tansedStr, max);
+                    }
+                    catch (Exception exception)
+                    {
+                        fCSEnums.addValue(item1, max);
+                    }
+
+                    //  fCSEnums.addValue(item1, max);
+                }
+                else
 				{
 					num1++;
 				}

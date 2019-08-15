@@ -2575,20 +2575,22 @@ namespace forgotten_construction_set
 			public void save(BinaryWriter file)
 			{
 				GameData.Item.ItemLoadFlags itemLoadFlag = (GameData.Item.ItemLoadFlags)0;
-				if (this.getState() == GameData.State.MODIFIED || this.getState() == GameData.State.REMOVED)
-				{
-					itemLoadFlag |= GameData.Item.ItemLoadFlags.MODIFIED;
-				}
-				if (this.getState() == GameData.State.LOCKED_REMOVED && this.baseName != null && this.hasLocalChanges())
-				{
-					itemLoadFlag |= GameData.Item.ItemLoadFlags.MODIFIED;
-				}
-				if (this.modName != null)
-				{
-					itemLoadFlag |= GameData.Item.ItemLoadFlags.RENAMED;
-				}
-				file.Write((uint)((int)itemLoadFlag | -2147483648));
-				if (this.getState() == GameData.State.REMOVED)
+
+                if (this.getState() == GameData.State.MODIFIED || this.getState() == GameData.State.REMOVED)
+                {
+                    itemLoadFlag |= GameData.Item.ItemLoadFlags.MODIFIED;
+                }
+                if (this.getState() == GameData.State.LOCKED_REMOVED && this.baseName != null && this.hasLocalChanges())
+                {
+                    itemLoadFlag |= GameData.Item.ItemLoadFlags.MODIFIED;
+                }
+                if (this.modName != null)
+                {
+                    itemLoadFlag |= GameData.Item.ItemLoadFlags.RENAMED;
+                }
+                file.Write((int)itemLoadFlag | -2147483648);
+              
+                if (this.getState() == GameData.State.REMOVED)
 				{
 					this.modData["REMOVED"] = true;
 				}

@@ -126,17 +126,17 @@ namespace forgotten_construction_set.Components
             if (name == "Name")
             {
                 this.resetValue.Visible = this.Item.Name != this.Item.OriginalName;
-                this.resetValue.Text = "Revert Value";
+                this.resetValue.Text = "还原值";
                 return;
             }
             if (this.nav.FileMode == navigation.ModFileMode.SINGLE || this.Item.OriginalValue(this.grid.SelectedItem.Name) == null)
             {
                 this.resetValue.Visible = true;
-                this.resetValue.Text = "Delete Value";
+                this.resetValue.Text = "删除值";
                 return;
             }
             this.resetValue.Visible = this.Item.getState(this.grid.SelectedItem.Name) == GameData.State.MODIFIED;
-            this.resetValue.Text = "Revert Value";
+            this.resetValue.Text = "还原值";
         }
 
         private void copyKey_Click(object sender, EventArgs e)
@@ -275,11 +275,11 @@ namespace forgotten_construction_set.Components
             this.contextMenu.Opening += new CancelEventHandler(this.contextMenu_Opening);
             this.openFile.Name = "openFile";
             this.openFile.Size = new Size(152, 22);
-            this.openFile.Text = "Open File";
+            this.openFile.Text = "打开文件";
             this.openFile.Click += new EventHandler(this.openFile_Click);
             this.openFolder.Name = "openFolder";
             this.openFolder.Size = new Size(152, 22);
-            this.openFolder.Text = "Open Folder";
+            this.openFolder.Text = "打开目录";
             this.openFolder.Click += new EventHandler(this.openFolder_Click);
             this.swapTextures.Name = "swapTextures";
             this.swapTextures.Size = new Size(152, 22);
@@ -287,29 +287,29 @@ namespace forgotten_construction_set.Components
             this.swapTextures.Click += new EventHandler(this.swapTextures_Click);
             this.copyKeyToolStripMenuItem.Name = "copyKeyToolStripMenuItem";
             this.copyKeyToolStripMenuItem.Size = new Size(152, 22);
-            this.copyKeyToolStripMenuItem.Text = "Copy Key";
+            this.copyKeyToolStripMenuItem.Text = "复制Key";
             this.copyKeyToolStripMenuItem.Click += new EventHandler(this.copyKey_Click);
             this.copyValueToolStripMenuItem.Name = "copyValueToolStripMenuItem";
             this.copyValueToolStripMenuItem.Size = new Size(152, 22);
-            this.copyValueToolStripMenuItem.Text = "Copy Value";
+            this.copyValueToolStripMenuItem.Text = "复制值";
             this.copyValueToolStripMenuItem.Click += new EventHandler(this.copyValue_Click);
             this.resetValue.Name = "resetValue";
             this.resetValue.Size = new Size(152, 22);
-            this.resetValue.Text = "Reset Value";
+            this.resetValue.Text = "重设值";
             this.resetValue.Click += new EventHandler(this.resetValue_Click);
             this.description.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             this.description.Location = new Point(12, 13);
             this.description.Name = "description";
             this.description.Size = new Size(224, 42);
             this.description.TabIndex = 1;
-            this.description.Text = "Description";
+            this.description.Text = "描述";
             this.selection.AutoSize = true;
             this.selection.Font = new Font("Microsoft Sans Serif", 8.25f, FontStyle.Bold, GraphicsUnit.Point, 0);
             this.selection.Location = new Point(3, 0);
             this.selection.Name = "selection";
             this.selection.Size = new Size(85, 13);
             this.selection.TabIndex = 0;
-            this.selection.Text = "Selected Item";
+            this.selection.Text = "已选择的项目";
             base.AutoScaleDimensions = new SizeF(6f, 13f);
             base.AutoScaleMode = AutoScaleMode.Font;
             base.Controls.Add(this.split);

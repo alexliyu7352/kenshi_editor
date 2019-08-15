@@ -741,7 +741,7 @@ namespace forgotten_construction_set
 			TextRenderer.DrawText(e.Graphics, e.Node.Text, this.modList.Font, bounds, e.Node.ForeColor, TextFormatFlags.Default);
 			if (e.Node == this.activeNode)
 			{
-				TextRenderer.DrawText(e.Graphics, "*ACTIVE*", this.modList.Font, bounds, e.Node.ForeColor);
+				TextRenderer.DrawText(e.Graphics, "*¼¤»î*", this.modList.Font, bounds, e.Node.ForeColor);
 			}
 		}
 

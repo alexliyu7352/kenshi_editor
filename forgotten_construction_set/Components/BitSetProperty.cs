@@ -9,6 +9,7 @@ using System.Linq;
 using System.Media;
 using System.Runtime.CompilerServices;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace forgotten_construction_set.Components
 {
@@ -39,7 +40,9 @@ namespace forgotten_construction_set.Components
 			{
 				foreach (KeyValuePair<string, int> @enum in (typeValue as EnumValue).Enum)
 				{
-					this.values.Add(@enum);
+                    //TODO 考虑这里进行汉化
+                    this.values.Add(@enum);
+                    //this.values.Add(new KeyValuePair<string, int>(@enum.Value+"1", (int)@enum.Value));
 				}
 			}
 		}
@@ -163,5 +166,54 @@ namespace forgotten_construction_set.Components
 				this.mList.SetItemChecked(i, (value & 1 << (i & 31)) > 0);
 			}
 		}
-	}
+
+        public override void Paint(PropertyGrid.PropertyGrid grid, PropertyGrid.PropertyGrid.Item item, Graphics g, Rectangle rect)
+        {
+            if (base.Editing == item)
+            {
+                ComboBoxState comboBoxState = ComboBoxState.Normal;
+                switch (this.mState)
+                {
+                    case PushButtonState.Hot:
+                        {
+                            comboBoxState = ComboBoxState.Hot;
+                            break;
+                        }
+                    case PushButtonState.Pressed:
+                        {
+                            comboBoxState = ComboBoxState.Pressed;
+                            break;
+                        }
+                    case PushButtonState.Disabled:
+                        {
+                            comboBoxState = ComboBoxState.Disabled;
+                            break;
+                        }
+                }
+                rect.X = this.mButton.X;
+                rect.Width = this.mButton.Width;
+                if (!Application.RenderWithVisualStyles)
+                {
+                    ControlPaint.DrawScrollButton(g, rect, ScrollButton.Down, (comboBoxState == ComboBoxState.Pressed ? ButtonState.Pushed : ButtonState.Normal));
+                }
+                else
+                {
+                    ComboBoxRenderer.DrawDropDownButton(g, rect, comboBoxState);
+                }
+            }
+            else
+            {
+                base.DrawText("123", grid.Font, g, rect, 2, 0, new Color?(item.TextColour));
+                if (base.Editing == item)
+                {
+                    rect.X = this.mButton.X;
+                    rect.Width = this.mButton.Width;
+                    ButtonRenderer.DrawButton(g, rect, this.mState);
+                }
+            }
+        }
+  
+
+
+}
 }

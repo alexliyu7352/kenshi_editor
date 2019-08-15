@@ -34,6 +34,9 @@
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <PlatformTarget>x86</PlatformTarget>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <FileAlignment>1024</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -85,6 +88,9 @@
     <Compile Include="forgotten_construction_set\Components\ChangeListTree.Designer.cs">
       <DependentUpon>ChangeListTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="forgotten_construction_set\Components\MyPropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="forgotten_construction_set\Components\ObjectPropertyBox.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -115,6 +121,25 @@
     <Compile Include="forgotten_construction_set\dialog\UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </Compile>
+    <Compile Include="forgotten_construction_set\NativeTranslte.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\BooleanProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\ButtonProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\ColorProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\CustomProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\DropdownListProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\DropdownProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\EnumProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\FileProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\NumberProperty.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\PropertyChangedArgs.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\PropertyGrid.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\PropertyGrid\PropertyGrid.Designer.cs">
+      <DependentUpon>PropertyGrid.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forgotten_construction_set\PropertyGrid\PropertyKeyEnterArgs.cs" />
+    <Compile Include="forgotten_construction_set\PropertyGrid\PropertySelectedArgs.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
@@ -131,7 +156,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\ArmourClass.cs">
+    <Compile Include="forgotten_construction_set\enum\ArmourClass.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -163,7 +188,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\TownType.cs">
+    <Compile Include="forgotten_construction_set\enum\TownType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -191,7 +216,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\TaskTargetType.cs">
+    <Compile Include="forgotten_construction_set\enum\TaskTargetType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -223,7 +248,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\TalkerEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\TalkerEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -235,7 +260,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\taskPriority.cs">
+    <Compile Include="forgotten_construction_set\enum\taskPriority.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -296,11 +321,11 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTimeSharedInput>true</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\ArmourType.cs">
+    <Compile Include="forgotten_construction_set\enum\ArmourType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\ArmourRarity.cs">
+    <Compile Include="forgotten_construction_set\enum\ArmourRarity.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -689,6 +714,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
     <None Include="forgotten construction set_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -701,5 +727,6 @@
   <ItemGroup>
     <Content Include="5.ico" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

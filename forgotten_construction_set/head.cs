@@ -1602,7 +1602,7 @@ namespace forgotten_construction_set
 				if (t == itemType.AI_TASK)
 				{
 					this.addEnum("enum", head.taskType.IDLE, "what is", "");
-					this.addEnum("classification", taskPriority.TP_NON_URGENT, "details", "URGENT = eg player orders, combat, first aid.  NON_URGENT = eg sleeping, eating, surgery. The stuff you just don't consider on a battlefield. FLUFF = ambient stuff that achieves nothing eg chatting.  ");
+					//this.addEnum("classification", taskPriority.TP_NON_URGENT, "details", "URGENT = eg player orders, combat, first aid.  NON_URGENT = eg sleeping, eating, surgery. The stuff you just don't consider on a battlefield. FLUFF = ambient stuff that achieves nothing eg chatting.  ");
 					this.addEnum("targeting", head.TaskTargetType.TARGET_SPECIFIC, "details", "the target of the task");
 					this.addEnum("ending", head.TaskEndEvent.TEE_NOTHING, "details", "what happens when the task is completed, does it get removed for myself or the whole squad, or does it just remain active?");
 				}

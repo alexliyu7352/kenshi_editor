@@ -678,21 +678,21 @@ namespace forgotten_construction_set
             // baseForm
             // 
             this.AllowDrop = true;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1083, 624);
-            this.Controls.Add(this.toolStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.IsMdiContainer = true;
-            this.Name = "baseForm";
-            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.baseForm_FormClosing);
-            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.baseForm_DragDrop);
-            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.baseForm_DragEnter);
+            base.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            base.ClientSize = new System.Drawing.Size(1083, 624);
+            base.Controls.Add(this.toolStrip1);
+            base.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            base.IsMdiContainer = true;
+            base.Name = "baseForm";
+            base.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            base.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.baseForm_FormClosing);
+            base.DragDrop += new System.Windows.Forms.DragEventHandler(this.baseForm_DragDrop);
+            base.DragEnter += new System.Windows.Forms.DragEventHandler(this.baseForm_DragEnter);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            this.ResumeLayout(false);
-            this.PerformLayout();
+            base.ResumeLayout(false);
+            base.PerformLayout();
 
 		}
 
@@ -826,7 +826,15 @@ namespace forgotten_construction_set
 			{
 				this.todoList.SaveData();
 			}
-			this.nav.ou.gameData.save(this.nav.ActiveFile);
+            //先进行备份然后在保存
+            string targetFileName = Path.Combine(this.nav.ActiveFile.Remove(this.nav.ActiveFile.LastIndexOf('\\')), 
+                this.nav.ActiveFile.Substring(this.nav.ActiveFile.LastIndexOf('\\') + 1))+".bak";
+            if (MessageBox.Show("为了安全考虑是否要在MOD的目录下先备份一次?如果一旦出错， 您可以使用备份文件恢复.\n 选择否将不备份文件", "开始保存", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == System.Windows.Forms.DialogResult.Yes)
+            {
+                File.Copy(this.nav.ActiveFile, targetFileName, true);
+            }
+            
+            this.nav.ou.gameData.save(this.nav.ActiveFile);
 			System.Windows.Forms.Cursor.Current = Cursors.Default;
 			this.nav.HasChanges = false;
 		}
