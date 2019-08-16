@@ -66,7 +66,7 @@ namespace forgotten_construction_set.Components
             this.setup();
         }
 
-        public event ChangeListTree.ItemCheckedEventHandler ItemChecked;
+        public new event ChangeListTree.ItemCheckedEventHandler ItemChecked;
 
         public class ChangeData : ChangeListTree.TreeNode
         {

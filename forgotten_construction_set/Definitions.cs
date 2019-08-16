@@ -451,21 +451,21 @@ namespace forgotten_construction_set
 						max = int.Parse(strs1[num1 + 2]);
 						num1 += 3;
                     }
-                    if (!(bool)NativeTranslte.enumDict.TryGetValue(item1, out tansedStr))
-                    {
-                        tansedStr = item1;
-                    }
-                    // Console.Write(tansedStr, max);
-                    try
-                    {
-                        fCSEnums.addValue(tansedStr, max);
-                    }
-                    catch (Exception exception)
-                    {
-                        fCSEnums.addValue(item1, max);
-                    }
+                    //if (!(bool)NativeTranslte.enumDict.TryGetValue(item1, out tansedStr))
+                    //{
+                    //    tansedStr = item1;
+                    //}
+                    //// Console.Write(tansedStr, max);
+                    //try
+                    //{
+                    //    fCSEnums.addValue(tansedStr, max);
+                    //}
+                    //catch (Exception exception)
+                    //{
+                    //    fCSEnums.addValue(item1, max);
+                    //}
 
-                    //  fCSEnums.addValue(item1, max);
+                    fCSEnums.addValue(item1, max);
                 }
                 else
 				{

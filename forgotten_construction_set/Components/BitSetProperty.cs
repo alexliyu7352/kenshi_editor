@@ -1,5 +1,5 @@
 using forgotten_construction_set;
-using PropertyGrid;
+using forgotten_construction_set.PropertyGrid;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -167,51 +167,51 @@ namespace forgotten_construction_set.Components
 			}
 		}
 
-        public override void Paint(PropertyGrid.PropertyGrid grid, PropertyGrid.PropertyGrid.Item item, Graphics g, Rectangle rect)
-        {
-            if (base.Editing == item)
-            {
-                ComboBoxState comboBoxState = ComboBoxState.Normal;
-                switch (this.mState)
-                {
-                    case PushButtonState.Hot:
-                        {
-                            comboBoxState = ComboBoxState.Hot;
-                            break;
-                        }
-                    case PushButtonState.Pressed:
-                        {
-                            comboBoxState = ComboBoxState.Pressed;
-                            break;
-                        }
-                    case PushButtonState.Disabled:
-                        {
-                            comboBoxState = ComboBoxState.Disabled;
-                            break;
-                        }
-                }
-                rect.X = this.mButton.X;
-                rect.Width = this.mButton.Width;
-                if (!Application.RenderWithVisualStyles)
-                {
-                    ControlPaint.DrawScrollButton(g, rect, ScrollButton.Down, (comboBoxState == ComboBoxState.Pressed ? ButtonState.Pushed : ButtonState.Normal));
-                }
-                else
-                {
-                    ComboBoxRenderer.DrawDropDownButton(g, rect, comboBoxState);
-                }
-            }
-            else
-            {
-                base.DrawText("123", grid.Font, g, rect, 2, 0, new Color?(item.TextColour));
-                if (base.Editing == item)
-                {
-                    rect.X = this.mButton.X;
-                    rect.Width = this.mButton.Width;
-                    ButtonRenderer.DrawButton(g, rect, this.mState);
-                }
-            }
-        }
+        //public override void Paint(PropertyGrid.PropertyGrid grid, PropertyGrid.PropertyGrid.Item item, Graphics g, Rectangle rect)
+        //{
+        //    if (base.Editing == item)
+        //    {
+        //        ComboBoxState comboBoxState = ComboBoxState.Normal;
+        //        switch (this.mState)
+        //        {
+        //            case PushButtonState.Hot:
+        //                {
+        //                    comboBoxState = ComboBoxState.Hot;
+        //                    break;
+        //                }
+        //            case PushButtonState.Pressed:
+        //                {
+        //                    comboBoxState = ComboBoxState.Pressed;
+        //                    break;
+        //                }
+        //            case PushButtonState.Disabled:
+        //                {
+        //                    comboBoxState = ComboBoxState.Disabled;
+        //                    break;
+        //                }
+        //        }
+        //        rect.X = this.mButton.X;
+        //        rect.Width = this.mButton.Width;
+        //        if (!Application.RenderWithVisualStyles)
+        //        {
+        //            ControlPaint.DrawScrollButton(g, rect, ScrollButton.Down, (comboBoxState == ComboBoxState.Pressed ? ButtonState.Pushed : ButtonState.Normal));
+        //        }
+        //        else
+        //        {
+        //            ComboBoxRenderer.DrawDropDownButton(g, rect, comboBoxState);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        base.DrawText("123", grid.Font, g, rect, 2, 0, new Color?(item.TextColour));
+        //        if (base.Editing == item)
+        //        {
+        //            rect.X = this.mButton.X;
+        //            rect.Width = this.mButton.Width;
+        //            ButtonRenderer.DrawButton(g, rect, this.mState);
+        //        }
+        //    }
+        //}
   
 
 

@@ -5,19 +5,19 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace forgotten_construction_set
+namespace forgotten_construction_set.PropertyGrid
 {
 	public class CustomProperty
 	{
-		protected PropertyGrid.PropertyGrid mGrid;
+		protected PropertyGrid mGrid;
 
 		protected TextBox mTextBox;
 
-		protected PropertyGrid.PropertyGrid.Item mItem;
+		protected PropertyGrid.Item mItem;
 
-		protected PropertyGrid.PropertyGrid.Section mSection;
+		protected PropertyGrid.Section mSection;
 
-		public PropertyGrid.PropertyGrid.Item Editing
+		public PropertyGrid.Item Editing
 		{
 			get
 			{
@@ -41,7 +41,7 @@ namespace forgotten_construction_set
 			this.DestroyEditor();
 		}
 
-		public virtual void CreateEditor(PropertyGrid.PropertyGrid grid, PropertyGrid.PropertyGrid.Section section, PropertyGrid.PropertyGrid.Item item, Rectangle rect)
+		public virtual void CreateEditor(PropertyGrid grid, PropertyGrid.Section section, PropertyGrid.Item item, Rectangle rect)
 		{
 			this.mGrid = grid;
 			this.mItem = item;
@@ -111,8 +111,9 @@ namespace forgotten_construction_set
 			Font font1 = font;
 			Rectangle rectangle = rect;
 			Color? nullable = colour;
-			TextRenderer.DrawText(graphic, str, font1, rectangle, (nullable.HasValue ? nullable.GetValueOrDefault() : Color.Black), TextFormatFlags.Default);
-		}
+            TextRenderer.DrawText(graphic, str, font1, rectangle, (nullable.HasValue ? nullable.GetValueOrDefault() : Color.Black), TextFormatFlags.Default);
+            //TextRenderer.DrawText(graphic, NativeTranslte.getTransValue(str), font1, rectangle, (nullable.HasValue ? nullable.GetValueOrDefault() : Color.Black), TextFormatFlags.Default);
+        }
 
 		public virtual string getAsString(object value)
 		{
@@ -138,9 +139,9 @@ namespace forgotten_construction_set
 		{
 			if (e.KeyCode == Keys.Return)
 			{
-				PropertyGrid.PropertyGrid propertyGrid = this.mGrid;
-				PropertyGrid.PropertyGrid.Section section = this.mSection;
-				PropertyGrid.PropertyGrid.Item item = this.mItem;
+				PropertyGrid propertyGrid = this.mGrid;
+				PropertyGrid.Section section = this.mSection;
+				PropertyGrid.Item item = this.mItem;
 				this.Apply();
 				propertyGrid.FirePropertyKeyEnter(section, item);
 				e.SuppressKeyPress = true;
@@ -165,9 +166,9 @@ namespace forgotten_construction_set
 			this.DoubleClick(e);
 		}
 
-		public virtual void Paint(PropertyGrid.PropertyGrid grid, PropertyGrid.PropertyGrid.Item item, Graphics g, Rectangle rect)
+		public virtual void Paint(PropertyGrid grid, PropertyGrid.Item item, Graphics g, Rectangle rect)
 		{
-			this.DrawText(this.getAsString(item.Value), grid.Font, g, rect, 2, 0, new Color?(item.TextColour));
+			this.DrawText(item.TransValue??this.getAsString(item.Value), grid.Font, g, rect, 2, 0, new Color?(item.TextColour));
 		}
 
 		protected void setValue(object value)

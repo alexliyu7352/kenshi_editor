@@ -1,5 +1,5 @@
 using forgotten_construction_set;
-using PropertyGrid;
+using forgotten_construction_set.PropertyGrid;
 using System;
 using System.Drawing;
 using System.Windows.Forms;

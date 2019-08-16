@@ -8,7 +8,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Threading;
 using System.Windows.Forms;
-using PropertyGrid;
+using forgotten_construction_set.PropertyGrid;
 
 namespace forgotten_construction_set.Components
 {
@@ -16,10 +16,10 @@ namespace forgotten_construction_set.Components
     {
         protected override void OnPaint(PaintEventArgs e)
         {
-            foreach (PropertyGrid.PropertyGrid.Item item in section.Items)
-            {
+            //foreach (PropertyGrid.PropertyGrid.Item item in section.Items)
+            //{
 
-            }
+            //}
                 base.OnPaint(e);
         }
     }

@@ -273,8 +273,11 @@ namespace forgotten_construction_set
             finally
             {
                 ((IDisposable)enumerator).Dispose();
+
             }
+
             return flag;
+
         }
 
         public override string ToString()

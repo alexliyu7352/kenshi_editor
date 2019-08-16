@@ -180,7 +180,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\BuildingClassType.cs">
+    <Compile Include="forgotten_construction_set\enum\BuildingClassType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -272,7 +272,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\BlackboardSignalFunctions.cs">
+    <Compile Include="forgotten_construction_set\enum\BlackboardSignalFunctions.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -415,7 +415,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\BuildingDesignation.cs">
+    <Compile Include="forgotten_construction_set\enum\BuildingDesignation.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -431,7 +431,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\BuildingCategory.cs">
+    <Compile Include="forgotten_construction_set\enum\BuildingCategory.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -443,7 +443,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\BuildingFunction.cs">
+    <Compile Include="forgotten_construction_set\enum\BuildingFunction.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

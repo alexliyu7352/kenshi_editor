@@ -30,9 +30,9 @@ namespace forgotten_construction_set
 
 		public static Logger logger;
 
-		private IContainer components;
+        private IContainer components = null;
 
-		private ToolStrip toolStrip1;
+        private ToolStrip toolStrip1;
 
 		private ToolStripButton openMod;
 
@@ -397,6 +397,7 @@ namespace forgotten_construction_set
 
 		private void InitializeComponent()
 		{
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(baseForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.openMod = new System.Windows.Forms.ToolStripButton();

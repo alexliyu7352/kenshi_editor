@@ -150,6 +150,8 @@ namespace forgotten_construction_set.PropertyGrid
 
         public PropertyGrid.Item addItem(string section, string name, object value, string description = "", Color? color = null, bool editable = true)
         {
+           
+
             PropertyGrid.Item item = new PropertyGrid.Item()
             {
                 Name = name,
@@ -157,6 +159,26 @@ namespace forgotten_construction_set.PropertyGrid
                 Editable = editable,
                 Visible = true
             };
+            item.Name = item.Name + "1";
+
+            //string tansedStr = null;
+            //if ((bool)NativeTranslte.enumDict.TryGetValue(name, out tansedStr))
+            //{
+            //    item.TransName = tansedStr;
+            //}
+            //tansedStr = null;
+            //if ((value is string || value is EnumValue) && (bool)NativeTranslte.enumDict.TryGetValue((string)value, out tansedStr))
+            //{
+            //    item.TransValue = tansedStr;
+            //}
+            //try
+            //{
+            //    fCSEnums.addValue(tansedStr, max);
+            //}
+            //catch (Exception exception)
+            //{
+            //    fCSEnums.addValue(item1, max);
+            //}
             PropertyGrid.Item item1 = item;
             Color? nullable = color;
             item1.TextColour = (nullable.HasValue ? nullable.GetValueOrDefault() : this.ForeColor);
@@ -536,7 +558,7 @@ namespace forgotten_construction_set.PropertyGrid
                     e.Graphics.DrawRectangle(pen2, marginSize, num, size.Width, size.Height);
                 }
                 solidBrush.Color = section.TextColour;
-                TextRenderer.DrawText(e.Graphics, section.Name, font, new Point(marginSize, num + (int)e.Graphics.Transform.OffsetY), section.TextColour);
+                TextRenderer.DrawText(e.Graphics, NativeTranslte.getTransSection(section.Name), font, new Point(marginSize, num + (int)e.Graphics.Transform.OffsetY), section.TextColour);
                 e.Graphics.TranslateTransform(0f, (float)this.LineHeight);
                 if (!section.Collapsed)
                 {

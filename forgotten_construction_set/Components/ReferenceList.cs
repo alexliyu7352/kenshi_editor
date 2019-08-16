@@ -1,5 +1,5 @@
 ﻿using System;
-using PropertyGrid;
+using forgotten_construction_set.PropertyGrid;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;

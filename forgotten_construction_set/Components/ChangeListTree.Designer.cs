@@ -447,7 +447,7 @@ namespace forgotten_construction_set.Components
             }
         }
 
-        private ListViewItem RetrieveVirtualItem(int index)
+        private new ListViewItem RetrieveVirtualItem(int index)
         {
             if (this.itemCache != null && index >= this.cacheOffset && index < this.cacheOffset + (int)this.itemCache.Length)
             {

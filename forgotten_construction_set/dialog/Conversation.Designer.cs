@@ -1,5 +1,5 @@
 ﻿using forgotten_construction_set.Components;
-using PropertyGrid;
+using forgotten_construction_set.PropertyGrid;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -448,8 +448,9 @@ namespace forgotten_construction_set.dialog
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Conversation));
             this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Conversation));
+            
             this.addChild = new System.Windows.Forms.ToolStripMenuItem();
             this.addInterjection = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();

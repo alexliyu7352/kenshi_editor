@@ -19,7 +19,7 @@ namespace forgotten_construction_set.PropertyGrid
             InitializeComponent();
             this.DoubleBuffered = true;
             base.ResizeRedraw = true;
-            this.Sections = new List<forgotten_construction_set.PropertyGrid.PropertyGrid.Section>();
+            this.Sections = new List<PropertyGrid.Section>();
             base.LostFocus += new EventHandler(this.PropertyGrid_LostFocus);
             base.GotFocus += new EventHandler(this.PropertyGrid_GotFocus);
             this.DrawLines = true;
@@ -45,6 +45,9 @@ namespace forgotten_construction_set.PropertyGrid
             public string Name;
 
             public string Description;
+
+            public string TransName;
+            public string TransValue;
 
             public bool Editable;
 

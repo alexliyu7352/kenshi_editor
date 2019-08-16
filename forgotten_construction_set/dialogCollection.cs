@@ -1,6 +1,6 @@
 using forgotten_construction_set.dialog;
 using forgotten_construction_set.Components;
-using PropertyGrid;
+using forgotten_construction_set.PropertyGrid;
 using System;
 using System.Collections;
 using System.Collections.Generic;
