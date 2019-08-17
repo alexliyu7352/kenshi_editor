@@ -78,7 +78,7 @@ namespace forgotten_construction_set
 		private SteamManager()
 		{
             // TODO ≤‚ ‘ π”√
-			this.Enabled = false;
+			this.Enabled = true;
 			this.updateThread = new Thread(new ThreadStart(this.Update))
 			{
 				IsBackground = true,
@@ -127,17 +127,17 @@ namespace forgotten_construction_set
 
 		public void Init()
 		{
-			if (!this.Enabled)
-			{
-				SteamManager.logger.Warn("Steam API not enabled");
-				return;
-			}
-			if (!Packsize.Test())
-			{
-				SteamManager.logger.Error("[Steamworks.NET] Packsize Test returned false, the wrong version of Steamworks.NET is being run in this platform.");
-				return;
-			}
-			if (!DllCheck.Test())
+            if (!this.Enabled)
+            {
+                SteamManager.logger.Warn("Steam API not enabled");
+                return;
+            }
+            if (!Packsize.Test())
+            {
+                SteamManager.logger.Error("[Steamworks.NET] Packsize Test returned false, the wrong version of Steamworks.NET is being run in this platform.");
+                return;
+            }
+            if (!DllCheck.Test())
 			{
 				SteamManager.logger.Error("[Steamworks.NET] DllCheck Test returned false, One or more of the Steamworks binaries seems to be the wrong version.");
 				return;
@@ -311,13 +311,20 @@ namespace forgotten_construction_set
 
 		public void Shutdown()
 		{
-			if (this.Enabled)
-			{
-				SteamManager.logger.Info("Shutting down");
-				this.Enabled = false;
-				this.updateThread.Join();
-				SteamAPI.Shutdown();
-				this.publishedContent.Clear();
+            if (this.Enabled)
+            {
+                try { 
+
+                    SteamManager.logger.Info("Shutting down");
+                    this.Enabled = false;
+                    this.updateThread.Join();
+                    SteamAPI.Shutdown();
+                    this.publishedContent.Clear();
+                }
+                catch(Exception)
+                {
+                    SteamManager.logger.Info("Shutting down error");
+                }
 			}
 		}
 

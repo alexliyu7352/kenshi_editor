@@ -58,6 +58,7 @@ namespace forgotten_construction_set.Components
         {
             string str = this.addList.SelectedItem.ToString();
             GameData.Desc desc = GameData.getDesc(this.Item.type, str);
+           
             ItemDialog itemDialog = new ItemDialog(string.Concat("选择与 ", str, " 进行关联"), this.nav.ou.gameData, desc.list, true, "", itemType.NULL_ITEM);
             if (itemDialog.ShowDialog() == DialogResult.OK)
             {

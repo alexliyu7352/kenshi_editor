@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Resources;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Windows.Forms;
 
@@ -22,7 +23,9 @@ namespace forgotten_construction_set
 
 		public ToDo todoList;
 
-		public ModInfo modInfo;
+        public Donate donate;
+
+        public ModInfo modInfo;
 
 		public NavigationTranslation navTranslation = new NavigationTranslation();
 
@@ -81,6 +84,7 @@ namespace forgotten_construction_set
         private ToolStripDropDownButton toolStripDropDownButton1;
         private ToolStripMenuItem updateStripMenuItem;
         private ToolStripMenuItem aboutMenuItem;
+        private ToolStripMenuItem VoidStripMenuItem;
         private ToolStripButton translationFixMode;
 
 		static baseForm()
@@ -98,10 +102,11 @@ namespace forgotten_construction_set
 			{
 				MdiParent = this
 			};
-			GameData.initialise();
+            this.donate = new Donate();
+            GameData.initialise();
 			Definitions.load("fcs_layout.def", this.nav);
 			Definitions.load("fcs_enums.def", this.nav);
-			Definitions.load("fcs.def", this.nav);
+			Definitions.load("fcs_chs.def", this.nav);
 			base.Shown += new EventHandler(this.baseForm_Shown);
 			if (this.nav.SecretDeveloperMode)
 			{
@@ -109,12 +114,19 @@ namespace forgotten_construction_set
 				this.todoList = new ToDo(this, this.nav);
 				this.nav.addTodoMenuItem();
 			}
-			SteamManager.Instance.Init();
+            try
+            {
+                SteamManager.Instance.Init();
+            }
+            catch (Exception)
+            {
+
+            }
 			this.Info.Text = "Steam工坊";
 			this.Info.ToolTipText = "Steam工坊";
-            //this.nav.RootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            this.nav.RootPath = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             // TODO 这用来测试
-            this.nav.RootPath = Path.GetDirectoryName("F:\\SteamLibrary\\steamapps\\common\\Kenshi\\");
+            //this.nav.RootPath = Path.GetDirectoryName("F:\\SteamLibrary\\steamapps\\common\\Kenshi\\");
             base.Icon = System.Drawing.Icon.ExtractAssociatedIcon(Assembly.GetExecutingAssembly().Location);
 		}
 
@@ -397,7 +409,6 @@ namespace forgotten_construction_set
 
 		private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(baseForm));
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.openMod = new System.Windows.Forms.ToolStripButton();
@@ -421,12 +432,13 @@ namespace forgotten_construction_set
             this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripSeparator11 = new System.Windows.Forms.ToolStripSeparator();
             this.openAny = new System.Windows.Forms.ToolStripButton();
-            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
-            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.toolStripSeparator7 = new System.Windows.Forms.ToolStripSeparator();
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.updateStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.VoidStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -630,21 +642,6 @@ namespace forgotten_construction_set
             this.openAny.ToolTipText = "打开任何数据文件类型（一般用来打开其他不在MOD目录下的MOD）";
             this.openAny.Click += new System.EventHandler(this.openAny_Click);
             // 
-            // saveFileDialog
-            // 
-            this.saveFileDialog.DefaultExt = "mod";
-            this.saveFileDialog.Filter = "Kenshi gamedata (*.mod)|*.mod";
-            this.saveFileDialog.RestoreDirectory = true;
-            this.saveFileDialog.Title = "保存新文件";
-            // 
-            // openFileDialog
-            // 
-            this.openFileDialog.DefaultExt = "mod";
-            this.openFileDialog.FileName = "openFileDialog1";
-            this.openFileDialog.Filter = "All files|*.*|Kenshi gamedata (*.mod)|*.mod";
-            this.openFileDialog.RestoreDirectory = true;
-            this.openFileDialog.Title = "打开文件";
-            // 
             // toolStripSeparator7
             // 
             this.toolStripSeparator7.Name = "toolStripSeparator7";
@@ -655,11 +652,12 @@ namespace forgotten_construction_set
             this.toolStripDropDownButton1.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.updateStripMenuItem,
-            this.aboutMenuItem});
+            this.aboutMenuItem,
+            this.VoidStripMenuItem});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(45, 22);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(69, 22);
             this.toolStripDropDownButton1.Text = "关于&更新";
             // 
             // updateStripMenuItem
@@ -676,24 +674,46 @@ namespace forgotten_construction_set
             this.aboutMenuItem.Text = "关于";
             this.aboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
             // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.DefaultExt = "mod";
+            this.saveFileDialog.Filter = "Kenshi gamedata (*.mod)|*.mod";
+            this.saveFileDialog.RestoreDirectory = true;
+            this.saveFileDialog.Title = "保存新文件";
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.DefaultExt = "mod";
+            this.openFileDialog.FileName = "openFileDialog1";
+            this.openFileDialog.Filter = "All files|*.*|Kenshi gamedata (*.mod)|*.mod";
+            this.openFileDialog.RestoreDirectory = true;
+            this.openFileDialog.Title = "打开文件";
+            // 
+            // VoidStripMenuItem
+            // 
+            this.VoidStripMenuItem.Name = "VoidStripMenuItem";
+            this.VoidStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.VoidStripMenuItem.Text = "虚空入侵";
+            this.VoidStripMenuItem.Click += new System.EventHandler(this.VoidMenuItem_Click);
+            // 
             // baseForm
             // 
             this.AllowDrop = true;
-            base.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
-            base.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            base.ClientSize = new System.Drawing.Size(1083, 624);
-            base.Controls.Add(this.toolStrip1);
-            base.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            base.IsMdiContainer = true;
-            base.Name = "baseForm";
-            base.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            base.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.baseForm_FormClosing);
-            base.DragDrop += new System.Windows.Forms.DragEventHandler(this.baseForm_DragDrop);
-            base.DragEnter += new System.Windows.Forms.DragEventHandler(this.baseForm_DragEnter);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(1083, 624);
+            this.Controls.Add(this.toolStrip1);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.IsMdiContainer = true;
+            this.Name = "baseForm";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.baseForm_FormClosing);
+            this.DragDrop += new System.Windows.Forms.DragEventHandler(this.baseForm_DragDrop);
+            this.DragEnter += new System.Windows.Forms.DragEventHandler(this.baseForm_DragEnter);
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
-            base.ResumeLayout(false);
-            base.PerformLayout();
+            this.ResumeLayout(false);
+            this.PerformLayout();
 
 		}
 
@@ -877,7 +897,7 @@ namespace forgotten_construction_set
 		public void updateTitle()
 		{
 			StringBuilder stringBuilder = new StringBuilder(128);
-			stringBuilder.Append("Forgotten Construction Set ");
+			stringBuilder.Append("Kenshi中文编辑器");
 			stringBuilder.Append("(Steam) ");
 			stringBuilder.Append("v 1.0");
 			stringBuilder.Append(" - ");
@@ -893,10 +913,22 @@ namespace forgotten_construction_set
 			this.Text = stringBuilder.ToString();
 		}
 
+        
+
         private void UpdateStripMenuItem_Click(object sender, EventArgs e)
         {
-            System.Diagnostics.Process.Start("https://github.com/alexliyu7352/kenshi_editor");
+            // System.Diagnostics.Process.Start("https://github.com/alexliyu7352/kenshi_editor");
+            //NativeTranslte.ShellExecute(0, @"open", @"https://github.com/alexliyu7352/kenshi_editor", null, null, (int)NativeTranslte.ShowWindowCommands.SW_NORMAL);
+            this.donate.ShowDialog();
 
+        }
+        private void VoidMenuItem_Click(object sender, EventArgs e)
+
+        {
+            // System.Diagnostics.Process.Start("https://github.com/alexliyu7352/keshi");
+            // System.Diagnostics.Process.Start("https://steamcommunity.com/sharedfiles/filedetails/?id=1780887485");
+            // ShellExecute(0, @"open", @"https://github.com/alexliyu7352/keshi", null, null, (int)ShowWindowCommands.SW_NORMAL);
+            NativeTranslte.ShellExecute(0, @"open", @"https://steamcommunity.com/sharedfiles/filedetails/?id=1780887485", null, null, (int)NativeTranslte.ShowWindowCommands.SW_NORMAL);
         }
 
         private void AboutMenuItem_Click(object sender, EventArgs e)
@@ -905,7 +937,7 @@ namespace forgotten_construction_set
                 "我们无意侵犯任何版权,也尊重开发者的权益.制作本编辑器只是为了弥补使用官方版本开发时候的一些不便捷或者产生BUG的地方.\n" +
                 "因此请各位能多多支持Kenshi游戏正版,当然也希望能支持虚空入侵MOD工作组, 毕竟我们是用爱来发电的一群大叔.\n如果发现BUG或者有什么修改建议请在编辑器的主页进行反馈.\n" +
                 "另外再次重申:这个项目源码已经开放，一切仅仅只是为了研究血裔使用, 切勿商用,否则一些后果概不负责.\n" +
-                "我们的联系方式: qq群:672036449, https://github.com/alexliyu7352/kenshi_editor"
+                "我们的联系方式:qq:282919637 qq群:672036449"
                 , "关于本版本的编辑器", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
     }

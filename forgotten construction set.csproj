@@ -65,21 +65,19 @@
     <ApplicationIcon>5.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Steamworks.NET, Version=9.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>forgotten construction setReferences\Steamworks.NET.dll</HintPath>
+    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System" />
     <Reference Include="System.Drawing" />
-    <Reference Include="PropertyGrid">
-      <HintPath>.\forgotten construction setReferences\PropertyGrid.dll</HintPath>
-    </Reference>
     <Reference Include="NLog">
       <HintPath>.\forgotten construction setReferences\NLog.dll</HintPath>
     </Reference>
     <Reference Include="System.Xml" />
-    <Reference Include="Steamworks.NET">
-      <HintPath>.\forgotten construction setReferences\Steamworks.NET.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="forgotten_construction_set\Components\ChangeListTree.cs">
@@ -126,6 +124,12 @@
     </Compile>
     <Compile Include="forgotten_construction_set\dialog\UserControl1.Designer.cs">
       <DependentUpon>UserControl1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="forgotten_construction_set\Donate.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\Donate.Designer.cs">
+      <DependentUpon>Donate.cs</DependentUpon>
     </Compile>
     <Compile Include="forgotten_construction_set\NativeTranslte.cs" />
     <Compile Include="forgotten_construction_set\PropertyGrid\BooleanProperty.cs" />
@@ -323,9 +327,10 @@
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
     <Compile Include="forgotten_construction_set\Properties\Resources.Designer.cs">
-      <AutoGen>true</AutoGen>
+      <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTimeSharedInput>true</DesignTimeSharedInput>
+      <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="forgotten_construction_set\enum\ArmourType.cs">
       <AutoGen>false</AutoGen>
@@ -643,6 +648,9 @@
     <EmbeddedResource Include="forgotten_construction_set\dialog\UserControl1.resx">
       <DependentUpon>UserControl1.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="forgotten_construction_set\Donate.resx">
+      <DependentUpon>Donate.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="forgotten_construction_set\NavigationTranslation.resx">
       <DependentUpon>NavigationTranslation.cs</DependentUpon>
     </EmbeddedResource>
@@ -715,6 +723,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
@@ -731,7 +740,10 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="weixin.jpg" />
+    <None Include="1457178594.jpg" />
     <Content Include="5.ico" />
+    <None Include="Resources\weixin.bmp" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
