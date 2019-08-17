@@ -47,7 +47,7 @@ KenshiMod编辑器项目
 
 以下为收款二维码， 再次拜谢大家！祝各位玩的愉快！
 
-
+![收款二维码](https://github.com/alexliyu7352/kenshi_editor/raw/master/weixin.jpg)
 
 
 

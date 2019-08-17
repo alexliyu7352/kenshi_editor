@@ -664,7 +664,7 @@ namespace forgotten_construction_set
             // 
             this.updateStripMenuItem.Name = "updateStripMenuItem";
             this.updateStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.updateStripMenuItem.Text = "更新地址";
+            this.updateStripMenuItem.Text = "源码&更新地址";
             this.updateStripMenuItem.Click += new System.EventHandler(this.UpdateStripMenuItem_Click);
             // 
             // aboutMenuItem
