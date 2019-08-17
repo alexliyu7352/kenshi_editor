@@ -34,7 +34,7 @@ namespace forgotten_construction_set.dialog
 
         private Button buttonAddEffect;
 
-        private ComboBox PossibleEffects;
+        private ComboBoxTrans PossibleEffects;
 
         private Button buttonRemoveEffect;
 
@@ -466,7 +466,7 @@ namespace forgotten_construction_set.dialog
             this.btnAddChild = new System.Windows.Forms.Button();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.effectsPanel = new System.Windows.Forms.GroupBox();
-            this.PossibleEffects = new System.Windows.Forms.ComboBox();
+            this.PossibleEffects = new ComboBoxTrans();
             this.buttonAddEffect = new System.Windows.Forms.Button();
             this.effectValue = new System.Windows.Forms.NumericUpDown();
             this.buttonRemoveEffect = new System.Windows.Forms.Button();

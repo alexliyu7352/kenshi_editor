@@ -1,4 +1,5 @@
 using forgotten_construction_set;
+using forgotten_construction_set.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,11 +16,11 @@ namespace forgotten_construction_set.dialog
         private navigation nav;
         private System.ComponentModel.IContainer components = null;
 
-        private ComboBox possibleConditions;
+        private ComboBoxTrans possibleConditions;
 
 		private NumericUpDown conditionsValue;
 
-		private ComboBox conditionMethod;
+		private ComboBoxTrans conditionMethod;
 
 		private ListView listView1conditions;
 
@@ -37,9 +38,9 @@ namespace forgotten_construction_set.dialog
 
 		private GroupBox groupBox1;
 
-		private ComboBox enumBox;
+		private ComboBoxTrans enumBox;
 
-		private ComboBox whoBox;
+		private ComboBoxTrans whoBox;
 
 		private TextBox stringvarbox;
 
@@ -83,9 +84,9 @@ namespace forgotten_construction_set.dialog
 		private void InitializeComponent()
 		{
             this.components = new System.ComponentModel.Container();
-            this.possibleConditions = new ComboBox();
+            this.possibleConditions = new ComboBoxTrans();
 			this.conditionsValue = new NumericUpDown();
-			this.conditionMethod = new ComboBox();
+			this.conditionMethod = new ComboBoxTrans();
 			this.listView1conditions = new ListView();
 			this.columnHeader6 = new ColumnHeader();
 			this.columnHeader1 = new ColumnHeader();
@@ -95,8 +96,8 @@ namespace forgotten_construction_set.dialog
 			this.addCondition = new Button();
 			this.removeCondition = new Button();
 			this.groupBox1 = new GroupBox();
-			this.whoBox = new ComboBox();
-			this.enumBox = new ComboBox();
+			this.whoBox = new ComboBoxTrans();
+			this.enumBox = new ComboBoxTrans();
 			this.stringvarbox = new TextBox();
 			((ISupportInitialize)this.conditionsValue).BeginInit();
 			this.groupBox1.SuspendLayout();

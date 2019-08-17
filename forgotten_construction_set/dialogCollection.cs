@@ -26,7 +26,7 @@ namespace forgotten_construction_set
 
 		private ConditionControl conditionControl1;
 
-		private ListView eventsList;
+		private ListViewTrans eventsList;
 
 		private ColumnHeader EventsColumn;
 
@@ -236,7 +236,7 @@ namespace forgotten_construction_set
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager componentResourceManager = new System.ComponentModel.ComponentResourceManager(typeof(dialogCollection));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(dialogCollection));
 			this.treeView1 = new TreeView();
 			this.contextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
 			this.editItem = new ToolStripMenuItem();
@@ -248,7 +248,7 @@ namespace forgotten_construction_set
 			this.collapseDialogue = new ToolStripMenuItem();
 			this.packageName = new TextBox();
 			this.label1 = new Label();
-			this.eventsList = new ListView();
+			this.eventsList = new ListViewTrans();
 			this.EventsColumn = new ColumnHeader();
 			this.groupBox1 = new GroupBox();
 			this.splitContainer1 = new SplitContainer();
@@ -407,7 +407,7 @@ namespace forgotten_construction_set
 			this.splitContainer3.SplitterDistance = 436;
 			this.splitContainer3.TabIndex = 0;
 			this.referenceList1.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-			this.referenceList1.Exclusions = (ArrayList)componentResourceManager.GetObject("referenceList1.Exclusions");
+			this.referenceList1.Exclusions = (ArrayList)resources.GetObject("referenceList1.Exclusions");
 			this.referenceList1.Location = new Point(6, 43);
 			this.referenceList1.Name = "referenceList1";
 			this.referenceList1.ReadOnly = false;

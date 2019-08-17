@@ -88,6 +88,12 @@
     <Compile Include="forgotten_construction_set\Components\ChangeListTree.Designer.cs">
       <DependentUpon>ChangeListTree.cs</DependentUpon>
     </Compile>
+    <Compile Include="forgotten_construction_set\Components\ComboBoxTrans.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="forgotten_construction_set\Components\ListViewTrans.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="forgotten_construction_set\Components\MyPropertyGrid.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -144,15 +150,15 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CharacterIndividualTags.cs">
+    <Compile Include="forgotten_construction_set\enum\CharacterIndividualTags.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\WeatherAffecting.cs">
+    <Compile Include="forgotten_construction_set\enum\WeatherAffecting.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\MiningResource.cs">
+    <Compile Include="forgotten_construction_set\enum\MiningResource.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -160,15 +166,15 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\SlaveStateEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\SlaveStateEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\PhysicsMaterialEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\PhysicsMaterialEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\WarCampaignEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\WarCampaignEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -176,7 +182,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\PersonalityTags.cs">
+    <Compile Include="forgotten_construction_set\enum\PersonalityTags.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -184,7 +190,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\PathMode.cs">
+    <Compile Include="forgotten_construction_set\enum\PathMode.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -192,7 +198,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\GroundType.cs">
+    <Compile Include="forgotten_construction_set\enum\GroundType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -200,19 +206,19 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CursorType.cs">
+    <Compile Include="forgotten_construction_set\enum\CursorType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\SquadMemberType.cs">
+    <Compile Include="forgotten_construction_set\enum\SquadMemberType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\SmellType.cs">
+    <Compile Include="forgotten_construction_set\enum\SmellType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\StanceEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\StanceEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -220,7 +226,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\HitMaterialType.cs">
+    <Compile Include="forgotten_construction_set\enum\HitMaterialType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -228,23 +234,23 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CharacterAnimCategory.cs">
+    <Compile Include="forgotten_construction_set\enum\CharacterAnimCategory.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CutDirection.cs">
+    <Compile Include="forgotten_construction_set\enum\CutDirection.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\WallSectionLinkType.cs">
+    <Compile Include="forgotten_construction_set\enum\WallSectionLinkType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\DialogRepetitionEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\DialogRepetitionEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\ComparisonEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\ComparisonEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -252,11 +258,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CutOrigination.cs">
+    <Compile Include="forgotten_construction_set\enum\CutOrigination.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\ProneState.cs">
+    <Compile Include="forgotten_construction_set\enum\ProneState.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -264,11 +270,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\WeaponCategory.cs">
+    <Compile Include="forgotten_construction_set\enum\WeaponCategory.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\Direction.cs">
+    <Compile Include="forgotten_construction_set\enum\Direction.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -276,43 +282,43 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\MoveSpeed.cs">
+    <Compile Include="forgotten_construction_set\enum\MoveSpeed.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CrimeEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\CrimeEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CropType.cs">
+    <Compile Include="forgotten_construction_set\enum\CropType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\UnloadedPlatoonJob.cs">
+    <Compile Include="forgotten_construction_set\enum\UnloadedPlatoonJob.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\EventTriggerEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\EventTriggerEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\LimbState.cs">
+    <Compile Include="forgotten_construction_set\enum\LimbState.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CharacterTypeEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\CharacterTypeEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\StatsEnumerated.cs">
+    <Compile Include="forgotten_construction_set\enum\StatsEnumerated.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CharacterPerceptionTags_ShortTerm.cs">
+    <Compile Include="forgotten_construction_set\enum\CharacterPerceptionTags_ShortTerm.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\FortRequestTypeEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\FortRequestTypeEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -329,7 +335,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\CharacterPerceptionTags_LongTerm.cs">
+    <Compile Include="forgotten_construction_set\enum\CharacterPerceptionTags_LongTerm.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -399,11 +405,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\DialogActionEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\DialogActionEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\DialogConditionEnum.cs">
+    <Compile Include="forgotten_construction_set\enum\DialogConditionEnum.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -411,7 +417,7 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\NodeType.cs">
+    <Compile Include="forgotten_construction_set\enum\NodeType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -419,15 +425,15 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\MachineEnergyType.cs">
+    <Compile Include="forgotten_construction_set\enum\MachineEnergyType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\LeftRight.cs">
+    <Compile Include="forgotten_construction_set\enum\LeftRight.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\SquadType.cs">
+    <Compile Include="forgotten_construction_set\enum\SquadType.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
@@ -435,11 +441,11 @@
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\ItemFunction.cs">
+    <Compile Include="forgotten_construction_set\enum\ItemFunction.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>
-    <Compile Include="forgotten_construction_set\ItemPersistence.cs">
+    <Compile Include="forgotten_construction_set\enum\ItemPersistence.cs">
       <AutoGen>false</AutoGen>
       <DesignTimeSharedInput>false</DesignTimeSharedInput>
     </Compile>

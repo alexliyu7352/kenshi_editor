@@ -159,7 +159,8 @@ namespace forgotten_construction_set.PropertyGrid
                 Editable = editable,
                 Visible = true
             };
-            item.Name = item.Name + "1";
+            //TODO 这里以后可以汉化字段
+          //  item.Name = item.Name;
 
             //string tansedStr = null;
             //if ((bool)NativeTranslte.enumDict.TryGetValue(name, out tansedStr))
