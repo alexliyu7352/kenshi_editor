@@ -858,59 +858,59 @@ inventory icon:
 icon offset V:        0.0 "align the image vertically"
 icon zoom:            1.0 "scale the image (try to keep at 1.0)"
 [DIALOGUE]
-for enemies:          False "true if this dialog can still be triggered by player if enemies"
-monologue:            True "true if this has no player replies, every line is the speaker"
+for enemies:          False "选择true表示就算是敌人这个对话仍旧会被触发"
+monologue:            True "选择true则表示如果这个对话没有玩家回复， 那么每句话都是说话者.[一般NPC之间互动都需要设置为true]"
 special:
-locked:               False "if locked then this conversation can only be used once it's been unlocked by a dialog line using the [unlocks] event dropdown"
-one at a time:        False "this prevents more than one person at a time running this dialog.  Use to prevent crowds all saying the same thing during events"
+locked:               False "如果锁定了这个对话它只能通过在其他对话中使用[unlocks]动作解锁后才能使用"
+one at a time:        False "这将防止一次有多个角色/NPC运行此对话, 用于防止人群在活动中说同样的话"
 [DIALOGUE,DIALOGUE_LINE,SINGLE_DIPLOMATIC_ASSAULT,WORD_SWAPS]
 conditions:           DIALOG_ACTION 
 [DIALOGUE,DIALOGUE_LINE,WORD_SWAPS]
-change relations:     FACTION (0) "adjusts the relations with the given faction by this amount"
-crowd trigger:        DIALOGUE (100) "triggers the given dialog to start on all other squadmembers. Use for things like group cheering, laughing and war cries.  Should usually be 1 liners.  The number is the % of squadmembers to trigger"
-give item:            ITEM (1) "action: give target this item.  Will conjure the item out of thin air."
-has package:          DIALOGUE_PACKAGE "condition: has a specific dialog package.  refers to speaker only, unless its on an interjection node"
-in town of:           FACTION "adds a condition: that we must be currently in a town/base belonging to the given faction"
-is character:         CHARACTER "condition: is a specific character. refers to speaker only, unless its on an interjection node"
+change relations:     FACTION (0) "调整与给定阵营的关系, 可以使用正负数分别表示增加或减少多少关系"
+crowd trigger:        DIALOGUE (100) "所有队伍成员同时触发这个对话.一般用于集体欢呼、大笑和战争呐喊。通常应该是一行。val0 这个数字表示百分之多少的队员会触发这个对话"
+give item:            ITEM (1) "动作: 给目标这个物品.这个物品是凭空生成的， 也就是无论NPC身上有没有都能给你[只能NPC给你，没办法玩家给NPC，NPC之间也可以互相给]"
+has package:          DIALOGUE_PACKAGE "条件: 这个角色是否有指定的特殊对话包. 只对说话者有效,除非这是一个插话的节点.[什么是说话者?这里需要注意说话者指的并不是这句话是谁说的，而是这个对话是属于谁的， 谁先说一句的。但如果是插话节点就看节点属于谁]"
+in town of:           FACTION "添加一个条件: 是否在某个阵营旗下的城市里"
+is character:         CHARACTER "条件: 判断是否是一个特殊的NPC.只对说话者有效,除非这是一个插话的节点."
 lines:                DIALOGUE_LINE (0) 
-locks:                DIALOGUE "locks the given dialogue, use for special cases when you gotta lock something?"
-my faction:           FACTION "adds a condition: I belong to the given faction"
-my race:              RACE "adds a condition: my race is any of the given races.  Multiple races is treated as an OR condition"
-my subrace:           RACE "My specific sub-race.  Multiple races is treated as an OR condition"
-no target race:       RACE "adds a condition: target squad has NO member who is any of the given races.  Multiple races is treated as an AND condition"
-target carrying character: CHARACTER "condition: is carrying a specific character. refers to target"
-target faction:       FACTION "adds a condition: target belongs to the given faction"
-target has item:      ITEM "adds a condition: target has this item, or any of these items"
-target has item type: ITEM "adds a condition: does the target have an item of the same TYPE as this one (eg narcotics, meds, food)"
-target race:          RACE "adds a condition: target squad has a member who is any of the given races.  Multiple races is treated as an OR condition"
-unlock but keep me:   DIALOGUE "unlocks the given dialogue, must be actually in the npcs dialogue package somewhere for it to work.  Will NOT cause this dialog to then become locked."
-unlocks:              DIALOGUE "unlocks the given dialogue, must be actually in the npcs dialogue package somewhere for it to work.  Will cause THIS dialog to then become locked.  Used for conversations that progress to other conversations in stages."
-world state:          WORLD_EVENT_STATE (1) "adds this world state as a AND condition.  1=true, 0=false"
+locks:                DIALOGUE "锁定指定的对话,一般用于特殊场合.[比如我们做一个任务, 那么任务分成5步, 那么我们就写5个对话, 并且初始除了第一个外都锁定, 然后这个NPC只会说第一个对话, 而我们在第一个对话合适地方锁定第一个对话, 解锁第二个对话.那么再次和NPC对话,他就只会说第二个对话的内容了]"
+my faction:           FACTION "添加一个条件: 我属于哪个阵营"
+my race:              RACE "添加一个条件: 我的种族是否是指定种族之一. 可以指定多个种族他们之间是[或]的关系.[貌似一般最好使用亚种, 否则有时会判断两个亚种为同一个种族.另外这里判断好像并不是按照个人而是按照队伍]"
+my subrace:           RACE "条件:我的亚种是否是指定种族之一. 多个指定种族之间是[或]的关系[也就是我的种族是人类或者史克这样]"
+no target race:       RACE "条件:目标的队伍中没有指定的种族存在. 如指定多个种族他们之间是[与]的关系[例如指定人类，史克, 那么条件就是我的队伍中没有人类与史克人]"
+target carrying character: CHARACTER "条件: 是否目标携带的人是指定的角色"
+target faction:       FACTION "条件:目标是否属于指定的阵营"
+target has item:      ITEM "条件:目标是否拥有指定的物品之一"
+target has item type: ITEM "条件:目标是否拥有与指定物品相同类型的物品(比如食物，药品，麻醉剂等)"
+target race:          RACE "条件: 目标队伍中是否有队员是制定的种族, 多个指定种族之间是[或]的关系"
+unlock but keep me:   DIALOGUE "解锁指定的对话,这个对话必须在npc对话包中才能让它工作,并且将不会导致此对话随后被锁定.[具体应用请看locks的说明]"
+unlocks:              DIALOGUE "解锁指定的对话,这个对话必须在npc对话包中才能让它工作,但是将会导致此对话随后被锁定.一般用于需要分阶段才能进行到其他对话的对话[具体看locks里我举的例子]"
+world state:          WORLD_EVENT_STATE (1) "条件:根据世界状态来决定，多个世界状态之间是[与]的关系，因此全部满足后才为真. val0表示状态1=true, 0=false"
 main:
-chance permanent:     100.0 "percentage chance that the character will HAVE this dialog option.  Not 'use', 'have'.  Its a permanent assignment or absence, and is saved forever.  Use to make rare and occasional characters."
-chance temporary:     100.0 "percentage chance that the character will USE this dialog option.  It can be used for things like random descisions."
-repetition limit:     DialogRepetitionEnum.DR_NO_LIMIT "Sets a limit on how frequently a line can be played."
-score bonus:          0 "This can artificially adjust the score to give a line priority"
-target is type:       CharacterTypeEnum.OT_NONE "Only for target characters of the given type (if set)"
+chance permanent:     100.0 "用于决定角色拥有这个对话的百分比, 这里的百分比指的是永久的百分比， 也就是说如果他没有这个对话，那他就永久性的没有了"
+chance temporary:     100.0 "角色使用此对话的概率百分比,它可以用来做一些随机的对话.[上面不一样的是，这个概率是每次触发对话时都要重新计算的]"
+repetition limit:     DialogRepetitionEnum.DR_NO_LIMIT "对这个对话/行设置触发频率的限制."
+score bonus:          0 "类似于优先级, 数值越大的越先触发"
+target is type:       CharacterTypeEnum.OT_NONE "只适用于给定类型的目标角色(如果已设置)"
 [DIALOGUE_LINE]
-AI contract:          AI_PACKAGE (0) "activates the given AI package as a contract job, val0 is the number of hours it lasts for."
-change AI:            AI_PACKAGE (0) "permanently changes the AI package, doesn't affect the AI contract.  BE CAREFUL, remember it will change the whole squad, slaves and masters.  May want to use with DA_SEPARATE_TO_OWN_SQUAD."
+AI contract:          AI_PACKAGE (0) "激活指定的AI包作为一个合约, val0为合约持续的小时数."
+change AI:            AI_PACKAGE (0) "永久更改AI包，但不影响AI合约. 这里需要注意的是, 这里更改的AI不仅仅只是对话的人,而是他所属的整个队伍, 奴隶甚至奴隶主.因此在使用前最好先使用DA_SEPARATE_TO_OWN_SQUAD把对方从自己的队伍中分离出来."
 effects:              DIALOG_ACTION 
-interrupt:            DIALOGUE "If the player interrupts us with a talking event, this will be the conversation chosen.  Reset at the end of conversation, or until changed"
-trigger campaign:     FACTION_CAMPAIGN (0, 0,100) "Triggers the given campaign, which will start after a random number of hours between val0-val1, val2 is %chance (is absolute chance, so if you list 2 things which total to less than 100, then there is a chance of nothing)"
+interrupt:            DIALOGUE "指定当说话被其他对话请求打断时， 接下来要说的话。[一般游戏里面一堆人跑到玩家基地门后哔哔一堆时，就是使用的这个， 这时你去对话他又会说新的对话了]"
+trigger campaign:     FACTION_CAMPAIGN (0, 0,100) "触发给定的战役，该战役将在val0-val1之间的随机数小时后开始，val2是几率(是绝对几率，所以如果您指定了两个战役触发，但他们几率总数小于100时，则有可能什么都不会发生)"
 Base:
-interjection:         null "Is this an iterjection node. Do not edit."
+interjection:         null "如果这是一个插话节点，请不要编辑它"
 text:
 text0:                "" multiline looped "the dialog text(s)"
 [DIALOGUE_LINE,FACTION_CAMPAIGN]
-lock campaign:        FACTION_CAMPAIGN "essentially sets the campaigns [territorial] setting to false"
-unlock campaign:      FACTION_CAMPAIGN "essentially sets the campaigns [territorial] setting to true, so doesn't actually trigger it, just makes it possible"
+lock campaign:        FACTION_CAMPAIGN "锁定战役, 本质上是把战役[territorial]设置为false"
+unlock campaign:      FACTION_CAMPAIGN "解锁战役, 本质上是把战役[territorial]设置为true, 实际上并没有触发它，只是让他变为可能"
 [DIALOGUE_LINE,WORD_SWAPS]
 main:
-speaker:              TalkerEnum.T_ME "specifies who is talking.  Interjectors are set in the green nodes. T_TARGET_WITH_RACE will return a target matching the [target race] list you assign to that line (or else fails)"
+speaker:              TalkerEnum.T_ME "指定谁在说话.如果选择插话者需要放在有颜色的节点之下. T_TARGET_WITH_RACE将会返回符合你在这句话中设置的[target race]列表中的种族的角色为说话者(或者失败)"
 [DIALOGUE_PACKAGE]
 dialogs:              DIALOGUE (0, 0,0) 
-inheritsFrom:         DIALOGUE_PACKAGE "Any dialogue packages here will also be combined"
+inheritsFrom:         DIALOGUE_PACKAGE "继承对话包, 意思是这里指定的对话包的内容会全部包含在当前对话包中"
 [DIPLOMATIC_ASSAULTS]
 assaults:             SINGLE_DIPLOMATIC_ASSAULT 
 [EFFECT]
