@@ -972,14 +972,27 @@ namespace forgotten_construction_set
 		private void showColumn_Click(object sender, EventArgs e)
 		{
 			ToolStripMenuItem toolStripMenuItem = (ToolStripMenuItem)sender;
-			if (!toolStripMenuItem.Checked)
+            string filterKey = toolStripMenuItem.Text;
+            if (filterKey == "引用")
+            {
+                filterKey = "Ref";
+            }else if(filterKey == "类型")
+            {
+                filterKey = "Type";
+            }
+            else if (filterKey == "数据")
+            {
+                filterKey = "Data";
+            }
+
+            if (!toolStripMenuItem.Checked)
 			{
-				this.listView1.RemoveColumn(toolStripMenuItem.Text);
+				this.listView1.RemoveColumn(filterKey);
 				return;
 			}
 			if (toolStripMenuItem.Tag == null)
 			{
-				this.listView1.AddColumn(toolStripMenuItem.Text, toolStripMenuItem.Text);
+				this.listView1.AddColumn(toolStripMenuItem.Text, filterKey);
 				return;
 			}
 			this.listView1.AddColumn(toolStripMenuItem.Text, toolStripMenuItem.Tag as GameDataList.ColumnInfo);
