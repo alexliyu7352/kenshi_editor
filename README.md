@@ -67,5 +67,6 @@ KenshiMod编辑器项目
 ![收款二维码](https://github.com/alexliyu7352/kenshi_editor/raw/master/weixin.jpg)
 
 
-
+感谢以下朋友捐赠:
+N*B (感谢学生党的捐赠)
 
