@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<ModData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <id>1869013347</id>
+  <mod>chs_fcs</mod>
+  <title>Kenshi mod editor plus(中文编辑器加强版)</title>
+  <tags>
+    <string>Cheats</string>
+    <string>GUI</string>
+    <string>Translation</string>
+  </tags>
+  <visibility>0</visibility>
+  <lastUpdate>2019-09-22T04:09:34.6090865+08:00</lastUpdate>
+</ModData>
